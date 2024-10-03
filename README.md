@@ -7,7 +7,7 @@ Este es el repositorio que contiene el proyecto de la asignatura Ingeniería del
 ## Integrantes del Equipo ("CodeChest")
 
 - Germán Pajarero
-- 
+- Sara Hidalgo Salas
 - 
 - 
 
