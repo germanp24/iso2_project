@@ -9,6 +9,6 @@ Este es el repositorio que contiene el proyecto de la asignatura Ingeniería del
 - Germán Pajarero
 - Sara Hidalgo Salas
 - Andrés Díaz Carrillo
-- 
+- Amparo Natividad Mendoza Vásquez
 
 ## ???
