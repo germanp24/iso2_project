@@ -1,7 +1,11 @@
 package es.uclm.delivery.business.controller;
 
-import persistencia.*;
-import dominio.entidades.*;
+import es.uclm.delivery.persistency.*;
+import es.uclm.delivery.business.entity.*;
+
+import java.util.List;
+
+
 
 public class GestorPedidos {
 
@@ -16,7 +20,6 @@ public class GestorPedidos {
 	 * @param items
 	 */
 	public void realizarPedido(Cliente c, Restaurante r, List<ItemMenu> items) {
-		// TODO - implement GestorPedidos.realizarPedido
 		throw new UnsupportedOperationException();
 	}
 
@@ -25,7 +28,6 @@ public class GestorPedidos {
 	 * @param p
 	 */
 	private boolean realizarPago(Pedido p) {
-		// TODO - implement GestorPedidos.realizarPago
 		throw new UnsupportedOperationException();
 	}
 
@@ -35,7 +37,6 @@ public class GestorPedidos {
 	 * @param d
 	 */
 	private ServicioEntrega crearServicioEntrega(Pedido p, Direccion d) {
-		// TODO - implement GestorPedidos.crearServicioEntrega
 		throw new UnsupportedOperationException();
 	}
 
@@ -43,8 +44,7 @@ public class GestorPedidos {
 	 * 
 	 * @param item
 	 */
-	public void anadirItemMenu(itemMenu item) {
-		// TODO - implement GestorPedidos.a�adirItemMenu
+	public void anadirItemMenu(ItemMenu item) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -52,8 +52,7 @@ public class GestorPedidos {
 	 * 
 	 * @param item
 	 */
-	public void eliminarItemMenu(itemMenu item) {
-		// TODO - implement GestorPedidos.eliminarItemMenu
+	public void eliminarItemMenu(ItemMenu item) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -62,7 +61,6 @@ public class GestorPedidos {
 	 * @param resaturante
 	 */
 	public void comenzarPedido(Restaurante resaturante) {
-		// TODO - implement GestorPedidos.comenzarPedido
 		throw new UnsupportedOperationException();
 	}
 

@@ -1,7 +1,12 @@
 package es.uclm.delivery.business.controller;
 
-import persistencia.*;
-import dominio.entidades.*;
+import java.util.List;
+
+import es.uclm.delivery.persistency.RestauranteDAO;
+import es.uclm.delivery.business.entity.Cliente;
+import es.uclm.delivery.business.entity.Direccion;
+import es.uclm.delivery.business.entity.Restaurante;
+import es.uclm.delivery.business.entity.CodigoPostal;
 
 public class GestorClientes {
 
@@ -12,7 +17,6 @@ public class GestorClientes {
 	 * @param zona
 	 */
 	public List<Restaurante> buscarRestaurante(CodigoPostal zona) {
-		// TODO - implement GestorClientes.buscarRestaurante
 		throw new UnsupportedOperationException();
 	}
 
@@ -21,7 +25,6 @@ public class GestorClientes {
 	 * @param cadenaBusqueda
 	 */
 	public List<Restaurante> buscarRestaurante(String cadenaBusqueda) {
-		// TODO - implement GestorClientes.buscarRestaurante
 		throw new UnsupportedOperationException();
 	}
 
@@ -31,7 +34,6 @@ public class GestorClientes {
 	 * @param r
 	 */
 	public void favorito(Cliente cliente, Restaurante r) {
-		// TODO - implement GestorClientes.favorito
 		throw new UnsupportedOperationException();
 	}
 
@@ -42,7 +44,6 @@ public class GestorClientes {
 	 * @param d
 	 */
 	public Cliente registrarCliente(String nombre, String apellido, Direccion d) {
-		// TODO - implement GestorClientes.registrarCliente
 		throw new UnsupportedOperationException();
 	}
 
@@ -55,7 +56,6 @@ public class GestorClientes {
 	 * @param municipio
 	 */
 	private Direccion altaDirecion(String calle, String numeero, String complemento, CodigoPostal cp, String municipio) {
-		// TODO - implement GestorClientes.altaDirecion
 		throw new UnsupportedOperationException();
 	}
 

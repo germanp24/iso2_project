@@ -1,6 +1,9 @@
 package es.uclm.delivery.business.controller;
 
-import dominio.entidades.*;
+//import es.uclm.delivery.persistency.*;
+import es.uclm.delivery.business.entity.*;
+
+import java.util.List;
 
 public class GestorRestaurantes {
 
@@ -11,7 +14,6 @@ public class GestorRestaurantes {
 	 * @param d
 	 */
 	public Restaurante registrarRestaurante(String nombre, String cif, Direccion d) {
-		// TODO - implement GestorRestaurantes.registrarRestaurante
 		throw new UnsupportedOperationException();
 	}
 
@@ -21,7 +23,6 @@ public class GestorRestaurantes {
 	 * @param items
 	 */
 	public void editarCarta(String nombre, List<ItemMenu> items) {
-		// TODO - implement GestorRestaurantes.editarCarta
 		throw new UnsupportedOperationException();
 	}
 
@@ -32,7 +33,6 @@ public class GestorRestaurantes {
 	 * @param tipo
 	 */
 	private ItemMenu crearItem(String nombre, double precio, TipoItemMenu tipo) {
-		// TODO - implement GestorRestaurantes.crearItem
 		throw new UnsupportedOperationException();
 	}
 

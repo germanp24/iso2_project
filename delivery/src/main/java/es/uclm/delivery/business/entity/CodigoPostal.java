@@ -1,12 +1,17 @@
 package es.uclm.delivery.business.entity;
 
-import java.util.*;
+import java.util.List;
 
 public enum CodigoPostal {
-	45600,
-	28000,
-	...;
+    CP_10001, CP_10002, CP_10003;  // Define varios códigos postales.
 
-	Collection<Repartidor> repartidores;
+    private List<Repartidor> repartidores;
 
+    public List<Repartidor> getRepartidores() {
+        return repartidores;
+    }
+
+    public void setRepartidores(List<Repartidor> repartidores) {
+        this.repartidores = repartidores;
+    }
 }

@@ -1,5 +1,7 @@
 package es.uclm.delivery.persistency;
 
+import java.sql.ResultSet;
+
 public class GestorBaseDatos {
 
 	GestorBaseDatos gestorBD;

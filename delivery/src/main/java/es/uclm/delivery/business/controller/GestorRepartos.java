@@ -1,6 +1,9 @@
 package es.uclm.delivery.business.controller;
 
-import dominio.entidades.*;
+//import es.uclm.delivery.persistency.*;
+import es.uclm.delivery.business.entity.*;
+
+import java.util.List;
 
 public class GestorRepartos {
 
@@ -9,7 +12,6 @@ public class GestorRepartos {
 	 * @param servicio
 	 */
 	public void marcarPedidoRecogido(ServicioEntrega servicio) {
-		// TODO - implement GestorRepartos.marcarPedidoRecogido
 		throw new UnsupportedOperationException();
 	}
 
@@ -18,7 +20,6 @@ public class GestorRepartos {
 	 * @param servicio
 	 */
 	public void marcarPedidoEntregado(ServicioEntrega servicio) {
-		// TODO - implement GestorRepartos.marcarPedidoEntregado
 		throw new UnsupportedOperationException();
 	}
 
@@ -30,7 +31,6 @@ public class GestorRepartos {
 	 * @param zonas
 	 */
 	public void registrarRepartidor(String nombre, String apellidos, String nif, List<CodigoPostal> zonas) {
-		// TODO - implement GestorRepartos.registrarRepartidor
 		throw new UnsupportedOperationException();
 	}
 

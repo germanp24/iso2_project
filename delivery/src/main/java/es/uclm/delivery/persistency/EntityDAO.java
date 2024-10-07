@@ -1,6 +1,6 @@
 package es.uclm.delivery.persistency;
 
-public abstract class EntityDAO {
+public abstract class EntityDAO<E> {
 
 	/**
 	 * 
