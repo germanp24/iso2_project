@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import es.uclm.delivery.business.entity.Usuary;
 
 @Repository
-public interface LoginDao extends JpaRepository<Usuary, Long> {
+public interface LoginDao extends JpaRepository<Usuary, String> {
 
     /*
      * Se hereda de JpaRepository operaciones de acceso a datos comunes a todas las
