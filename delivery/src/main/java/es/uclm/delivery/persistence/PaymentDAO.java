@@ -1,11 +1,12 @@
 package es.uclm.delivery.persistence;
 
+import org.apache.derby.catalog.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import es.uclm.delivery.business.entity.Payment;
 
 @Repository
-public interface PaymentDAO extends JpaRepository<Payment, String> {
+public interface PaymentDAO extends JpaRepository<Payment, UUID> {
     /*
      * Se hereda de JpaRepository operaciones de acceso a datos comunes a todas las
      * entidades:

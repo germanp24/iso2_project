@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import es.uclm.delivery.business.entity.CustomerOrder;
 
 @Repository
-public interface CustomerOrderDAO extends JpaRepository<CustomerOrder, String> {
+public interface CustomerOrderDAO extends JpaRepository<CustomerOrder, Integer> {
     /*
      * Se hereda de JpaRepository operaciones de acceso a datos comunes a todas las
      * entidades:
