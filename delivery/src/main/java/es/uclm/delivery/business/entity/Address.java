@@ -8,6 +8,9 @@ import jakarta.persistence.Id;
 public class Address {
     @Id
     @Column
+    private String order_number;
+
+    @Column
     private String street;
 
     @Column
@@ -21,6 +24,19 @@ public class Address {
 
     @Column
     private String town;
+
+    public Address() {
+
+    }
+
+    public Address(String street, String number, String complement, int zipcode, String town, String order_number) {
+        this.street = street;
+        this.number = number;
+        this.complement = complement;
+        this.zipcode = zipcode;
+        this.town = town;
+        this.order_number = order_number;
+    }
 
     public String getStreet() {
         return street;
@@ -62,12 +78,12 @@ public class Address {
         this.town = town;
     }
 
-    public Address(String street, String number, String complement, int zipcode, String town) {
-        this.street = street;
-        this.number = number;
-        this.complement = complement;
-        this.zipcode = zipcode;
-        this.town = town;
+    public String getOrder_number() {
+        return order_number;
+    }
+
+    public void setOrder_number(String order_number) {
+        this.order_number = order_number;
     }
 
 }

@@ -7,7 +7,12 @@ import jakarta.persistence.Id;
 @Entity
 public class DeliveryMan {
     @Id
-    
+    @Column
+    private String nif;
+
+    @Column
+    private String id_usuary;
+
     @Column
     private String name;
 
@@ -15,18 +20,20 @@ public class DeliveryMan {
     private String surnames;
 
     @Column
-    private String nif;
-
-    @Column
     private int efficiency;
 
-    public DeliveryMan(String name, String surnames, String nif, int efficiency) {
+    public DeliveryMan() {
+
+    }
+
+    public DeliveryMan(String name, String surnames, String nif, int efficiency, String id_usuary) {
         this.name = name;
         this.surnames = surnames;
         this.nif = nif;
         this.efficiency = efficiency;
+        this.id_usuary = id_usuary;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -57,6 +64,14 @@ public class DeliveryMan {
 
     public void setEfficiency(int efficiency) {
         this.efficiency = efficiency;
+    }
+
+    public String getId_usuary() {
+        return id_usuary;
+    }
+
+    public void setId_usuary(String id_usuary) {
+        this.id_usuary = id_usuary;
     }
 
 }

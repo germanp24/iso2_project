@@ -7,24 +7,27 @@ import jakarta.persistence.Id;
 @Entity
 public class MenuItem {
     @Id
-
     @Column
-    private String name;
-    
+    private String food_name;
+
     @Column
     private double price;
 
-    public MenuItem(String name, double price) {
-        this.name = name;
+    @Column
+    private String category;
+
+    public MenuItem(String food_name, double price, String category) {
+        this.food_name = food_name;
         this.price = price;
-    }
-    
-    public String getName() {
-        return name;
+        this.category = category;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getFood_name() {
+        return food_name;
+    }
+
+    public void setFood_name(String food_name) {
+        this.food_name = food_name;
     }
 
     public double getPrice() {
@@ -34,5 +37,13 @@ public class MenuItem {
     public void setPrice(double price) {
         this.price = price;
     }
-    
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
 }

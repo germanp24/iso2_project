@@ -13,6 +13,15 @@ public class Usuary {
     @Column
     private String password;
 
+    @Column
+    private String email;
+
+    public Usuary(String id_usuary, String password, String email) {
+        this.id_usuary = id_usuary;
+        this.password = password;
+        this.email = email;
+    }
+
     public String getId_usuary() {
         return id_usuary;
     }
@@ -29,9 +38,12 @@ public class Usuary {
         this.password = password;
     }
 
-    public Usuary(String id_usuary, String password) {
-        this.id_usuary = id_usuary;
-        this.password = password;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }

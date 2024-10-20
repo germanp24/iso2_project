@@ -9,16 +9,19 @@ import jakarta.persistence.Id;
 @Entity
 public class Payment {
     @Id
-
     @Column
     private UUID transactionId;
-    
+
+    @Column
+    private long order_number;
+
     @Column
     private Date transactionDate;
-    
-    public Payment(UUID transactionId, Date transactionDate) {
+
+    public Payment(UUID transactionId, Date transactionDate, long order_number) {
         this.transactionId = transactionId;
         this.transactionDate = transactionDate;
+        this.order_number = order_number;
     }
 
     public UUID getTransactionId() {
@@ -36,5 +39,13 @@ public class Payment {
     public void setTransactionDate(Date transactionDate) {
         this.transactionDate = transactionDate;
     }
-    
+
+    public long getOrder_number() {
+        return order_number;
+    }
+
+    public void setOrder_number(long order_number) {
+        this.order_number = order_number;
+    }
+
 }

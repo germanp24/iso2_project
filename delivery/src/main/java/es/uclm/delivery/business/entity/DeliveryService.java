@@ -8,33 +8,72 @@ import jakarta.persistence.Id;
 @Entity
 public class DeliveryService {
     @Id
-    
     @Column
-    private LocalDateTime fechaRecepcion;
-    
+    private String delivery_number;
+
     @Column
-    private LocalDateTime fechaEntrega;
+    private String nif;
 
-    public DeliveryService(LocalDateTime fechaRecepcion, LocalDateTime fechaEntrega) {
-        this.fechaRecepcion = fechaRecepcion;
-        this.fechaEntrega = fechaEntrega;
-    }
-    
-    public LocalDateTime getFechaRecepcion() {
-        return fechaRecepcion;
-    }
+    @Column
+    private String order_number;
 
-    public void setFechaRecepcion(LocalDateTime fechaRecepcion) {
-        this.fechaRecepcion = fechaRecepcion;
-    }
+    @Column
+    private LocalDateTime reception_date;
 
-    public LocalDateTime getFechaEntrega() {
-        return fechaEntrega;
+    @Column
+    private LocalDateTime delivery_date;
+
+    public DeliveryService() {
+
     }
 
-    public void setFechaEntrega(LocalDateTime fechaEntrega) {
-        this.fechaEntrega = fechaEntrega;
+    public DeliveryService(String delivery_number, String nif, String order_number, LocalDateTime reception_date,
+            LocalDateTime delivery_date) {
+        this.delivery_number = delivery_number;
+        this.nif = nif;
+        this.order_number = order_number;
+        this.reception_date = reception_date;
+        this.delivery_date = delivery_date;
+    }
+
+    public String getDelivery_number() {
+        return delivery_number;
+    }
+
+    public void setDelivery_number(String delivery_number) {
+        this.delivery_number = delivery_number;
+    }
+
+    public String getNif() {
+        return nif;
+    }
+
+    public void setNif(String nif) {
+        this.nif = nif;
+    }
+
+    public String getOrder_number() {
+        return order_number;
+    }
+
+    public void setOrder_number(String order_number) {
+        this.order_number = order_number;
+    }
+
+    public LocalDateTime getReception_date() {
+        return reception_date;
+    }
+
+    public void setReception_date(LocalDateTime reception_date) {
+        this.reception_date = reception_date;
+    }
+
+    public LocalDateTime getDelivery_date() {
+        return delivery_date;
+    }
+
+    public void setDelivery_date(LocalDateTime delivery_date) {
+        this.delivery_date = delivery_date;
     }
 
 }
- 

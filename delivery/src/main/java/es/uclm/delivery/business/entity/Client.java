@@ -8,13 +8,27 @@ import jakarta.persistence.Id;
 public class Client {
     @Id
     @Column
+    private String dni;
+
+    @Column
+    private String id_usuary;
+
+    @Column
     private String name;
 
     @Column
     private String surnames;
 
-    @Column
-    private String dni;
+    public Client() {
+
+    }
+
+    public Client(String name, String surnames, String dni, String id_usuary) {
+        this.name = name;
+        this.surnames = surnames;
+        this.dni = dni;
+        this.id_usuary = id_usuary;
+    }
 
     public String getName() {
         return name;
@@ -40,10 +54,12 @@ public class Client {
         this.dni = dni;
     }
 
-    public Client(String name, String surnames, String dni) {
-        this.name = name;
-        this.surnames = surnames;
-        this.dni = dni;
+    public String getId_usuary() {
+        return id_usuary;
+    }
+
+    public void setId_usuary(String id_usuary) {
+        this.id_usuary = id_usuary;
     }
 
 }
