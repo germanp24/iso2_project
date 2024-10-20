@@ -16,6 +16,10 @@ public class MenuItem {
     @Column
     private String category;
 
+    public MenuItem() {
+        
+    }
+
     public MenuItem(String food_name, double price, String category) {
         this.food_name = food_name;
         this.price = price;

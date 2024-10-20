@@ -16,6 +16,10 @@ public class Usuary {
     @Column
     private String email;
 
+    public Usuary() {
+        
+    }
+
     public Usuary(String id_usuary, String password, String email) {
         this.id_usuary = id_usuary;
         this.password = password;

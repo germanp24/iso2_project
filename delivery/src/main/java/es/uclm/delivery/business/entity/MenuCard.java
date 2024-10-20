@@ -13,6 +13,10 @@ public class MenuCard {
     @Column
     private String cif;
 
+    public MenuCard() {
+
+    }
+
     public MenuCard(String category, String cif) {
         this.category = category;
         this.cif = cif;

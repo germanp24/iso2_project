@@ -18,6 +18,10 @@ public class Payment {
     @Column
     private Date transactionDate;
 
+    public Payment() {
+        
+    }
+
     public Payment(UUID transactionId, Date transactionDate, long order_number) {
         this.transactionId = transactionId;
         this.transactionDate = transactionDate;

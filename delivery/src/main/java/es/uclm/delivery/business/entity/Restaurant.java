@@ -16,6 +16,10 @@ public class Restaurant {
     @Column
     private String name;
 
+    public Restaurant() {
+        
+    }
+
     public Restaurant(String cif, String id_usuary, String name) {
         this.cif = cif;
         this.id_usuary = id_usuary;
