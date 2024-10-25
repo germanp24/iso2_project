@@ -11,19 +11,19 @@ public class Restaurant {
     private String cif;
 
     @Column
-    private String id_usuary;
-
-    @Column
     private String name;
 
-    public Restaurant() {
-        
+    @Column
+    private String id_administrator;
+
+    public Restaurant(String cif, String name, String id_administrator) {
+        this.cif = cif;
+        this.name = name;
+        this.id_administrator = id_administrator;
     }
 
-    public Restaurant(String cif, String id_usuary, String name) {
-        this.cif = cif;
-        this.id_usuary = id_usuary;
-        this.name = name;
+    public Restaurant() {
+
     }
 
     public String getCif() {
@@ -34,20 +34,20 @@ public class Restaurant {
         this.cif = cif;
     }
 
-    public String getId_usuary() {
-        return id_usuary;
-    }
-
-    public void setId_usuary(String id_usuary) {
-        this.id_usuary = id_usuary;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getId_administrator() {
+        return id_administrator;
+    }
+
+    public void setId_administrator(String id_administrator) {
+        this.id_administrator = id_administrator;
     }
 
 }
