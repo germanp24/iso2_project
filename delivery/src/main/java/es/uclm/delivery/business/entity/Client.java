@@ -62,4 +62,8 @@ public class Client {
         this.id_usuary = id_usuary;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Client [dni=%s, id_usuary=%s, name=%s, surnames=%s]", dni, id_usuary, name, surnames);
+    }
 }

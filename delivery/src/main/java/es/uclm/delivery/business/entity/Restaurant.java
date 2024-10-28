@@ -50,4 +50,9 @@ public class Restaurant {
         this.id_administrator = id_administrator;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Restaurant [cif=%s, name=%s, id_administrator=%s]", cif, name, id_administrator);
+    }
+
 }

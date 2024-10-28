@@ -50,4 +50,9 @@ public class MenuItem {
         this.category = category;
     }
 
+    @Override
+    public String toString() {
+        return String.format("MenuItem [food_name=%s, price=%s, category=%s]", food_name, price, category);
+    }
+
 }

@@ -63,4 +63,9 @@ public class CustomerOrder {
         this.ordered_food = ordered_food;
     }
 
+    @Override
+    public String toString() {
+        return String.format("CustomerOrder [order_number=%s, dni=%s, date=%s, ordered_food=%s]", order_number, dni, date, ordered_food);
+    }
+
 }

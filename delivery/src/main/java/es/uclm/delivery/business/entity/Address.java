@@ -86,4 +86,9 @@ public class Address {
         this.order_number = order_number;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Address [order_number=%s, street=%s, number=%s, complement=%s, zipcode=%s, town=%s]", order_number, street, number, complement, zipcode, town);
+    }
+
 }

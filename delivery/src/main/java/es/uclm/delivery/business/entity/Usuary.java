@@ -50,4 +50,9 @@ public class Usuary {
         this.email = email;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Usuary [id_usuary=%s, password=%s, email=%s]", id_usuary, password, email);
+    }
+
 }

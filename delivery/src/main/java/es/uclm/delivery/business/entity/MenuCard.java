@@ -38,4 +38,9 @@ public class MenuCard {
         this.cif = cif;
     }
 
+    @Override
+    public String toString() {
+        return String.format("MenuCard [category=%s, cif=%s]", category, cif);
+    }
+
 }

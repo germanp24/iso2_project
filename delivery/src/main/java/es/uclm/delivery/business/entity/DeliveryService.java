@@ -76,4 +76,9 @@ public class DeliveryService {
         this.delivery_date = delivery_date;
     }
 
+    @Override
+    public String toString() {
+        return String.format("DeliveryService [delivery_number=%s, nif=%s, order_number=%s, reception_date=%s, delivery_date=%s]", delivery_number, nif, order_number, reception_date, delivery_date);
+    }
+
 }

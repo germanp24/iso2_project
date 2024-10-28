@@ -52,4 +52,9 @@ public class Payment {
         this.order_number = order_number;
     }
 
+    @Override
+    public String toString() {
+        return String.format("MenuItem [transactionId=%s, order_number=%s, transactionDate=%s]", transactionId, order_number, transactionDate);
+    }
+
 }

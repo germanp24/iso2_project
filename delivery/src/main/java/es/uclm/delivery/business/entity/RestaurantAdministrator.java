@@ -49,4 +49,10 @@ public class RestaurantAdministrator {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public String toString() {
+        return String.format("RestaurantAdministrator [id_administrator=%s, id_usuary=%s, password=%s]", id_administrator, id_usuary, password);
+    }
+    
 }

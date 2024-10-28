@@ -74,4 +74,9 @@ public class DeliveryMan {
         this.id_usuary = id_usuary;
     }
 
+    @Override
+    public String toString() {
+        return String.format("DeliveryMan [nif=%s, id_usuary=%s, name=%s, surnames=%s, efficiency=%s]", nif, id_usuary, name, surnames, efficiency);
+    }
+
 }
