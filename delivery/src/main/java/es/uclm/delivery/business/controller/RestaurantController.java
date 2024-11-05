@@ -26,19 +26,23 @@ public class RestaurantController {
 
         log.info(restaurantDAO.findAll().toString());
 
-        return "restaurant_form";
+        return "restaurant";
     }
 
     @PostMapping("/restaurant")
     public String restaurantSubmit(@ModelAttribute Restaurant restaurant, Model model) {
+        if (restaurantDAO.findByCif(restaurant.getCif()) != null) {
+            model.addAttribute("errorMessage", "El CIF ya está registrado.");
+            return "restaurant";
+        }
 
-        Restaurant savedrestaurant = restaurantDAO.save(restaurant);
+        Restaurant savedRestaurant = restaurantDAO.save(restaurant);
+        model.addAttribute("restaurant", savedRestaurant);
+        model.addAttribute("successMessage", "¡Restaurante guardado con éxito!");
 
-        model.addAttribute("restaurant", savedrestaurant);
-        model.addAttribute("successMessage", "restaurant saved successfully!");
+        log.info("Restaurante guardado: " + savedRestaurant);
 
-        log.info("Saved deliveryService: " + savedrestaurant);
-
-        return "restaurant_form";
+        return "restaurant";
     }
-}
+
+} 
