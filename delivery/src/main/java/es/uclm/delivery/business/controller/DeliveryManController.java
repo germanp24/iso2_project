@@ -2,7 +2,6 @@ package es.uclm.delivery.business.controller;
 
 import es.uclm.delivery.business.entity.DeliveryMan;
 import es.uclm.delivery.persistence.DeliveryManDAO;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,20 +19,26 @@ public class DeliveryManController {
     @Autowired
     private DeliveryManDAO deliveryManDAO;
 
-    @GetMapping("/registerDeliv")
-    public String repartidorForm(Model model) {
-        // Agregar un nuevo objeto DeliveryMan al modelo
-        model.addAttribute("registerDeliv", new DeliveryMan());
+    @GetMapping("/deliveryMan")
+    public String DeliveryMan(Model model) {
+
+        model.addAttribute("deliveryMan", new DeliveryMan());
+
         log.info(deliveryManDAO.findAll().toString());
-        return "registerDeliv";
+
+        return "deliveryMan_form";
     }
 
-    @PostMapping("/registerDeliv")
-    public String RepartidorSubmit(@ModelAttribute DeliveryMan deliveryMan, Model model) {
-        DeliveryMan savedRepartidor = deliveryManDAO.save(deliveryMan);
-        model.addAttribute("registerDeliv", savedRepartidor);
-        model.addAttribute("successMessage", "Repartidor saved successfully!");
-        log.info("Saved Repartidor: " + savedRepartidor);
-        return "registerDeliv";
+    @PostMapping("/deliveryMan")
+    public String deliveryManSubmit(@ModelAttribute DeliveryMan deliveryMan, Model model) {
+
+        DeliveryMan saveddeliveryMan = deliveryManDAO.save(deliveryMan);
+
+        model.addAttribute("deliveryMan", saveddeliveryMan);
+        model.addAttribute("successMessage", "deliveryMan saved successfully!");
+
+        log.info("Saved deliveryMan: " + saveddeliveryMan);
+
+        return "deliveryMan_form";
     }
 }

@@ -60,13 +60,15 @@
 <body>
     <div class="register-container">
         <h2>Registro de Repartidor</h2>
-        <form th:action="@{/registerDeliv}" th:object="${registerDeliv}" method="post">
-            <input type="text" th:field="*{nif}" placeholder="NIF" required>
-            <input type="text" th:field="*{id_DeliveryMan}" placeholder="Id Repartidor" required>
-            <input type="text" th:field="*{name_r}" placeholder="Nombre" required>
-            <input type="text" th:field="*{surnames_r}" placeholder="Apellidos" required>
+        <form action="/submit_registration" method="post">
+            <input type="text" name="name" placeholder="Nombre" required>
+            <input type="text" name="name" placeholder="Apellidos" required>
+            <input type="email" name="email" placeholder="Correo electrónico" required>
+            <input type="email" name="email" placeholder="DNI" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+            <input type="password" name="confirm_password" placeholder="Confirmar contraseña" required>
             <input type="submit" value="Registrarse">
-        </form>        
+        </form>
         <div class="login-link">
             ¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a>            
         </div>

@@ -19,27 +19,27 @@ public class RestaurantAdministratorController {
     @Autowired
     private RestaurantAdministratorDAO restaurantAdministratorDAO;
 
-    @GetMapping("/registerAdmin")
+    @GetMapping("/restaurantAdministrator")
     public String RestaurantAdministratorForm(Model model) {
 
-        model.addAttribute("registerAdmin", new RestaurantAdministrator());
+        model.addAttribute("restaurantAdministrator", new RestaurantAdministrator());
 
         log.info(restaurantAdministratorDAO.findAll().toString());
 
-        return "registerAdmin";
+        return "restaurantAdministrator_form";
     }
 
-    @PostMapping("/registerAdmin")
+    @PostMapping("/restaurantAdministrator")
     public String restaurantAdministratorSubmit(@ModelAttribute RestaurantAdministrator restaurantAdministrator,
             Model model) {
 
         RestaurantAdministrator savedrestaurantAdministrator = restaurantAdministratorDAO.save(restaurantAdministrator);
 
-        model.addAttribute("registerAdmin", savedrestaurantAdministrator);
+        model.addAttribute("restaurantAdministrator", savedrestaurantAdministrator);
         model.addAttribute("successMessage", "restaurantAdministrator saved successfully!");
 
         log.info("Saved deliveryService: " + savedrestaurantAdministrator);
 
-        return "registerAdmin";
+        return "restaurantAdministrator_form";
     }
 }

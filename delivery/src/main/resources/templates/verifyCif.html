@@ -8,14 +8,11 @@
 <body>
     <div class="register-container">
         <h2>Verificar CIF del Restaurante</h2>
-        <form action="#" th:action="@{/verifyCif}" method="post">
+        <form action="/verifyCif" method="post">
             <input type="text" name="cif" placeholder="Introduce el CIF del restaurante" required>
             <input type="hidden" name="type" th:value="${type}">
             <input type="submit" value="Verificar">
-        </form>
-        <div th:if="${error}" style="color: red;">
-            El CIF introducido es incorrecto o no se encuentra en la base de datos.
-        </div>
+        </form>        
     </div>
 </body>
 </html>

@@ -8,62 +8,51 @@ import jakarta.persistence.Id;
 public class RestaurantAdministrator {
     @Id
     @Column
-    private String dni_a;
+    private String id_administrator;
 
     @Column
-    private String id_admin;
+    private String id_usuary;
 
     @Column
-    private String name_a;
+    private String password;
 
-    @Column
-    private String surnames_a;
+    public RestaurantAdministrator(String id_administrator, String id_usuary, String password) {
+        this.id_administrator = id_administrator;
+        this.id_usuary = id_usuary;
+        this.password = password;
+    }
 
     public RestaurantAdministrator() {
 
     }
 
-    public RestaurantAdministrator(String dni_a, String id_admin, String name_a, String surnames_a) {
-        this.dni_a = dni_a;
-        this.id_admin = id_admin;
-        this.name_a = name_a;
-        this.surnames_a = surnames_a;
+    public String getId_administrator() {
+        return id_administrator;
     }
 
-    public String getDni_a() {
-        return dni_a;
+    public void setId_administrator(String id_administrator) {
+        this.id_administrator = id_administrator;
     }
 
-    public void setDni_a(String dni_a) {
-        this.dni_a = dni_a;
+    public String getId_usuary() {
+        return id_usuary;
     }
 
-    public String getId_admin() {
-        return id_admin;
+    public void setId_usuary(String id_usuary) {
+        this.id_usuary = id_usuary;
     }
 
-    public void setId_admin(String id_admin) {
-        this.id_admin = id_admin;
+    public String getPassword() {
+        return password;
     }
 
-    public String getName_a() {
-        return name_a;
-    }
-
-    public void setName_a(String name_a) {
-        this.name_a = name_a;
-    }
-
-    public String getSurnames_a() {
-        return surnames_a;
-    }
-
-    public void setSurnames_a(String surnames_a) {
-        this.surnames_a = surnames_a;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
     public String toString() {
-        return String.format("RestaurantAdministrator [dni_a=%s, id_admin=%s, name_a=%s, surnames_a=%s]", dni_a, id_admin, name_a, surnames_a);
+        return String.format("RestaurantAdministrator [id_administrator=%s, id_usuary=%s, password=%s]", id_administrator, id_usuary, password);
     }
+    
 }
