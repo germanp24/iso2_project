@@ -34,3 +34,4 @@ build/
 
 ### Derby Embedded Database ###
 database/
+derby.log
