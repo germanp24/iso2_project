@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificación de CIF</title>
+</head>
+<body>
+    <div class="register-container">
+        <h2>Verificar CIF del Restaurante</h2>
+        <form action="/verifyCif" method="post">
+            <input type="text" name="cif" placeholder="Introduce el CIF del restaurante" required>
+            <input type="hidden" name="type" th:value="${type}">
+            <input type="submit" value="Verificar">
+        </form>        
+    </div>
+</body>
+</html>
