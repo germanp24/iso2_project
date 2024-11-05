@@ -1,13 +1,1 @@
-----------------------------------------------------------------
-Tue Nov 05 22:51:24 CET 2024:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-0192-fe4f-9ed8-0000019d4150 
-on database directory C:\Users\ampar\Documents\GitHub\iso2_project\delivery\database with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@70dea4e 
-Loaded from file:/C:/Users/ampar/.m2/repository/org/apache/derby/derby/10.16.1.1/derby-10.16.1.1.jar
-java.vendor=Oracle Corporation
-java.runtime.version=23+37-2369
-user.dir=C:\Users\ampar\Documents\GitHub\iso2_project\delivery
-os.name=Windows 11
-os.arch=amd64
-os.version=10.0
-derby.system.home=null
-Database Class Loader started - derby.database.classpath=''
+
