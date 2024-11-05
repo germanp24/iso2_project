@@ -6,6 +6,7 @@ import es.uclm.delivery.business.entity.Restaurant;
 
 @Repository
 public interface RestaurantDAO extends JpaRepository<Restaurant, String> {
+    Restaurant findByCif(String cif);
     /*
      * Se hereda de JpaRepository operaciones de acceso a datos comunes a todas las
      * entidades:
