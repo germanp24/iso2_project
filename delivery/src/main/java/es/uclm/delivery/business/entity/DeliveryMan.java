@@ -11,13 +11,13 @@ public class DeliveryMan {
     private String nif;
 
     @Column
-    private String id_DeliveryMan;
+    private String id_usuary;
 
     @Column
-    private String name_r;
+    private String name;
 
     @Column
-    private String surnames_r;
+    private String surnames;
 
     @Column
     private int efficiency;
@@ -26,20 +26,28 @@ public class DeliveryMan {
 
     }
 
-    public DeliveryMan(String nif, String id_DeliveryMan, String name_r, String surnames_r, int efficiency) {
+    public DeliveryMan(String name, String surnames, String nif, int efficiency, String id_usuary) {
+        this.name = name;
+        this.surnames = surnames;
         this.nif = nif;
-        this.id_DeliveryMan = id_DeliveryMan;
-        this.name_r = name_r;
-        this.surnames_r = surnames_r;
         this.efficiency = efficiency;
+        this.id_usuary = id_usuary;
     }
 
-    public String getId_DeliveryMan() {
-        return id_DeliveryMan;
+    public String getName() {
+        return name;
     }
 
-    public void setId_DeliveryMan(String id_DeliveryMan) {
-        this.id_DeliveryMan = id_DeliveryMan;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurnames() {
+        return surnames;
+    }
+
+    public void setSurnames(String surnames) {
+        this.surnames = surnames;
     }
 
     public String getNif() {
@@ -50,22 +58,6 @@ public class DeliveryMan {
         this.nif = nif;
     }
 
-    public String getName_r() {
-        return name_r;
-    }
-
-    public void setName_a(String name_r) {
-        this.name_r = name_r;
-    }
-
-    public String getSurnames_r() {
-        return surnames_r;
-    }
-
-    public void setSurnames_a(String surnames_r) {
-        this.surnames_r = surnames_r;
-    }
-
     public int getEfficiency() {
         return efficiency;
     }
@@ -74,10 +66,17 @@ public class DeliveryMan {
         this.efficiency = efficiency;
     }
 
+    public String getId_usuary() {
+        return id_usuary;
+    }
+
+    public void setId_usuary(String id_usuary) {
+        this.id_usuary = id_usuary;
+    }
+
     @Override
     public String toString() {
-        return String.format("DeliveryMan [nif=%s, id_DeliveryMan=%s, name_r=%s, surnames_r=%s, efficiency=%s]", nif,
-                id_DeliveryMan, name_r, surnames_r, efficiency);
+        return String.format("DeliveryMan [nif=%s, id_usuary=%s, name=%s, surnames=%s, efficiency=%s]", nif, id_usuary, name, surnames, efficiency);
     }
 
 }
