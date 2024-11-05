@@ -1,13 +1,14 @@
 ![Image](https://www.uclm.es/images/logos/Logo_uclm.png)
 
-# Software Engineering II Project (2024-25)
-This is the repository containing the project of the subject Software Engineering II (2024-25).
+# Proyecto de Ingeniería del Software II (2024-25)
 
-[Project Documentation](DOCUMENTATION.md)
+Este es el repositorio que contiene el proyecto de la asignatura Ingeniería del Software II (2024-25).
 
+## Integrantes del Equipo ("CodeChest")
 
-## Team Members (“CodeChest”)
 - Germán Pajarero
-- Sara Hidalgo
-- Andrés Díaz
-- Amparo Mendoza
+- Sara Hidalgo Salas
+- Andrés Díaz Carrillo
+- Amparo Natividad Mendoza Vásquez
+
+## ???
