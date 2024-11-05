@@ -2,6 +2,7 @@ package es.uclm.delivery.business.controller;
 
 import es.uclm.delivery.business.entity.Client;
 import es.uclm.delivery.persistence.ClientDAO;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,26 +20,27 @@ public class ClientController {
     @Autowired
     private ClientDAO clientDAO;
 
-    @GetMapping("/client")
+    @GetMapping("/registerClient")
     public String clientForm(Model model) {
 
-        model.addAttribute("client", new Client());
+        model.addAttribute("registerClient", new Client());
 
         log.info(clientDAO.findAll().toString());
 
-        return "client_form";
+        return "registerClient";
+            
     }
 
-    @PostMapping("/client")
+    @PostMapping("/registerClient")
     public String clientSubmit(@ModelAttribute Client client, Model model) {
 
         Client savedClient = clientDAO.save(client);
 
-        model.addAttribute("client", savedClient);
+        model.addAttribute("registerClient", savedClient);
         model.addAttribute("successMessage", "Client saved successfully!");
 
         log.info("Saved client: " + savedClient);
 
-        return "client_form";
+        return "registerClient";
     }
 }

@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+
+=======
 ----------------------------------------------------------------
 Tue Nov 05 22:25:18 CET 2024:
 Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-0192-fe37-bac7-00000229ff00 
@@ -11,3 +14,4 @@ os.arch=amd64
 os.version=6.8.0-48-generic
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
+>>>>>>> gen_login
