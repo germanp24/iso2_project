@@ -60,15 +60,13 @@
 <body>
     <div class="register-container">
         <h2>Registro de Administrador</h2>
-        <form action="/submit_registration" method="post">
-            <input type="text" name="name" placeholder="Nombre" required>
-            <input type="text" name="name" placeholder="Apellidos" required>
-            <input type="email" name="email" placeholder="Correo electrónico" required>
-            <input type="email" name="email" placeholder="DNI" required>
-            <input type="password" name="password" placeholder="Contraseña" required>
-            <input type="password" name="confirm_password" placeholder="Confirmar contraseña" required>
+        <form th:action="@{/registerAdmin}" th:object="${registerAdmin}" method="post">
+            <input type="text" th:field="*{dni_a}" placeholder="DNI" required>
+            <input type="text" th:field="*{id_admin}" placeholder="Id Administrador" required>
+            <input type="text" th:field="*{name_a}" placeholder="Nombre" required>
+            <input type="text" th:field="*{surnames_a}" placeholder="Apellidos" required>
             <input type="submit" value="Registrarse">
-        </form>
+        </form>               
         <div class="login-link">
             ¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a>            
         </div>

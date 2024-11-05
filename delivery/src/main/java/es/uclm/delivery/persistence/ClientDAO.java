@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import es.uclm.delivery.business.entity.Client;
 
 @Repository
-public interface ClientDAO extends JpaRepository<Client, String> {
+public interface ClientDAO extends JpaRepository<Client, Long> {
     /*
      * Se hereda de JpaRepository operaciones de acceso a datos comunes a todas las
      * entidades:

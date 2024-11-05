@@ -2,12 +2,14 @@ package es.uclm.delivery.business.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class Usuary {
     @Id
-    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id_usuary;
 
     @Column
@@ -16,14 +18,16 @@ public class Usuary {
     @Column
     private String email;
 
+    private String role;
+
     public Usuary() {
         
     }
 
-    public Usuary(String id_usuary, String password, String email) {
-        this.id_usuary = id_usuary;
+    public Usuary(String password, String email, String role) {
         this.password = password;
         this.email = email;
+        this.role = role;
     }
 
     public String getId_usuary() {
@@ -50,9 +54,17 @@ public class Usuary {
         this.email = email;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
-        return String.format("Usuary [id_usuary=%s, password=%s, email=%s]", id_usuary, password, email);
+        return String.format( "Usuary[id=%d, email='%s', role='%s']", id_usuary, email, role);
     }
 
 }
