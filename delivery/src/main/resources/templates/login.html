@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Restaurante</title>
+    <title>Loginr</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -58,22 +58,17 @@
     </style>
 </head>
 <body>
-    <div class="register-container">
-        <h2>Registro de Repartidor</h2>
-        <form th:action="@{/restaurant}" th:object="${restaurant}" method="post">
-            <label for="cif">CIF:</label>
-            <input type="text" id="cif" name="cif" th:field="*{cif}" required>
-            <br>
-
-            <label for="name">Nombre:</label>
-            <input type="text" id="name" name="name" th:field="*{name}" required>
-            <br>
-
-            <button type="submit">Guardar Restaurante</button>
-        </form>
-        <div th:if="${successMessage}">
-            <p th:text="${successMessage}" style="color: green;"></p>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form th:action="@{/login}" method="post">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+            <input type="submit" value="Iniciar Sesión">
+        </form>               
+        <p th:if="${error}" th:text="${error}" style="color:red;"></p>
+        <div class="register-link">
+            ¿Todavía no tienes una cuenta? <a href="/registerClient">Regístrate aquí</a>            
         </div>
-    </div>  
+    </div>
 </body>
 </html>

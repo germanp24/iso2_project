@@ -2,14 +2,11 @@ package es.uclm.delivery.business.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class Usuary {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id_usuary;
 
     @Column
@@ -17,7 +14,8 @@ public class Usuary {
 
     @Column
     private String email;
-
+    
+    @Column
     private String role;
 
     public Usuary() {
@@ -64,7 +62,7 @@ public class Usuary {
 
     @Override
     public String toString() {
-        return String.format( "Usuary[id=%d, email='%s', role='%s']", id_usuary, email, role);
+        return String.format( "Usuary [id_usuary=%s, password=%s, email=%s, role=%s]", id_usuary, password, email, role);
     }
 
 }
