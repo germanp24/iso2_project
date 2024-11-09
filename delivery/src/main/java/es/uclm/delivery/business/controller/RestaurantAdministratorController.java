@@ -2,6 +2,7 @@ package es.uclm.delivery.business.controller;
 
 import es.uclm.delivery.business.entity.RestaurantAdministrator;
 import es.uclm.delivery.persistence.RestaurantAdministratorDAO;
+import es.uclm.delivery.business.entity.Usuary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class RestaurantAdministratorController {
@@ -30,15 +32,17 @@ public class RestaurantAdministratorController {
     }
 
     @PostMapping("/registerAdmin")
-    public String restaurantAdministratorSubmit(@ModelAttribute RestaurantAdministrator restaurantAdministrator,
-            Model model) {
+    public String restaurantAdministratorSubmit(@ModelAttribute RestaurantAdministrator restaurantAdministrator, @RequestParam String email, @RequestParam String password, Model model) {
+        
+        Usuary usuary = new Usuary(password, email, "ADMIN", null, null, restaurantAdministrator);
 
-        RestaurantAdministrator savedrestaurantAdministrator = restaurantAdministratorDAO.save(restaurantAdministrator);
+        restaurantAdministrator.setUsuary(usuary);
+        restaurantAdministratorDAO.save(restaurantAdministrator);
 
-        model.addAttribute("registerAdmin", savedrestaurantAdministrator);
+        model.addAttribute("registerAdmin", restaurantAdministrator);
         model.addAttribute("successMessage", "restaurantAdministrator saved successfully!");
 
-        log.info("Saved deliveryService: " + savedrestaurantAdministrator);
+        log.info("Saved deliveryService: " + restaurantAdministrator + "" + usuary);
 
         return "registerAdmin";
     }

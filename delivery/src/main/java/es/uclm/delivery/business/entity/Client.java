@@ -1,17 +1,22 @@
 package es.uclm.delivery.business.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 @Entity
-public class Client {
+public class Client{
     @Id
-    @Column
-    private String dni;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id_client;
 
     @Column
-    private String id_usuary;
+    private String dni;
 
     @Column
     private String name;
@@ -19,15 +24,19 @@ public class Client {
     @Column
     private String surnames;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuary_id")
+    private Usuary usuary;
+
     public Client() {
 
     }
 
-    public Client(String name, String surnames, String dni, String id_usuary) {
+    public Client(String name, String surnames, String dni, Usuary usuary) {
         this.name = name;
         this.surnames = surnames;
         this.dni = dni;
-        this.id_usuary = id_usuary;
+        this.usuary = usuary;
     }
 
     public String getName() {
@@ -54,16 +63,24 @@ public class Client {
         this.dni = dni;
     }
 
-    public String getId_usuary() {
-        return id_usuary;
+    public Long getId_client() {
+        return id_client;
     }
 
-    public void setId_usuary(String id_usuary) {
-        this.id_usuary = id_usuary;
+    public void setId_client(Long id_client) {
+        this.id_client = id_client;
+    }
+
+    public Usuary getUsuary() {
+        return usuary;
+    }
+
+    public void setUsuary(Usuary usuary) {
+        this.usuary = usuary;
     }
 
     @Override
     public String toString() {
-        return String.format("Client [dni=%s, id_usuary=%s, name=%s, surnames=%s]", dni, id_usuary, name, surnames);
+        return String.format("Client [dni=%s, id_client=%s, name=%s, surnames=%s]", dni, id_client, name, surnames);
     }
 }

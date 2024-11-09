@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import es.uclm.delivery.business.entity.RestaurantAdministrator;
 
 @Repository
-public interface RestaurantAdministratorDAO extends JpaRepository<RestaurantAdministrator, String> {
+public interface RestaurantAdministratorDAO extends JpaRepository<RestaurantAdministrator, Long> {
     /*
      * Se hereda de JpaRepository operaciones de acceso a datos comunes a todas las
      * entidades:

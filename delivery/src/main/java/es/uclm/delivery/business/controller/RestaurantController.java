@@ -22,7 +22,7 @@ public class RestaurantController {
     @GetMapping("/cifRestaurant")
     public String RestaurantForm(Model model) {
 
-        model.addAttribute("restaurant", new Restaurant());
+        model.addAttribute("cifRestaurant", new Restaurant());
 
         log.info(restaurantDAO.findAll().toString());
 
@@ -37,12 +37,12 @@ public class RestaurantController {
         }
 
         Restaurant savedRestaurant = restaurantDAO.save(restaurant);
-        model.addAttribute("restaurant", savedRestaurant);
+        model.addAttribute("cifRestaurant", savedRestaurant);
         model.addAttribute("successMessage", "¡Restaurante guardado con éxito!");
 
         log.info("Restaurante guardado: " + savedRestaurant);
 
-        return "index";
+        return "cifRestaurant";
     }
 
 } 

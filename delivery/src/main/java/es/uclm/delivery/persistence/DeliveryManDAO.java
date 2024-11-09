@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import es.uclm.delivery.business.entity.DeliveryMan;
 
 @Repository
-public interface DeliveryManDAO extends JpaRepository<DeliveryMan, String> {
+public interface DeliveryManDAO extends JpaRepository<DeliveryMan, Long> {
     /*
      * Se hereda de JpaRepository operaciones de acceso a datos comunes a todas las
      * entidades:
