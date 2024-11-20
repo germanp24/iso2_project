@@ -13,7 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>delivery</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Spring Boot project for the ISO II assignment</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -29,6 +29,9 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
+		<sonar.organization>germanp24</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.token>dd9a3fab5b195e3053549d10c91712885fe50bd0</sonar.token>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -63,14 +66,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.derby</groupId>
-			<artifactId>derby</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.derby</groupId>
-			<artifactId>derbytools</artifactId>
 		</dependency>
 	</dependencies>
 
