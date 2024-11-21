@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFF8E1;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Encabezado */
+        header {
+            background-color: rgba(255, 224, 178, 0.9);
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            color: #F57C00;
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        /* Botón de logout */
+        .logout-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #FFB74D;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1em;
+        }
+
+        .logout-button:hover {
+            background-color: #FF8A65;
+        }
+
+        /* Tabla de restaurantes */
+        .restaurant-table {
+            width: 80%;
+            margin: 40px auto;
+            border-collapse: collapse;
+        }
+
+        .restaurant-table th, .restaurant-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .restaurant-table th {
+            background-color: #FFB74D;
+            color: white;
+        }
+
+        .restaurant-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .restaurant-table tr:hover {
+            background-color: #ddd;
+        }
+
+        .edit-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .edit-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <!-- Encabezado del sitio -->
+    <header>
+        <h1>Admin Page</h1>
+        <p>Gestión de Restaurantes</p>
+        <a href="#logout" class="logout-button">Logout</a>
+    </header>
+
+    <!-- Tabla de restaurantes -->
+    <table class="restaurant-table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Dirección</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="restaurant : ${restaurants}">
+                <td th:text="${restaurant.name}">Nombre</td>
+                <td th:text="${restaurant.address}">Dirección</td>
+                <td>
+                    <a th:href="@{/editRestaurant/{id}(id=${restaurant.cif})}" class="edit-button">Editar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
