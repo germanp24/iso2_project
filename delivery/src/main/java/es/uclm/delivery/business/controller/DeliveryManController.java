@@ -27,7 +27,7 @@ public class DeliveryManController {
         // Agregar un nuevo objeto DeliveryMan al modelo
         model.addAttribute("registerDeliv", new DeliveryMan());
         log.info(deliveryManDAO.findAll().toString());
-        return "registerDeliv";
+        return "repartidor/registerDeliv";
     }
 
     @PostMapping("/registerDeliv")
@@ -42,6 +42,6 @@ public class DeliveryManController {
 
         log.info("Cliente y usuario registrado: " + deliveryMan + " " + usuary);
 
-        return "registerDeliv";
+        return "repartidor/registerDeliv";
     }
 }

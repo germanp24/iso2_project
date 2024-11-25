@@ -25,6 +25,9 @@ public class DeliveryMan {
     private String surnames;
 
     @Column
+    private String tipoAuto;
+
+    @Column
     private int efficiency;
     
     @OneToOne(cascade = CascadeType.ALL)
@@ -35,12 +38,13 @@ public class DeliveryMan {
 
     }
 
-    public DeliveryMan(String nif, String name, String surnames, int efficiency, Usuary usuary) {
+    public DeliveryMan(String nif, String name, String surnames, int efficiency, String tipoAuto ,Usuary usuary) {
         this.nif = nif;
         this.name = name;
         this.surnames = surnames;
         this.efficiency = efficiency;
         this.usuary = usuary;
+        this.tipoAuto = tipoAuto;
     }
 
     public Long getId_DeliveryMan() {
@@ -83,6 +87,13 @@ public class DeliveryMan {
         this.efficiency = efficiency;
     }
 
+    public String getTransport() {
+        return tipoAuto;
+    }
+    public void setTransport(String tipoAuto) {
+        this.tipoAuto = tipoAuto;
+    }
+
     public Usuary getUsuary() {
         return usuary;
     }
@@ -93,7 +104,8 @@ public class DeliveryMan {
 
     @Override
     public String toString() {
-        return String.format("DeliveryMan [nif=%s, id_DeliveryMan=%s, name=%s, surnames=%s, efficiency=%s]", nif, id_DeliveryMan, name, surnames, efficiency);
+        return "DeliveryMan [id_DeliveryMan=" + id_DeliveryMan + ", nif=" + nif + ", name=" + name + ", surnames="
+                + surnames + ", efficiency=" + efficiency + ", tipoAuto=" + tipoAuto + ", usuary=" + usuary + "]";
     }
 
 }
