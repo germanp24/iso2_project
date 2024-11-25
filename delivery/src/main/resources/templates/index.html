@@ -1,270 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yavoy - Delivery rápido y seguro</title>
     <!-- Enlace a Font Awesome para íconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        /* Estilos generales */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            color: #333;
-            overflow-x: hidden;
-        }
-
-        /* Fondo animado */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://img.freepik.com/vector-gratis/papel-pintado-mural-restaurante_23-2148703851.jpg') repeat;
-            animation: moverFondo 40s linear infinite;
-            z-index: -1;
-            opacity: 0.3; /* Ajusta la opacidad si es necesario */
-        }
-
-        @keyframes moverFondo {
-            from { background-position: 0 0; }
-            to { background-position: 100% 100%; }
-        }
-
-        /* Encabezado */
-        header {
-            background-color: rgba(255, 224, 178, 0.9);
-            padding: 20px;
-            text-align: center;
-            position: relative;
-        }
-
-        header h1 {
-            font-size: 2.5em;
-            color: #F57C00;
-        }
-
-        header p {
-            font-size: 1.2em;
-            color: #555;
-        }
-
-        /* Botón de iniciar sesión */
-        .login-button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            display: flex;
-            align-items: center;
-            background-color: #FFB74D;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 1em;
-            gap: 8px; /* Espaciado entre ícono y texto */
-        }
-
-        .login-button i {
-            font-size: 1.2em;
-        }
-
-        .login-button:hover {
-            background-color: #FF8A65;
-        }
-
-        /* Navegación */
-        nav {
-            display: flex;
-            justify-content: center;
-            background-color: #FFF3E0;
-            padding: 10px 0;
-        }
-
-        nav a {
-            color: #333;
-            margin: 0 15px;
-            text-decoration: none;
-            font-size: 1.2em;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        /* Secciones */
-        section {
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        section h2 {
-            font-size: 2.5em;
-            color: #FF8A65;
-        }
-
-        section p {
-            font-size: 1.2em;
-            color: #555;
-            max-width: 600px;
-            margin: 20px auto;
-        }
-
-        /* Sección de opciones */
-        #opciones-usuario {
-            background-color: #FFF3E0;
-            padding: 40px 20px;
-        }
-
-        #opciones-usuario h2 {
-            color: #F57C00;
-            margin-bottom: 20px;
-        }
-
-        #opciones-usuario .option-box {
-            background-color: #FFECB3;
-            border-radius: 10px;
-            padding: 20px;
-            width: 250px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin: 20px;
-        }
-
-        #opciones-usuario img {
-            width: 100px;
-            margin-bottom: 15px;
-            border-radius: 10px;
-        }
-
-        #opciones-usuario h3 {
-            color: #F57C00;
-        }
-
-        #opciones-usuario p {
-            color: #555;
-        }
-
-        #opciones-usuario a {
-            display: inline-block;
-            margin-top: 10px;
-            background-color: #FFB74D;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-
-        #opciones-usuario a:hover {
-            background-color: #FF8A65;
-        }
-
-        /* Estilos del buscador de dirección */
-        #buscador-direccion {
-            margin: 40px auto;
-            max-width: 600px;
-            padding: 20px;
-            background-color: #FFECB3;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            flex-direction: column;
-        }
-
-        #buscador-direccion input {
-            padding: 12px 15px;
-            font-size: 1em;
-            width: 80%;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-top: 10px;
-            outline: none;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        #buscador-direccion button {
-            padding: 12px 20px;
-            font-size: 1em;
-            background-color: #FFB74D;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-left: 10px;
-            transition: background-color 0.3s;
-        }
-
-        #buscador-direccion button:hover {
-            background-color: #FF8A65;
-        }
-
-        #buscador-direccion .icono-gps {
-            font-size: 1.5em;
-            color: #FFB74D;
-        }
-
-        #direccion-guardada {
-            margin-top: 20px;
-            font-size: 1.1em;
-            color: #333;
-            display: none; /* Ocultar inicialmente */
-        }
-
-        #direccion-lista {
-            margin-top: 20px;
-            text-align: left;
-            font-size: 1.1em;
-            color: #333;
-        }
-
-        #direccion-lista ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        #direccion-lista li {
-            margin-bottom: 10px;
-        }
-
-        #direccion-lista button {
-            background-color: #FF8A65;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-
-        #direccion-lista button:hover {
-            background-color: #FF5722;
-        }
-
-        /* Estilos para el botón de ver direcciones */
-        #ver-direcciones-btn {
-            background-color: #FFB74D;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
-            font-size: 1.1em;
-        }
-
-        #ver-direcciones-btn:hover {
-            background-color: #FF8A65;
-        }
-    </style>
+    <!-- Enlace al archivo CSS -->
+    <link rel="stylesheet" href="/index/home_page.css">
 </head>
+
 <body>
 
     <!-- Encabezado del sitio -->
@@ -276,122 +22,81 @@
             Iniciar sesión
         </a>
     </header>
-
-    <!-- Barra de navegación -->
-    <nav>
-        <a href="#inicio">Inicio</a>
-        <a href="restaurants.html" target="_blank">Restaurantes</a> <!-- Abrir en nueva pestaña -->
-        <a href="#como-funciona">¿Cómo funciona?</a>
-        <a href="#contacto">Contacto</a>
-    </nav>
-
-    <!-- Buscador de Dirección (antes de "Bienvenidos a Yavoy") -->
-    <section id="buscador-direccion">
-        <p>¿Dónde estás?</p> <!-- Texto que pregunta por la ubicación del usuario -->
-        <i class="fas fa-map-marker-alt icono-gps"></i> <!-- Ícono de GPS -->
-        <input type="text" id="direccion" placeholder="Ingresa tu dirección">
-        <div>
-            <button onclick="guardarDireccion()">Guardar dirección</button>
-        </div>
-        <div id="direccion-lista" style="display: none;"></div> <!-- Contenedor de direcciones guardadas -->
-    </section>
-
+    
     <!-- Sección principal -->
     <section id="bienvenida">
         <h2>Bienvenidos a Yavoy</h2>
-        <p>La forma más fácil de pedir comida a domicilio desde tu restaurante favorito. ¡Explora, elige tus platos favoritos y haz tu pedido. ¡Nosotros nos encargamos de llevarlo a tu puerta en minutos!</p>
+        <p>La forma más fácil de pedir comida a domicilio desde tu restaurante favorito. ¡Explora, elige tus platos
+            favoritos y haz tu pedido. ¡Nosotros nos encargamos de llevarlo a tu puerta en minutos!</p>
     </section>
 
-    <!-- Sección de Opciones de Usuario -->
+    <!-- Buscador de Dirección (antes de "Bienvenidos a Yavoy") -->
+    <section id="buscador-direccion">
+        <p style="margin: 5px 0;">¿Dónde estás? <br> ¿Qué puede haber cerca tuya?</p>
+        <i class="fas fa-map-marker-alt icono-gps"></i>
+        <div style="margin-top: 10px; display: flex; flex-direction: column; align-items: center;">
+            <input type="text" id="direccion" placeholder="Ingresa tu dirección">
+            <button onclick="buscarDireccion()" style="margin-top: 20px;">Buscar</button>
+        </div>
+    </section>
+
+    <!-- Sección: ¿Cómo hacer un pedido? -->
+    <!-- Sección: ¿Cómo hacer un pedido? -->
+    <section id="como-hacer-pedido">
+        <h2>¿Cómo pedir en Yavoy?</h2>
+        <div class="contenedor">
+            <div class="item">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>1. ¿Dónde estás?</h3>
+                <p>Ingresa tu ubicación para mostrarte los restaurantes más cercanos.</p>
+            </div>
+            <div class="item">
+                <i class="fas fa-utensils"></i>
+                <h3>2. Elige tu comida</h3>
+                <p>Explora el menú de tus restaurantes favoritos y selecciona tus platos.</p>
+            </div>
+            <div class="item">
+                <i class="fas fa-motorcycle"></i>
+                <h3>3. ¡Ya voy!</h3>
+                <p>Tu pedido será preparado y enviado directamente a tu puerta.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: Únete a nuestro equipo -->
     <section id="opciones-usuario">
         <h2>Únete a nuestro equipo</h2>
-        <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-            <div class="option-box">
+        <div class="contenedor">
+            <div class="item">
                 <img src="https://cdn-icons-png.flaticon.com/512/2830/2830305.png" alt="Repartidor">
                 <h3>Hazte Repartidor</h3>
                 <p>Forma parte de nuestro equipo de repartidores y entrega felicidad en cada pedido.</p>
                 <a href="registerDeliv.html">Únete</a>
             </div>
-
-            <div class="option-box">
+            <div class="item">
                 <img src="https://cdn-icons-png.flaticon.com/512/5759/5759289.png" alt="Administrador">
                 <h3>Hazte Administrador</h3>
                 <p>Gestiona nuestros servicios y ayuda a coordinar la entrega de miles de pedidos.</p>
                 <a href="registerAdmin.html">Únete</a>
             </div>
-
-            <div class="option-box">
+            <div class="item">
                 <img src="https://cdn-icons-png.flaticon.com/512/12183/12183213.png" alt="Restaurante">
                 <h3>Registra tu Restaurante</h3>
                 <p>¿Tienes un restaurante? Regístralo para comenzar a trabajar con Yavoy y llegar a más clientes.</p>
-                <a href="registerRestaurant.html">Regístralo</a>
+                <a href="registerRestaurant.html">Regístrate</a>
             </div>
         </div>
     </section>
 
+
     <!-- Pie de página -->
-    <footer style="text-align: center; padding: 20px; background-color: #FFF3E0;">        
+    <footer style="text-align: center; padding: 20px; background-color: #FFF3E0;">
         <p>Yavoy &copy; 2023 | Todos los derechos reservados</p>
         <p>Dirección: Calle Fuengirola #13, Ciudad: Talavera de la Reina | Teléfono: +1 234 567 890</p>
     </footer>
 
-    <script>
-        // Función para guardar la dirección
-        function guardarDireccion() {
-            var direccion = document.getElementById('direccion').value;
-            if (direccion) {
-                // Obtener las direcciones guardadas del localStorage o inicializar un array vacío
-                let direccionesGuardadas = JSON.parse(localStorage.getItem('direcciones')) || [];
-                // Añadir la nueva dirección al array
-                direccionesGuardadas.push(direccion);
-                // Guardar el array actualizado en localStorage
-                localStorage.setItem('direcciones', JSON.stringify(direccionesGuardadas));
-                // Limpiar el campo de entrada
-                document.getElementById('direccion').value = '';
-                // Mostrar las direcciones guardadas automáticamente
-                mostrarDireccionesGuardadas();
-            }
-        }
-    
-        // Función para mostrar las direcciones guardadas
-        function mostrarDireccionesGuardadas() {
-            let direccionesGuardadas = JSON.parse(localStorage.getItem('direcciones')) || [];
-            var listaDirecciones = document.getElementById('direccion-lista');
-            listaDirecciones.innerHTML = ''; // Limpiar la lista actual
-    
-            // Si hay direcciones, mostrar
-            if (direccionesGuardadas.length > 0) {
-                direccionesGuardadas.forEach(function(direccion, index) {
-                    var li = document.createElement('li');
-                    li.innerHTML = direccion + 
-                        ' <button onclick="eliminarDireccion(' + index + ')">Eliminar</button>';
-                    listaDirecciones.appendChild(li);
-                });
-                // Hacer visible la lista de direcciones
-                listaDirecciones.style.display = 'block';
-            } else {
-                // Si no hay direcciones, ocultar la lista
-                listaDirecciones.style.display = 'none';
-            }
-        }
-    
-        // Función para eliminar una dirección
-        function eliminarDireccion(index) {
-            let direccionesGuardadas = JSON.parse(localStorage.getItem('direcciones')) || [];
-            // Eliminar la dirección seleccionada
-            direccionesGuardadas.splice(index, 1);
-            // Guardar el array actualizado en localStorage
-            localStorage.setItem('direcciones', JSON.stringify(direccionesGuardadas));
-            // Mostrar las direcciones guardadas después de eliminar una
-            mostrarDireccionesGuardadas();
-        }
-    
-        // Mostrar las direcciones guardadas al cargar la página
-        window.onload = function() {
-            // Mostrar direcciones guardadas automáticamente cuando la página se cargue
-            mostrarDireccionesGuardadas();
-        }
-    </script>    
-
+    <!-- Enlace al archivo JS -->
+    <script src="/index/home_page.js"></script>
 </body>
+
 </html>
