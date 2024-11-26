@@ -1,69 +1,86 @@
 package es.uclm.delivery.business.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class RestaurantAdministrator {
     @Id
-    @Column
-    private String dni_a;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id_admin;
 
     @Column
-    private String id_admin;
+    private String dni;    
 
     @Column
-    private String name_a;
+    private String name;
 
     @Column
-    private String surnames_a;
+    private String surnames;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuary_id")
+    private Usuary usuary;
 
     public RestaurantAdministrator() {
 
     }
 
-    public RestaurantAdministrator(String dni_a, String id_admin, String name_a, String surnames_a) {
-        this.dni_a = dni_a;
-        this.id_admin = id_admin;
-        this.name_a = name_a;
-        this.surnames_a = surnames_a;
+    public RestaurantAdministrator(String dni, String name, String surnames, Usuary usuary) {
+        this.dni = dni;
+        this.name = name;
+        this.surnames = surnames;
+        this.usuary = usuary;
     }
 
-    public String getDni_a() {
-        return dni_a;
+    public String getDni() {
+        return dni;
     }
 
-    public void setDni_a(String dni_a) {
-        this.dni_a = dni_a;
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 
-    public String getId_admin() {
+    public Long getId_admin() {
         return id_admin;
     }
 
-    public void setId_admin(String id_admin) {
+    public void setId_admin(Long id_admin) {
         this.id_admin = id_admin;
     }
 
-    public String getName_a() {
-        return name_a;
+    public String getName() {
+        return name;
     }
 
-    public void setName_a(String name_a) {
-        this.name_a = name_a;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getSurnames_a() {
-        return surnames_a;
+    public String getSurnames() {
+        return surnames;
     }
 
-    public void setSurnames_a(String surnames_a) {
-        this.surnames_a = surnames_a;
+    public void setSurnames(String surnames) {
+        this.surnames = surnames;
+    }
+
+    public Usuary getUsuary() {
+        return usuary;
+    }
+
+    public void setUsuary(Usuary usuary) {
+        this.usuary = usuary;
     }
 
     @Override
     public String toString() {
-        return String.format("RestaurantAdministrator [dni_a=%s, id_admin=%s, name_a=%s, surnames_a=%s]", dni_a, id_admin, name_a, surnames_a);
+        return String.format( "RestaurantAdministrator [dni=%s, id_admin=%s, name=%s, surnames=%s]", dni, id_admin, name, surnames);
     }
 }

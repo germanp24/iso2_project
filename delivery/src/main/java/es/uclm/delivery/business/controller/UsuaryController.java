@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UsuaryController {
@@ -19,26 +19,27 @@ public class UsuaryController {
     @Autowired
     private UsuaryDAO usuaryDAO;
 
-    @GetMapping("/usuary")
-    public String UsuaryForm(Model model) {
+    @GetMapping("/login")
+    public String usuaryForm(Model model) {
 
-        model.addAttribute("usuary", new Usuary());
+        model.addAttribute("login", new Usuary());
 
         log.info(usuaryDAO.findAll().toString());
 
-        return "usuary_form";
+        return "login";
     }
 
-    @PostMapping("/usuary")
-    public String usuarySubmit(@ModelAttribute Usuary usuary, Model model) {
+    @PostMapping("/login")
+    public String verifyUsuary(@RequestParam String email, @RequestParam String password, Model model) {
+        // Busca si el usuario existe en la base de datos
+        Usuary usuary = usuaryDAO.findByEmailAndPassword(email, password).orElse(null);
 
-        Usuary savedusuary = usuaryDAO.save(usuary);
-
-        model.addAttribute("usuary", savedusuary);
-        model.addAttribute("successMessage", "usuary saved successfully!");
-
-        log.info("Saved deliveryService: " + savedusuary);
-
-        return "usuary_form";
+        if (usuary != null) {
+            model.addAttribute("userRole", usuary.getRole()); // Añade el rol al modelo para mostrar en la vista si es necesario
+            return "redirect:/index"; // Redirige a la página de bienvenida si el usuario existe
+        } else {
+            model.addAttribute("error", "Credenciales incorrectas. Por favor, intenta de nuevo.");
+            return "login"; // Regresa a la página de login con mensaje de error
+        }
     }
 }
