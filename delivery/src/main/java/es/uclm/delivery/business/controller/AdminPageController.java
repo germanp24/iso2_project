@@ -21,17 +21,17 @@ public class AdminPageController {
 
     @GetMapping("/adminPage")
     public String showAdminPage(Model model) {
-        // Restaurantes de prueba
-        List<Restaurant> restaurants = Arrays.asList(
-            new Restaurant("CIF001", "Pizza Express", "admin1"),
-            new Restaurant("CIF002", "Sushi World", "admin2"),
-            new Restaurant("CIF003", "Burger House", "admin3"),
-            new Restaurant("CIF004", "Tacos Locos", "admin4"),
-            new Restaurant("CIF005", "Salad Bar", "admin5"),
-            new Restaurant("CIF006", "Italiano Ristorante", "admin6")
-        );
+        // // Restaurantes de prueba
+        // List<Restaurant> restaurants = Arrays.asList(
+        //     new Restaurant("CIF001", "Pizza Express", "admin1"),
+        //     new Restaurant("CIF002", "Sushi World", "admin2"),
+        //     new Restaurant("CIF003", "Burger House", "admin3"),
+        //     new Restaurant("CIF004", "Tacos Locos", "admin4"),
+        //     new Restaurant("CIF005", "Salad Bar", "admin5"),
+        //     new Restaurant("CIF006", "Italiano Ristorante", "admin6")
+        // );
 
-        model.addAttribute("restaurants", restaurants);
+        // model.addAttribute("restaurants", restaurants);
         return "adminPage";
     }
 
