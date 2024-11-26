@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -20,7 +21,16 @@ public class AdminPageController {
 
     @GetMapping("/adminPage")
     public String showAdminPage(Model model) {
-        List<Restaurant> restaurants = restaurantDAO.findAll();
+        // Restaurantes de prueba
+        List<Restaurant> restaurants = Arrays.asList(
+            new Restaurant("CIF001", "Pizza Express", "admin1"),
+            new Restaurant("CIF002", "Sushi World", "admin2"),
+            new Restaurant("CIF003", "Burger House", "admin3"),
+            new Restaurant("CIF004", "Tacos Locos", "admin4"),
+            new Restaurant("CIF005", "Salad Bar", "admin5"),
+            new Restaurant("CIF006", "Italiano Ristorante", "admin6")
+        );
+
         model.addAttribute("restaurants", restaurants);
         return "adminPage";
     }

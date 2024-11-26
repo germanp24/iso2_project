@@ -107,7 +107,7 @@
         <tbody>
             <tr th:each="restaurant : ${restaurants}">
                 <td th:text="${restaurant.name}">Nombre</td>
-                <td th:text="${restaurant.address}">Dirección</td>
+                <td th:text="${restaurant.id_administrator}">Dirección</td>
                 <td>
                     <a th:href="@{/editRestaurant/{id}(id=${restaurant.cif})}" class="edit-button">Editar</a>
                 </td>
