@@ -19,17 +19,17 @@ public class MenuItemController {
     @Autowired
     private MenuItemDAO menuItemDAO;
 
-    @GetMapping("/menuItem")
+    @GetMapping("/menuRestaurants")
     public String MenuItemForm(Model model) {
 
         model.addAttribute("menuItem", new MenuItem());
 
         log.info(menuItemDAO.findAll().toString());
 
-        return "menuItem_form";
+        return "menuRestaurants";
     }
 
-    @PostMapping("/menuItem")
+    @PostMapping("/menuRestaurants")
     public String menuItemSubmit(@ModelAttribute MenuItem menuItem, Model model) {
 
         MenuItem savedmenuItem = menuItemDAO.save(menuItem);
@@ -39,6 +39,6 @@ public class MenuItemController {
 
         log.info("Saved deliveryService: " + savedmenuItem);
 
-        return "menuItem_form";
+        return "menuRestaurants";
     }
 }

@@ -1,28 +1,49 @@
 /* General */
 body {
     font-family: 'Helvetica', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: rgba(255, 183, 77);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+main {
     background: url('https://b2130394.smushcdn.com/2130394/wp-content/uploads/2020/01/cabecera-trabajar-de-repartidor-en-australia.png?lossy=1&strip=1&webp=1') no-repeat center center fixed;
-    background-color: #f4f4f4;
-    background-size: auto;
+    background-color: #FFF3E0;
+    /* Old Lace */
+    background-size: cover;
+    background-position: 50% -10%;
     display: flex;
     justify-content: flex-start;
-    align-items: justify;
-    margin: 0;
+    align-items: flex-start;
     padding: 80px;
-    padding-top: 70px;
+    padding-top: 100px;
 }
 
 .register-container {
-    background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente */
+    background-color: rgba(255, 255, 255, 0.9);
+    /* Fondo blanco semitransparente */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 450px;
-    margin-right: 50px; /* Espacio desde el borde derecho */
+    margin-right: 50px;
+    /* Espacio desde el borde derecho */
 }
 
 .letters-container {
-    background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente */
+    background-color: rgba(255, 255, 255, 0.9);
+    /* Fondo blanco semitransparente */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(243, 70, 70, 0.1);
@@ -50,14 +71,16 @@ h1 {
 }
 
 /* Formulario */
-input[type="text"], input[type="email"], input[type="password"] {
+input[type="text"],
+input[type="email"],
+input[type="password"] {
     width: 100%;
     padding: 15px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
-    outline-color: #6cabb9;
+    outline-color: #FA8333;
     height: 3rem;
 
 }
@@ -66,7 +89,7 @@ input[type="text"], input[type="email"], input[type="password"] {
 input[type="submit"] {
     width: 100%;
     padding: 20px;
-    background-color: #00727d;
+    background-color: #F57C00;
     color: white;
     border: none;
     border-radius: 100px;
@@ -79,7 +102,7 @@ input[type="submit"] {
 /*boton deshabilitado*/
 input[disabled] {
     opacity: 0.4;
-    background-color: #00727d;
+    background-color: #F57C00;
     color: rgb(232, 232, 232);
     cursor: not-allowed;
     size: 50px;
@@ -95,7 +118,7 @@ input[disabled] {
 }
 
 .login-link a {
-    color: #274e51;
+    color: #FF5722;
     text-decoration: none;
     transition: text-decoration 1s ease;
 }
@@ -129,14 +152,14 @@ button.tipo-auto img {
     max-width: 100%;
     height: auto;
     display: block;
-    margin: 0 auto;    
+    margin: 0 auto;
 }
 
 button.tipo-auto.activo {
-    background-color:white;
+    background-color: white;
     color: white;
-    border-color: #00727d;
-    box-shadow: 0 0 0 2px #00727d;
+    border-color: #F57C00;
+    box-shadow: 0 0 0 2px #F57C00;
 }
 
 /* Accesibilidad */
@@ -146,34 +169,22 @@ button.tipo-auto.activo {
 
 /* Sombra personalizada */
 .shadow-teal-700 {
-    box-shadow: 0 0 10px rgba(15, 118, 110, 0.5);
+    box-shadow: 0 0 10px rgba(255, 183, 77, 0.5);
 }
 
-form > div:last-child {
+form>div:last-child {
     margin-top: 60px;
     margin-bottom: 20px;
 }
+/* Logo */
+.logo {
+    max-height: 100px;
+    padding: 10px;
+    margin: 10px;
+}
 
-header {
-    background-color:rgba(15, 118, 110); /* Fondo negro */
-    display: flex;
-    justify-content: space-between; /* Espacio entre el logo y el selector de idioma */
-    align-items: center; /* Alineación vertical */
-    color: white;
-    position: fixed; /* Fija el header en la parte superior */
-    top: 0;
-    left: 0;
-    width: 100%; /* Asegura que ocupe todo el ancho */
-    z-index: 1000; /* Asegura que esté por encima del contenido */
-  }
-
-  /* Logo */
-  .logo {
-    max-height: 150px; /* Ajusta el tamaño del logo según sea necesario */
-  }
-
-  /* Contenedor del selector de idioma */
-  nav .language-selector select {
+/* Contenedor del selector de idioma */
+nav .language-selector select {
     background-color: #333;
     color: white;
     border: none;
@@ -182,8 +193,8 @@ header {
     font-size: 1rem;
     cursor: pointer;
     margin-right: 40px;
-  }
+}
 
-  nav .language-selector select:focus {
+nav .language-selector select:focus {
     outline: none;
-  }
+}
