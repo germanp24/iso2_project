@@ -9,7 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @Controller
 public class DeliveryServiceController {
@@ -40,5 +43,23 @@ public class DeliveryServiceController {
         log.info("Saved deliveryService: " + saveddeliveryService);
 
         return "deliveryService_form";
+    }
+
+    // Método para mostrar los pedidos asignados a un repartidor
+    @GetMapping("/deliveryMan")
+    public String showAssignedDeliveries(Model model) {
+        // Aquí puedes filtrar por repartidor si es necesario, por ejemplo, por NIF
+        List<DeliveryService> deliveries = deliveryServiceDAO.findAll();  // O puedes filtrar si es necesario
+
+        model.addAttribute("deliveries", deliveries);
+        return "deliveryMan";  // Aquí cambiamos el nombre de la vista
+    }
+
+    @GetMapping("/deliveryMan/{nif}")
+    public String showAssignedDeliveriesByRepartidor(@PathVariable String nif, Model model) {
+        // Supón que tienes un método en el DAO para encontrar entregas por el nif del repartidor
+        List<DeliveryService> deliveries = deliveryServiceDAO.findByNif(nif);  
+        model.addAttribute("deliveries", deliveries);
+        return "deliveryMan";
     }
 }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pedidos Asignados a Repartidor</title>
+</head>
+<body>
+    <h1>Pedidos Asignados a Repartidor</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Número de entrega</th>
+                <th>NIF Repartidor</th>
+                <th>Número de pedido</th>
+                <th>Fecha de recepción</th>
+                <th>Fecha de entrega</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="delivery : ${deliveries}">
+                <td th:text="${delivery.delivery_number}"></td>
+                <td th:text="${delivery.nif}"></td>
+                <td th:text="${delivery.order_number}"></td>
+                <td th:text="${delivery.reception_date}"></td>
+                <td th:text="${delivery.delivery_date}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
