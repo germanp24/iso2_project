@@ -13,6 +13,9 @@
         .navbar-brand:hover, .nav-link:hover {
             color: #ffdab3 !important;
         }
+        .login-button i {
+            margin-right: 5px; /* Espaciado entre el ícono y el texto */
+        }
         .search-btn {
             background-color: #f36805;
             color: white;
@@ -95,10 +98,18 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Inicio</a>
+                        <a class="nav-link" href="/">Inicio</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contacto</a>
+                    </li>
+                </ul>
+                <!-- Botón de iniciar sesión a la derecha -->
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link login-button" href="/login">
+                            <i class="fas fa-user"></i> Iniciar sesión
+                        </a>
                     </li>
                 </ul>
             </div>
