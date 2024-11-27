@@ -37,4 +37,3 @@ jobs:
         run: |
           cd delivery
           mvn verify sonar:sonar
-          # mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=germanp24_iso2_project
