@@ -4,6 +4,16 @@ on:
     branches:
       - development
       - fixPomLocation
+      - gen_homePage
+      - gen_menu
+      - gen_registers
+      - admin_page
+      - gen_shoppingCart
+      - gen_deliverMan
+      - sonarCloud
+      - gen_bbdd
+      - gen_login
+      - production
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
