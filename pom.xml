@@ -32,7 +32,6 @@
 		<java.version>21</java.version>
 		<sonar.organization>germanp24</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<sonar.token>dd9a3fab5b195e3053549d10c91712885fe50bd0</sonar.token>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -79,11 +78,17 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
+				<version>3.10.1</version> <!-- Ensure this is the correct version or update to a version
+				that supports Java 21 -->
 				<configuration>
-					<source>17</source>
-					<target>17</target>
+					<source>21</source>
+					<target>21</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>5.0.0.4389</version> <!-- Especifica la versión del plugin -->
 			</plugin>
 		</plugins>
 	</build>
