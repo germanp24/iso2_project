@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Administrador</title>
+    <link rel="stylesheet" href="/admin/adminStyles.css">
+
+</head>
+
+<body>
+    <header>
+        <img src="https://i.postimg.cc/QdkWSRwp/Dise-o-sin-t-tulo-removebg-preview.png" alt="Logo de la empresa"
+            class="logo">
+        <nav>
+            <div class="language-selector">
+                <select id="language" name="language">
+                    <option value="es">Español</option>
+                    <option value="en">English</option>
+                    <option value="fr">Français</option>
+                    <!-- Agrega más opciones según lo necesites -->
+                </select>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="letters-container">
+            <h1>¡Conéctate y administra tu empresa!</h1>
+            <div class="register-container">
+                <h2>Completa el formulario para empezar a ser nuestro Administrador</h2>
+                <form th:action="@{/registerAdmin}" th:object="${registerAdmin}" method="post">
+                    <input type="text" th:field="*{dni}" placeholder="DNI" required>
+                    <input type="text" th:field="*{name}" placeholder="Nombre" required>
+                    <input type="text" th:field="*{surnames}" placeholder="Apellidos" required>
+                    <input type="email" name="email" placeholder="Correo electrónico" required>
+                    <input type="password" name="password" placeholder="Contraseña" required>
+                    <div>
+                        <input type="submit" id="registrarse" value="Registrarse">
+                    </div>
+                </form>
+                <div class="login-link">
+                    ¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>
