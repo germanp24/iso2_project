@@ -85,6 +85,11 @@
 					<target>21</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>5.0.0.4389</version> <!-- Especifica la versión del plugin -->
+			</plugin>
 		</plugins>
 	</build>
 
