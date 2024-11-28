@@ -46,7 +46,8 @@ public class DeliveryManController {
         model.addAttribute(REG_DELIVMAN, deliveryMan);
         model.addAttribute("successMessage", "DeliveryMan registrado con éxito!");
 
-        log.info("Cliente registrado con éxito. Repartidor: {}, Usuario ID: {}", deliveryMan.getName(), usuary.getEmail());
+        log.info("Cliente registrado con éxito. Repartidor ID: {}, Usuario ID: {}", deliveryMan.getIdDeliveryMan(),
+                usuary.getIdUsuary());
 
         return REG_DELIVMAN;
     }

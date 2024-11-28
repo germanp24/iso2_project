@@ -49,8 +49,8 @@ public class RestaurantAdministratorController {
         model.addAttribute(REG_ADMIN, restaurantAdministrator);
         model.addAttribute("successMessage", "restaurantAdministrator saved successfully!");
 
-        log.info("Saved deliveryService: {}, Usuario: {}", restaurantAdministrator.getName(), usuary.getEmail());
-
+        log.info("Saved deliveryService: {}, Usuario ID: {}", restaurantAdministrator.getId_admin(),
+                usuary.getIdUsuary());
         return REG_ADMIN;
     }
 }

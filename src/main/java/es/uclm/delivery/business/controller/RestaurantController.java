@@ -50,7 +50,7 @@ public class RestaurantController {
         Restaurant savedRestaurant = restaurantDAO.save(restaurant);
         model.addAttribute(CIF_RESTAURANT, savedRestaurant);
         model.addAttribute("successMessage", "¡Restaurante guardado con éxito!");
-        log.info("Restaurante guardado:", savedRestaurant);
+        log.info("Restaurante guardado: {}", savedRestaurant);
 
         return CIF_RESTAURANT;
     }
