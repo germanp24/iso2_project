@@ -48,7 +48,7 @@ public class ClientController {
         model.addAttribute(REG_CLIENT, client);
         model.addAttribute("successMessage", "Client registrado con éxito!");
 
-        log.info("Cliente y usuario registrado: {} {}", client, usuary);
+        log.info("Cliente registrado con éxito. Cliente: {}, Usuario ID: {}", client.getName(), usuary.getEmail());
 
         return REG_CLIENT;
     }

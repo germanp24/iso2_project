@@ -49,7 +49,7 @@ public class RestaurantAdministratorController {
         model.addAttribute(REG_ADMIN, restaurantAdministrator);
         model.addAttribute("successMessage", "restaurantAdministrator saved successfully!");
 
-        log.info("Saved deliveryService: {} {}", restaurantAdministrator, usuary);
+        log.info("Saved deliveryService: {}, Usuario: {}", restaurantAdministrator.getName(), usuary.getEmail());
 
         return REG_ADMIN;
     }

@@ -13,14 +13,14 @@ import jakarta.persistence.OneToOne;
 public class Usuary {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_usuary;
+    private Long idUsuary;
 
     @Column
     private String password;
 
     @Column
     private String email;
-    
+
     @Column
     private String role;
 
@@ -34,10 +34,11 @@ public class Usuary {
     private RestaurantAdministrator restaurantAdministrator;
 
     public Usuary() {
-        
+
     }
 
-    public Usuary(String password, String email, String role, Client client, DeliveryMan deliveryMan, RestaurantAdministrator restaurantAdministrator) {
+    public Usuary(String password, String email, String role, Client client, DeliveryMan deliveryMan,
+            RestaurantAdministrator restaurantAdministrator) {
         this.password = password;
         this.email = email;
         this.role = role;
@@ -47,12 +48,12 @@ public class Usuary {
 
     }
 
-    public Long getId_usuary() {
-        return id_usuary;
+    public Long getIdUsuary() {
+        return idUsuary;
     }
 
-    public void setId_usuary(Long id_usuary) {
-        this.id_usuary = id_usuary;
+    public void setIdUsuary(Long idUsuary) {
+        this.idUsuary = idUsuary;
     }
 
     public String getPassword() {
@@ -105,7 +106,7 @@ public class Usuary {
 
     @Override
     public String toString() {
-        return String.format( "Usuary [email=%s, id_usuary=%s, password=%s, role=%s]", email, id_usuary, password, role);
+        return String.format("Usuary [email=%s, id_usuary=%s, password=%s, role=%s]", email, idUsuary, password, role);
     }
 
 }

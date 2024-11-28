@@ -43,14 +43,14 @@ public class RestaurantController {
         if (existingRestaurant != null) {
             model.addAttribute(CIF_RESTAURANT, restaurant);
             model.addAttribute("successMessage", "¡El CIF ya está registrado!");
-            log.warn("Intento de registro con un CIF duplicado: {}", restaurant.getCif());
+            log.warn("Intento de registro con un CIF duplicado:");
             return CIF_RESTAURANT;
         }
 
         Restaurant savedRestaurant = restaurantDAO.save(restaurant);
         model.addAttribute(CIF_RESTAURANT, savedRestaurant);
         model.addAttribute("successMessage", "¡Restaurante guardado con éxito!");
-        log.info("Restaurante guardado: {}", savedRestaurant);
+        log.info("Restaurante guardado:", savedRestaurant);
 
         return CIF_RESTAURANT;
     }
