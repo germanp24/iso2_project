@@ -4,7 +4,6 @@ import es.uclm.delivery.business.entity.DeliveryService;
 import es.uclm.delivery.persistence.DeliveryServiceDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,17 +13,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class DeliveryServiceController {
 
-    private static final Logger log = LoggerFactory.getLogger(DeliveryService.class);
+    private static final Logger log = LoggerFactory.getLogger(DeliveryServiceController.class);
 
-    @Autowired
-    private DeliveryServiceDAO deliveryServiceDAO;
+    private final DeliveryServiceDAO deliveryServiceDAO;
+
+    public DeliveryServiceController(DeliveryServiceDAO deliveryServiceDAO) {
+        this.deliveryServiceDAO = deliveryServiceDAO;
+    }
 
     @GetMapping("/deliveryService")
-    public String DeliveryServiceForm(Model model) {
+    public String deliveryServiceForm(Model model) {
 
         model.addAttribute("deliveryService", new DeliveryService());
-
-        log.info(deliveryServiceDAO.findAll().toString());
+        if (log.isInfoEnabled()) {
+            log.info(deliveryServiceDAO.findAll().toString());
+        }
 
         return "deliveryService_form";
     }
@@ -37,7 +40,7 @@ public class DeliveryServiceController {
         model.addAttribute("deliveryService", saveddeliveryService);
         model.addAttribute("successMessage", "deliveryService saved successfully!");
 
-        log.info("Saved deliveryService: " + saveddeliveryService);
+        log.info("Saved deliveryService: {}", saveddeliveryService);
 
         return "deliveryService_form";
     }
