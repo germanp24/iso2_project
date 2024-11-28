@@ -3,10 +3,8 @@ package es.uclm.delivery.business.controller;
 import es.uclm.delivery.business.entity.Client;
 import es.uclm.delivery.business.entity.Usuary;
 import es.uclm.delivery.persistence.ClientDAO;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,18 +16,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ClientController {
 
     private static final Logger log = LoggerFactory.getLogger(ClientController.class);
+    private static final String REG_CLIENT = "registerClient";
 
-    @Autowired
-    private ClientDAO clientDAO;
+    private final ClientDAO clientDAO;
+
+    public ClientController(ClientDAO clientDAO) {
+        this.clientDAO = clientDAO;
+    }
 
     @GetMapping("/registerClient")
     public String clientForm(Model model) {
 
-        model.addAttribute("registerClient", new Client());
+        model.addAttribute(REG_CLIENT, new Client());
 
-        log.info(clientDAO.findAll().toString());
+        if (log.isInfoEnabled()) {
+            log.info(clientDAO.findAll().toString());
+        }
 
-        return "registerClient";
+        return REG_CLIENT;
 
     }
 
@@ -39,15 +43,14 @@ public class ClientController {
 
         Usuary usuary = new Usuary(password, email, "CLIENT", client, null, null);
 
-        // Guardar el cliente y el usuario
         client.setUsuary(usuary); // Enlaza el cliente con Usuary
         clientDAO.save(client);
 
-        model.addAttribute("registerClient", client);
+        model.addAttribute(REG_CLIENT, client);
         model.addAttribute("successMessage", "Client registrado con éxito!");
 
-        log.info("Cliente y usuario registrado: " + client + " " + usuary);
+        log.info("Cliente y usuario registrado: {} {}", client, usuary);
 
-        return "registerClient";
+        return REG_CLIENT;
     }
 }

@@ -4,7 +4,6 @@ import es.uclm.delivery.business.entity.MenuItem;
 import es.uclm.delivery.persistence.MenuItemDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,17 +13,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class MenuItemController {
 
-    private static final Logger log = LoggerFactory.getLogger(MenuItem.class);
+    private static final Logger log = LoggerFactory.getLogger(MenuItemController.class);
 
-    @Autowired
-    private MenuItemDAO menuItemDAO;
+    private final MenuItemDAO menuItemDAO;
+
+    public MenuItemController(MenuItemDAO menuItemDAO) {
+        this.menuItemDAO = menuItemDAO;
+    }
 
     @GetMapping("/menuRestaurants")
-    public String MenuItemForm(Model model) {
+    public String menuItemForm(Model model) {
 
         model.addAttribute("menuItem", new MenuItem());
 
-        log.info(menuItemDAO.findAll().toString());
+        if (log.isInfoEnabled()) {
+            log.info(menuItemDAO.findAll().toString());
+        }
 
         return "menuRestaurants";
     }
