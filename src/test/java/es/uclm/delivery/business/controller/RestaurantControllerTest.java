@@ -1,82 +1,105 @@
 package es.uclm.delivery.business.controller;
 
+import es.uclm.delivery.business.controller.RestaurantController;
 import es.uclm.delivery.business.entity.Restaurant;
 import es.uclm.delivery.persistence.RestaurantDAO;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.ui.Model;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+@WebMvcTest(RestaurantController.class)
 class RestaurantControllerTest {
 
-    private RestaurantDAO restaurantDAO; // Mock del DAO
-    private RestaurantController restaurantController; // Controlador a probar
-    private Model model; // Mock para el modelo
+    @Autowired
+    private MockMvc mockMvc;
 
-    @BeforeEach
-    void setUp() {
-        restaurantDAO = mock(RestaurantDAO.class); // Simulación del DAO
-        restaurantController = new RestaurantController(restaurantDAO); // Inyectamos el DAO simulado al controlador
-        model = mock(Model.class); // Simulación del modelo
+    @MockBean
+    private RestaurantDAO restaurantDAO;
+
+    @Test
+    void testRestaurantForm() throws Exception {
+        Mockito.when(restaurantDAO.findAll()).thenReturn(Collections.emptyList());
+
+        mockMvc.perform(get("/cifRestaurant"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("cifRestaurant"))
+                .andExpect(view().name("cifRestaurant"));
     }
 
     @Test
-    void testRestaurantForm() {
-        // Configuración de los mocks
-        when(restaurantDAO.findAll()).thenReturn(new ArrayList<>());
-
-        // Llamada al método
-        String viewName = restaurantController.restaurantForm(model);
-
-        // Verificaciones
-        verify(model).addAttribute(eq("cifRestaurant"), any(Restaurant.class)); // Se añade la entidad al modelo
-        verify(restaurantDAO).findAll(); // Se llama al método DAO
-        assertEquals("cifRestaurant", viewName); // Verificamos la vista retornada
-    }
-
-    @Test
-    void testRestaurantSubmit_WithExistingRestaurant() {
-        // Configuración del mock
-        Restaurant existingRestaurant = new Restaurant();
-        existingRestaurant.setCif("12345678A");
-
-        when(restaurantDAO.findByCif("12345678A")).thenReturn(existingRestaurant);
-
+    void testRestaurantSubmit_WithDuplicateCIF() throws Exception {
         Restaurant restaurant = new Restaurant();
-        restaurant.setCif("12345678A");
+        restaurant.setCif("12345");
+        restaurant.setName("Restaurante 1");
 
-        // Llamada al método
-        String viewName = restaurantController.restaurantSubmit(restaurant, model);
+        Mockito.when(restaurantDAO.findByCif("12345")).thenReturn(restaurant);
 
-        // Verificaciones
-        verify(model).addAttribute("cifRestaurant", restaurant);
-        verify(model).addAttribute("successMessage", "¡El CIF ya está registrado!");
-        verify(restaurantDAO).findByCif("12345678A");
-        assertEquals("cifRestaurant", viewName); // Validamos que la vista sea la esperada
+        mockMvc.perform(post("/cifRestaurant")
+                        .param("cif", "12345")
+                        .param("name", "Restaurante 1"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("cifRestaurant"))
+                .andExpect(model().attribute("successMessage", "¡El CIF ya está registrado!"))
+                .andExpect(view().name("cifRestaurant"));
     }
 
     @Test
-    void testRestaurantSubmit_WithNewRestaurant() {
-        // Configuración del mock
-        Restaurant newRestaurant = new Restaurant();
-        newRestaurant.setCif("87654321B");
+    void testRestaurantSubmit_WithNewCIF() throws Exception {
+        Restaurant restaurant = new Restaurant();
+        restaurant.setCif("54321");
+        restaurant.setName("Restaurante Nuevo");
 
-        when(restaurantDAO.findByCif("87654321B")).thenReturn(null);
-        when(restaurantDAO.save(newRestaurant)).thenReturn(newRestaurant);
+        Mockito.when(restaurantDAO.findByCif("54321")).thenReturn(null);
+        Mockito.when(restaurantDAO.save(any(Restaurant.class))).thenReturn(restaurant);
 
-        // Llamada al método
-        String viewName = restaurantController.restaurantSubmit(newRestaurant, model);
+        mockMvc.perform(post("/cifRestaurant")
+                        .param("cif", "54321")
+                        .param("name", "Restaurante Nuevo"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("cifRestaurant"))
+                .andExpect(model().attribute("successMessage", "¡Restaurante guardado con éxito!"))
+                .andExpect(view().name("cifRestaurant"));
+    }
 
-        // Verificaciones
-        verify(model).addAttribute("cifRestaurant", newRestaurant);
-        verify(model).addAttribute("successMessage", "¡Restaurante guardado con éxito!");
-        verify(restaurantDAO).save(newRestaurant);
-        assertEquals("cifRestaurant", viewName); // Validamos la vista retornada
+    @Test
+    void testShowRestaurants_WithSearch() throws Exception {
+        Restaurant restaurant = new Restaurant();
+        restaurant.setName("Restaurante A");
+
+        Mockito.when(restaurantDAO.findAll()).thenReturn(List.of(restaurant));
+
+        mockMvc.perform(get("/restaurants").param("search", "A"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("restaurants"))
+                .andExpect(model().attribute("searchKeyword", "A"))
+                .andExpect(view().name("restaurants"));
+    }
+
+    @Test
+    void testShowRestaurants_WithoutSearch() throws Exception {
+        Restaurant restaurant = new Restaurant();
+        restaurant.setName("Restaurante B");
+
+        Mockito.when(restaurantDAO.findAll()).thenReturn(List.of(restaurant));
+
+        mockMvc.perform(get("/restaurants"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("restaurants"))
+                .andExpect(view().name("restaurants"));
     }
 }
