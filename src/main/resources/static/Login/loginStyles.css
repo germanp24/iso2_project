@@ -3,6 +3,7 @@ body {
     font-family: 'Helvetica', sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #FFF3E0;
 }
 
 header {
@@ -59,14 +60,6 @@ main {
 h2 {
     line-height: 2.5rem;
     font-size: 28px;
-    flex-basis: 0px;
-    text-align: center;
-    font-family: 'Averta', sans-serif;
-}
-
-h1 {
-    line-height: 3.4rem;
-    font-size: 50px;
     flex-basis: 0px;
     text-align: center;
     font-family: 'Averta', sans-serif;

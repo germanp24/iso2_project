@@ -21,7 +21,7 @@ public class IndexController {
     }
 
     @PostMapping("/index")
-    public String indexSubmit(@ModelAttribute Index index, Model model) {
+    public String indexSubmit(@ModelAttribute Index index) {
 
         return INDEX;
     }

@@ -58,7 +58,6 @@ h2 {
     flex-basis: 0px;
     text-align: center;
     font-family: 'Averta', sans-serif;
-    align-items: justify;
 }
 
 h1 {
@@ -67,7 +66,6 @@ h1 {
     flex-basis: 0px;
     text-align: center;
     font-family: 'Averta', sans-serif;
-    align-items: justify;
 }
 
 /* Formulario */

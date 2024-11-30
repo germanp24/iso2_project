@@ -12,7 +12,7 @@
         <input type="text" id="name" th:field="*{name}" required>
         <br>
         <label for="address">Dirección:</label>
-        <input type="text" id="address" th:field="*{address}" required>
+        <input type="text" id="address" th:field="*{getLocality()}" required>
         <br>
         <input type="submit" value="Actualizar">
     </form>

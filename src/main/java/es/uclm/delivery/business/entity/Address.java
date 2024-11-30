@@ -13,16 +13,10 @@ public class Address {
     private Long idAddress;
 
     @Column
-    private String orderNumber;
-
-    @Column
     private String street;
 
     @Column
     private String number;
-
-    @Column
-    private String complement;
 
     @Column
     private int zipcode;
@@ -34,13 +28,11 @@ public class Address {
 
     }
 
-    public Address(String street, String number, String complement, int zipcode, String town, String orderNumber) {
+    public Address(String street, String number, String town, int zipcode) {
         this.street = street;
         this.number = number;
-        this.complement = complement;
         this.zipcode = zipcode;
         this.town = town;
-        this.orderNumber = orderNumber;
     }
 
     public String getStreet() {
@@ -59,14 +51,6 @@ public class Address {
         this.number = number;
     }
 
-    public String getComplement() {
-        return complement;
-    }
-
-    public void setComplement(String complement) {
-        this.complement = complement;
-    }
-
     public int getZipcode() {
         return zipcode;
     }
@@ -83,21 +67,13 @@ public class Address {
         this.town = town;
     }
 
-    public String getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
-    }
-
     public Long getIdAddress() { return idAddress; }
     public void setIdAddress(Long idAddress) {  this.idAddress = idAddress; }
 
     @Override
     public String toString() {
-        return String.format("Address [orderNumber=%s, street=%s, number=%s, complement=%s, zipcode=%s, town=%s, idAddress=%s]",
-                orderNumber, street, number, complement, zipcode, town,idAddress);
+        return String.format("Address [street=%s, number=%s, town=%s, zipcode=%s, idAddress=%s]"
+                , street, number,town , zipcode ,idAddress);
     }
 
 }

@@ -14,7 +14,7 @@ header {
     position: fixed;
     width: 100%;
     z-index: 1000;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 main {
@@ -51,19 +51,15 @@ main {
 h2 {
     line-height: 2.5rem;
     font-size: 28px;
-    flex-basis: 0px;
     text-align: center;
     font-family: 'Averta', sans-serif;
-    align-items: justify;
 }
 
 h1 {
     line-height: 2.5rem;
     font-size: 50px;
-    flex-basis: 0px;
     text-align: center;
     font-family: 'Averta', sans-serif;
-    align-items: justify;
 }
 
 /* Formulario */
@@ -101,7 +97,7 @@ input[disabled] {
     background-color: #F57C00;
     color: rgb(232, 232, 232);
     cursor: not-allowed;
-    size: 50px;
+    /*size: 50px;*/
     align-self: stretch;
     font-weight: 500;
 

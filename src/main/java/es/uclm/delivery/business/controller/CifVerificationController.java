@@ -39,7 +39,7 @@ public class CifVerificationController {
         if (restaurant != null) {
             if ("admin".equals(type)) {
                 return "redirect:/registerAdmin";
-            } else if ("deliv".equals(type)) {
+            } else {
                 return "redirect:/registerDeliv";
             }
         }

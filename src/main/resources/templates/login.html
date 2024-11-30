@@ -3,72 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loginr</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .register-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        input[type="text"], input[type="email"], input[type="password"] {
-            width: 95%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #218838;
-        }
-        .login-link {
-            text-align: center;
-            margin-top: 10px;
-        }
-        .login-link a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        .login-link a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <title>Login</title>
+    <link rel="stylesheet" href="/Login/loginStyles.css">
 </head>
 <body>
-    <div class="login-container">
+<header>
+    <img src="https://i.postimg.cc/QdkWSRwp/Dise-o-sin-t-tulo-removebg-preview.png" alt="Logo de la empresa"
+         class="logo">
+    <nav>
+        <div class="language-selector">
+            <select id="language" name="language">
+                <option value="es">Español</option>
+                <option value="en">English</option>
+                <option value="fr">Français</option>
+            </select>
+        </div>
+    </nav>
+</header>
+<main>
+    <div class="letters-container">
         <h2>Login</h2>
+        <div class="register-container">
         <form th:action="@{/login}" method="post">
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Contraseña" required>
             <input type="submit" value="Iniciar Sesión">
-        </form>               
+        </form>
         <p th:if="${error}" th:text="${error}" style="color:red;"></p>
-        <div class="register-link">
-            ¿Todavía no tienes una cuenta? <a href="/registerClient">Regístrate aquí</a>            
+
+            <div class="login-link">
+                ¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a>
+            </div>
         </div>
     </div>
+</main>
 </body>
 </html>
