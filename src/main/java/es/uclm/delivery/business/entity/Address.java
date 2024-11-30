@@ -1,12 +1,13 @@
 package es.uclm.delivery.business.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Address {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idAddress;
+
     @Column
     private String orderNumber;
 
@@ -86,10 +87,13 @@ public class Address {
         this.orderNumber = orderNumber;
     }
 
+    public Long getIdAddress() { return idAddress; }
+    public void setIdAddress(Long idAddress) {  this.idAddress = idAddress; }
+
     @Override
     public String toString() {
-        return String.format("Address [orderNumber=%s, street=%s, number=%s, complement=%s, zipcode=%s, town=%s]",
-                orderNumber, street, number, complement, zipcode, town);
+        return String.format("Address [orderNumber=%s, street=%s, number=%s, complement=%s, zipcode=%s, town=%s, idAddress=%s]",
+                orderNumber, street, number, complement, zipcode, town,idAddress);
     }
 
 }
