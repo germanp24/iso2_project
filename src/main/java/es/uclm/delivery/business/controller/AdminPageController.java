@@ -32,7 +32,7 @@ public class AdminPageController {
     }
 
     @PostMapping("/updateRestaurant/{id}")
-    public String updateRestaurant(@PathVariable("id") String id, @ModelAttribute Restaurant restaurant, Model model) {
+    public String updateRestaurant(@PathVariable("id") String   id, @ModelAttribute Restaurant restaurant, Model model) {
         restaurantDAO.save(restaurant);
         return "redirect:/adminPage";
     }

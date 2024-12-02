@@ -8,6 +8,6 @@ class DeliveryApplicationTests {
 
 	@Test
 	void contextLoads() {
+		// Esta prueba verifica que el contexto de Spring Boot se carga correctamente.
 	}
-
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class IndexController {
 
-    private static final String INDEX = "verifyCif";
+    private static final String INDEX = "index";
 
     @GetMapping("/index")
     public String indexForm(Model model) {

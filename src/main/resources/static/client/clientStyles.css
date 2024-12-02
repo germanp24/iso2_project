@@ -16,9 +16,7 @@ header {
     position: fixed;
     /* Fija el header en la parte superior */
     width: 100%;
-    /* Asegura que ocupe todo el ancho */
     z-index: 1000;
-    /* Asegura que esté por encima del contenido */
     box-shadow: 0px 2px 5px rgba(255, 161, 89, 0.8);
 }
 
