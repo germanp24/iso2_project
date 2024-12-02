@@ -19,17 +19,10 @@ public class AdminPageController {
     }
 
     @GetMapping("/adminPage")
-    public String showAdminPage(Model model) {
+    public String showAdminPage() {
         return "adminPage";
     }
 
-    @GetMapping("/editRestaurant/{id}")
-    public String showEditRestaurantForm(@PathVariable("id") String id, Model model) {
-        Restaurant restaurant = restaurantDAO.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid restaurant Id:" + id));
-        model.addAttribute("restaurant", restaurant);
-        return "editRestaurant";
-    }
 
     @PostMapping("/updateRestaurant/{id}")
     public String updateRestaurant(@PathVariable("id") String   id, @ModelAttribute Restaurant restaurant, Model model) {
