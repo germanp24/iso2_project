@@ -64,16 +64,16 @@ class AddressDAOTest {
 
     @Test
     void testUpdateAddress() {
-        // Crear y guardar un Address
+
         Address address = new Address("Old Street", "321", "Gotham", 98765);
         Address savedAddress = addressDAO.save(address);
 
-        // Actualizar datos del Address
+
         savedAddress.setTown("Metropolis");
         savedAddress.setZipcode(65432);
         addressDAO.save(savedAddress);
 
-        // Validar los cambios
+
         Optional<Address> updatedAddress = addressDAO.findById(savedAddress.getIdAddress().toString());
         assertTrue(updatedAddress.isPresent());
         assertEquals("Metropolis", updatedAddress.get().getTown());

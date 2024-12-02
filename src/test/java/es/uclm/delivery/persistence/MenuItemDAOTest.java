@@ -17,19 +17,16 @@ class MenuItemDAOTest {
 
     @Test
     void testSaveAndRetrieveMenuItem() {
-        // Crear un elemento del menú
+
         MenuItem menuItem = new MenuItem("Pizza Margherita", 8.99, "Main Course");
 
-        // Guardar el elemento
         MenuItem savedMenuItem = menuItemDAO.save(menuItem);
 
-        // Verificar que fue guardado correctamente
         assertNotNull(savedMenuItem);
         assertEquals("Pizza Margherita", savedMenuItem.getFoodName());
         assertEquals(8.99, savedMenuItem.getPrice());
         assertEquals("Main Course", savedMenuItem.getCategory());
 
-        // Buscar por nombre
         Optional<MenuItem> foundMenuItem = menuItemDAO.findById("Pizza Margherita");
         assertTrue(foundMenuItem.isPresent());
         assertEquals("Main Course", foundMenuItem.get().getCategory());
@@ -37,29 +34,23 @@ class MenuItemDAOTest {
 
     @Test
     void testDeleteMenuItem() {
-        // Crear y guardar un elemento
-        MenuItem menuItem = new MenuItem("Spaghetti Bolognese", 12.50, "Main Course");
+        MenuItem menuItem = new MenuItem("Spaghetti", 12.50, "Main Course");
         menuItemDAO.save(menuItem);
 
-        // Eliminar el elemento
-        menuItemDAO.deleteById("Spaghetti Bolognese");
+        menuItemDAO.deleteById("Spaghetti");
 
-        // Verificar que ya no existe
-        Optional<MenuItem> foundMenuItem = menuItemDAO.findById("Spaghetti Bolognese");
+        Optional<MenuItem> foundMenuItem = menuItemDAO.findById("Spaghetti");
         assertFalse(foundMenuItem.isPresent());
     }
 
     @Test
     void testUpdateMenuItem() {
-        // Crear y guardar un elemento
         MenuItem menuItem = new MenuItem("Salad", 5.99, "Starter");
         menuItemDAO.save(menuItem);
 
-        // Actualizar el precio
         menuItem.setPrice(6.50);
         menuItemDAO.save(menuItem);
 
-        // Verificar los cambios
         Optional<MenuItem> updatedMenuItem = menuItemDAO.findById("Salad");
         assertTrue(updatedMenuItem.isPresent());
         assertEquals(6.50, updatedMenuItem.get().getPrice());
@@ -67,11 +58,9 @@ class MenuItemDAOTest {
 
     @Test
     void testFindAllMenuItems() {
-        // Crear y guardar varios elementos
         menuItemDAO.save(new MenuItem("Soup", 4.99, "Starter"));
         menuItemDAO.save(new MenuItem("Steak", 15.99, "Main Course"));
 
-        // Verificar que se recuperan todos
         assertEquals(2, menuItemDAO.findAll().size());
     }
 }

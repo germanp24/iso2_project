@@ -18,7 +18,6 @@ class DeliveryServiceDAOTest {
 
     @Test
     void testSaveAndRetrieveDeliveryService() {
-        // Crear un DeliveryService
         DeliveryService deliveryService = new DeliveryService(
                 "DS123",
                 "12345678A",
@@ -27,15 +26,13 @@ class DeliveryServiceDAOTest {
                 LocalDateTime.of(2024, 12, 1, 15, 30)
         );
 
-        // Guardar en el repositorio
+
         DeliveryService savedDeliveryService = deliveryServiceDAO.save(deliveryService);
 
-        // Validar que fue guardado correctamente
         assertNotNull(savedDeliveryService.getDeliveryNumber());
         assertEquals("12345678A", savedDeliveryService.getNif());
         assertEquals("ORD001", savedDeliveryService.getOrderNumber());
 
-        // Recuperar por ID
         Optional<DeliveryService> foundDeliveryService = deliveryServiceDAO.findById("DS123");
         assertTrue(foundDeliveryService.isPresent());
         assertEquals("ORD001", foundDeliveryService.get().getOrderNumber());
@@ -43,7 +40,6 @@ class DeliveryServiceDAOTest {
 
     @Test
     void testDeleteDeliveryService() {
-        // Crear y guardar un DeliveryService
         DeliveryService deliveryService = new DeliveryService(
                 "DS124",
                 "87654321B",
@@ -53,17 +49,15 @@ class DeliveryServiceDAOTest {
         );
         deliveryServiceDAO.save(deliveryService);
 
-        // Eliminar el DeliveryService
         deliveryServiceDAO.deleteById("DS124");
 
-        // Validar que ya no existe
         Optional<DeliveryService> foundDeliveryService = deliveryServiceDAO.findById("DS124");
         assertFalse(foundDeliveryService.isPresent());
     }
 
     @Test
     void testFindAllDeliveryServices() {
-        // Crear y guardar varios DeliveryServices
+
         DeliveryService ds1 = new DeliveryService(
                 "DS125",
                 "11111111C",
@@ -82,13 +76,11 @@ class DeliveryServiceDAOTest {
         deliveryServiceDAO.save(ds1);
         deliveryServiceDAO.save(ds2);
 
-        // Validar que se pueden recuperar todos
         assertEquals(2, deliveryServiceDAO.findAll().size());
     }
 
     @Test
     void testUpdateDeliveryService() {
-        // Crear y guardar un DeliveryService
         DeliveryService deliveryService = new DeliveryService(
                 "DS127",
                 "33333333E",
@@ -98,11 +90,9 @@ class DeliveryServiceDAOTest {
         );
         deliveryServiceDAO.save(deliveryService);
 
-        // Actualizar la fecha de entrega
         deliveryService.setDeliveryDate(LocalDateTime.of(2024, 12, 5, 8, 30));
         deliveryServiceDAO.save(deliveryService);
 
-        // Validar los cambios
         Optional<DeliveryService> updatedDeliveryService = deliveryServiceDAO.findById("DS127");
         assertTrue(updatedDeliveryService.isPresent());
         assertEquals(LocalDateTime.of(2024, 12, 5, 8, 30), updatedDeliveryService.get().getDeliveryDate());
