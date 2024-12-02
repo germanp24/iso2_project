@@ -32,6 +32,7 @@
 		<java.version>21</java.version>
 		<sonar.organization>germanp24</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.sources>src/main/java,src/main/resources</sonar.sources>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -117,6 +118,7 @@
 				<artifactId>sonar-maven-plugin</artifactId>
 				<version>5.0.0.4389</version> <!-- Especifica la versión del plugin -->
 			</plugin>
+
 		</plugins>
 	</build>
 
