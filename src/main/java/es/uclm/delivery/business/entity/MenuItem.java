@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 public class MenuItem {
     @Id
     @Column
-    private String food_name;
+    private String foodName;
 
     @Column
     private double price;
@@ -17,21 +17,21 @@ public class MenuItem {
     private String category;
 
     public MenuItem() {
-        
+
     }
 
-    public MenuItem(String food_name, double price, String category) {
-        this.food_name = food_name;
+    public MenuItem(String foodName, double price, String category) {
+        this.foodName = foodName;
         this.price = price;
         this.category = category;
     }
 
-    public String getFood_name() {
-        return food_name;
+    public String getFoodName() {
+        return foodName;
     }
 
-    public void setFood_name(String food_name) {
-        this.food_name = food_name;
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
     }
 
     public double getPrice() {
@@ -52,7 +52,7 @@ public class MenuItem {
 
     @Override
     public String toString() {
-        return String.format("MenuItem [food_name=%s, price=%s, category=%s]", food_name, price, category);
+        return String.format("MenuItem [food_name=%s, price=%s, category=%s]", foodName, price, category);
     }
 
 }

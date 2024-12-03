@@ -1,26 +1,15 @@
-        /* Estilos generales */
-
-        /* Estilos para la sección de bienvenida */
-        /* Estilos para la sección de bienvenida (más compacto) */
         #bienvenida {
             padding: 20px 10px;
-            /* Reducir el relleno */
             text-align: center;
             background-color: rgba(255, 255, 255, 0.7);
-            /* Fondo semitransparente */
             border-radius: 10px;
-            /* Esquinas redondeadas */
             max-width: 60%;
-            /* Ajustar el ancho máximo */
             margin: 20px auto;
-            /* Centrar y ajustar el margen */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            /* Sombra ligera */
         }
 
         #bienvenida h2 {
             font-size: 1.8em;
-            /* Reducir el tamaño del título */
             color: #000;
             font-weight: bold;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
@@ -28,18 +17,14 @@
 
         #bienvenida p {
             font-size: 1em;
-            /* Reducir el tamaño del texto */
             color: #333;
             font-weight: bold;
             line-height: 1.4;
-            /* Ajustar la altura de línea */
             max-width: 500px;
-            /* Reducir el ancho del párrafo */
             margin: 10px auto;
         }
 
 
-        /* Sección de dirección: Cambiado para hacerla coherente con la de bienvenida */
         #buscador-direccion {
             margin: 40px auto;
             max-width: 80%;
@@ -59,17 +44,6 @@
             line-height: 1.6;
         }
 
-        #buscador-direccion input {
-            padding: 12px 15px;
-            font-size: 1em;
-            width: 80%;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-top: 10px;
-            outline: none;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
         #buscador-direccion button {
             padding: 12px 20px;
             font-size: 1em;
@@ -86,11 +60,6 @@
             background-color: #FF8A65;
         }
 
-        #buscador-direccion .icono-gps {
-            font-size: 1.5em;
-            color: #FFB74D;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -103,7 +72,6 @@
             overflow-x: hidden;
         }
 
-        /* Fondo animado */
         body::before {
             content: "";
             position: fixed;
@@ -115,7 +83,6 @@
             animation: moverFondo 40s linear infinite;
             z-index: -1;
             opacity: 0.3;
-            /* Ajusta la opacidad si es necesario */
         }
 
         @keyframes moverFondo {
@@ -128,7 +95,6 @@
             }
         }
 
-        /* Encabezado */
         header {
             background-color: rgba(255, 224, 178, 0.9);
             padding: 20px;
@@ -146,7 +112,6 @@
             color: #555;
         }
 
-        /* Botón de iniciar sesión */
         .login-button {
             position: absolute;
             top: 20px;
@@ -160,7 +125,6 @@
             text-decoration: none;
             font-size: 1em;
             gap: 8px;
-            /* Espaciado entre ícono y texto */
         }
 
         .login-button i {
@@ -171,7 +135,6 @@
             background-color: #FF8A65;
         }
 
-        /* Navegación */
         nav {
             display: flex;
             justify-content: center;
@@ -190,7 +153,6 @@
             text-decoration: underline;
         }
 
-        /* Secciones */
         section {
             padding: 60px 20px;
             text-align: center;
@@ -208,7 +170,6 @@
             margin: 20px auto;
         }
 
-        /* Sección de opciones */
         #opciones-usuario {
             background-color: #FFF3E0;
             padding: 40px 20px;
@@ -257,7 +218,6 @@
             background-color: #FF8A65;
         }
 
-        /* Estilos del buscador de dirección */
         #buscador-direccion {
             margin: 40px auto;
             max-width: 600px;
@@ -281,22 +241,6 @@
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
-        #buscador-direccion button {
-            padding: 12px 20px;
-            font-size: 1em;
-            background-color: #FFB74D;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-left: 10px;
-            transition: background-color 0.3s;
-        }
-
-        #buscador-direccion button:hover {
-            background-color: #FF8A65;
-        }
-
         #buscador-direccion .icono-gps {
             font-size: 1.5em;
             color: #FFB74D;
@@ -307,7 +251,6 @@
             font-size: 1.1em;
             color: #333;
             display: none;
-            /* Ocultar inicialmente */
         }
 
         #direccion-lista {
@@ -340,7 +283,6 @@
             background-color: #FF5722;
         }
 
-        /* Estilos para el botón de ver direcciones */
         #ver-direcciones-btn {
             background-color: #FFB74D;
             color: white;
@@ -355,7 +297,6 @@
             background-color: #FF8A65;
         }
 
-        /* Sección: ¿Cómo hacer un pedido? */
         #como-hacer-pedido {
             background-color: #FFF3E0;
             padding: 40px 20px;
@@ -402,7 +343,6 @@
             line-height: 1.5;
         }
 
-        /* Estilo general para ambas secciones */
         .contenedor {
             display: flex;
             justify-content: center;
@@ -411,7 +351,6 @@
             margin-top: 20px;
         }
 
-        /* Estilo para cada ítem (pasos o opciones) */
         .item {
             background-color: #FFECB3;
             border-radius: 10px;
@@ -421,28 +360,24 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        /* Íconos en la sección "Cómo hacer un pedido" */
         .item i {
             font-size: 2.5em;
             color: #F57C00;
             margin-bottom: 15px;
         }
 
-        /* Títulos de pasos/opciones */
         .item h3 {
             font-size: 1.5em;
             color: #F57C00;
             margin-bottom: 10px;
         }
 
-        /* Texto descriptivo */
         .item p {
             font-size: 1em;
             color: #555;
             line-height: 1.5;
         }
 
-        /* Botones en la sección "Únete a nuestro equipo" */
         .item a {
             display: inline-block;
             margin-top: 10px;
@@ -458,7 +393,6 @@
             background-color: #FF8A65;
         }
 
-        /* Imágenes en la sección "Únete a nuestro equipo" */
         .item img {
             width: 100px;
             margin-bottom: 15px;

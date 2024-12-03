@@ -3,6 +3,7 @@ body {
     font-family: 'Helvetica', sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #FFF3E0;
 }
 
 header {
@@ -10,21 +11,24 @@ header {
     color: white;
     display: flex;
     justify-content: space-between;
+    /* Espacio entre el logo y el selector de idioma */
     align-items: center;
+    /* Alineación vertical */
     position: fixed;
+    /* Fija el header en la parte superior */
     width: 100%;
     z-index: 1000;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    /* Asegura que esté por encima del contenido */
+    box-shadow: 0px 2px 5px rgba(255, 161, 89, 0.8);
 }
 
 main {
-    background: url('https://b2130394.smushcdn.com/2130394/wp-content/uploads/2020/01/cabecera-trabajar-de-repartidor-en-australia.png?lossy=1&strip=1&webp=1') no-repeat center center fixed;
     background-color: #FFF3E0;
     /* Old Lace */
     background-size: cover;
     background-position: 50% -10%;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: flex-start;
     padding: 80px;
     padding-top: 100px;
@@ -36,7 +40,7 @@ main {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 450px;
+    width: 500px;
     margin-right: 50px;
     /* Espacio desde el borde derecho */
 }
@@ -47,7 +51,7 @@ main {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(243, 70, 70, 0.1);
-    width: 500px;
+    width: 550px;
     justify-content: center;
     margin-top: 60px;
 }
@@ -55,14 +59,6 @@ main {
 h2 {
     line-height: 2.5rem;
     font-size: 28px;
-    flex-basis: 0px;
-    text-align: center;
-    font-family: 'Averta', sans-serif;
-}
-
-h1 {
-    line-height: 2.5rem;
-    font-size: 50px;
     flex-basis: 0px;
     text-align: center;
     font-family: 'Averta', sans-serif;
@@ -94,7 +90,7 @@ input[type="submit"] {
     cursor: pointer;
     transition: background-color 0.3s ease;
     align-self: stretch;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 /*boton deshabilitado*/
@@ -125,63 +121,21 @@ input[disabled] {
     text-decoration: underline;
 }
 
-/* Botones de tipo de vehículo */
-.botones-tipo-auto {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
-    height: 113px;
-    align-self: stretch;
-    gap: .5rem;
-    margin: 20px 0;
-}
-
-button.tipo-auto {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-
-button.tipo-auto img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-}
-
-button.tipo-auto.activo {
-    background-color: white;
-    color: white;
-    border-color: #F57C00;
-    box-shadow: 0 0 0 2px #F57C00;
-}
-
-/* Accesibilidad */
 *:disabled {
     opacity: 0.7;
 }
 
-/* Sombra personalizada */
-.shadow-teal-700 {
-    box-shadow: 0 0 10px rgba(255, 183, 77, 0.5);
-}
-
 form>div:last-child {
-    margin-top: 60px;
+    margin-top: 30px;
     margin-bottom: 20px;
 }
-/* Logo */
+
 .logo {
     max-height: 100px;
     padding: 10px;
     margin: 10px;
 }
 
-/* Contenedor del selector de idioma */
 nav .language-selector select {
     background-color: #333;
     color: white;

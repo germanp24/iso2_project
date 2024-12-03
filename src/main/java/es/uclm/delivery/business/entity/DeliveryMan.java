@@ -13,7 +13,7 @@ import jakarta.persistence.OneToOne;
 public class DeliveryMan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_DeliveryMan;
+    private Long idDeliveryMan;
 
     @Column
     private String nif;
@@ -29,7 +29,7 @@ public class DeliveryMan {
 
     @Column
     private int efficiency;
-    
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuary_id")
     private Usuary usuary;
@@ -38,7 +38,7 @@ public class DeliveryMan {
 
     }
 
-    public DeliveryMan(String nif, String name, String surnames, int efficiency, String tipoAuto ,Usuary usuary) {
+    public DeliveryMan(String nif, String name, String surnames, int efficiency, String tipoAuto, Usuary usuary) {
         this.nif = nif;
         this.name = name;
         this.surnames = surnames;
@@ -47,12 +47,12 @@ public class DeliveryMan {
         this.tipoAuto = tipoAuto;
     }
 
-    public Long getId_DeliveryMan() {
-        return id_DeliveryMan;
+    public Long getIdDeliveryMan() {
+        return idDeliveryMan;
     }
 
-    public void setId_DeliveryMan(Long id_DeliveryMan) {
-        this.id_DeliveryMan = id_DeliveryMan;
+    public void setIdDeliveryMan(Long idDeliveryMan) {
+        this.idDeliveryMan = idDeliveryMan;
     }
 
     public String getNif() {
@@ -90,6 +90,7 @@ public class DeliveryMan {
     public String getTransport() {
         return tipoAuto;
     }
+
     public void setTransport(String tipoAuto) {
         this.tipoAuto = tipoAuto;
     }
@@ -104,7 +105,7 @@ public class DeliveryMan {
 
     @Override
     public String toString() {
-        return "DeliveryMan [id_DeliveryMan=" + id_DeliveryMan + ", nif=" + nif + ", name=" + name + ", surnames="
+        return "DeliveryMan [id_DeliveryMan=" + idDeliveryMan + ", nif=" + nif + ", name=" + name + ", surnames="
                 + surnames + ", efficiency=" + efficiency + ", tipoAuto=" + tipoAuto + ", usuary=" + usuary + "]";
     }
 

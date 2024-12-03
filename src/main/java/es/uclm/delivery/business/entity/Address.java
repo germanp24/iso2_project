@@ -2,22 +2,21 @@ package es.uclm.delivery.business.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class Address {
     @Id
-    @Column
-    private String order_number;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idAddress;
 
     @Column
     private String street;
 
     @Column
     private String number;
-
-    @Column
-    private String complement;
 
     @Column
     private int zipcode;
@@ -29,13 +28,11 @@ public class Address {
 
     }
 
-    public Address(String street, String number, String complement, int zipcode, String town, String order_number) {
+    public Address(String street, String number, String town, int zipcode) {
         this.street = street;
         this.number = number;
-        this.complement = complement;
         this.zipcode = zipcode;
         this.town = town;
-        this.order_number = order_number;
     }
 
     public String getStreet() {
@@ -54,14 +51,6 @@ public class Address {
         this.number = number;
     }
 
-    public String getComplement() {
-        return complement;
-    }
-
-    public void setComplement(String complement) {
-        this.complement = complement;
-    }
-
     public int getZipcode() {
         return zipcode;
     }
@@ -78,17 +67,13 @@ public class Address {
         this.town = town;
     }
 
-    public String getOrder_number() {
-        return order_number;
-    }
-
-    public void setOrder_number(String order_number) {
-        this.order_number = order_number;
-    }
+    public Long getIdAddress() { return idAddress; }
+    public void setIdAddress(Long idAddress) {  this.idAddress = idAddress; }
 
     @Override
     public String toString() {
-        return String.format("Address [order_number=%s, street=%s, number=%s, complement=%s, zipcode=%s, town=%s]", order_number, street, number, complement, zipcode, town);
+        return String.format("Address [street=%s, number=%s, town=%s, zipcode=%s, idAddress=%s]"
+                , street, number,town , zipcode ,idAddress);
     }
 
 }

@@ -9,39 +9,38 @@ import jakarta.persistence.Id;
 public class DeliveryService {
     @Id
     @Column
-    private String delivery_number;
+    private String deliveryNumber;
 
     @Column
     private String nif;
 
     @Column
-    private String order_number;
+    private String orderNumber;
 
     @Column
-    private LocalDateTime reception_date;
+    private LocalDateTime receptionDate;
 
     @Column
-    private LocalDateTime delivery_date;
+    private LocalDateTime deliveryDate;
 
     public DeliveryService() {
-
     }
 
-    public DeliveryService(String delivery_number, String nif, String order_number, LocalDateTime reception_date,
-            LocalDateTime delivery_date) {
-        this.delivery_number = delivery_number;
+    public DeliveryService(String deliveryNumber, String nif, String orderNumber, LocalDateTime receptionDate,
+            LocalDateTime deliveryDate) {
+        this.deliveryNumber = deliveryNumber;
         this.nif = nif;
-        this.order_number = order_number;
-        this.reception_date = reception_date;
-        this.delivery_date = delivery_date;
+        this.orderNumber = orderNumber;
+        this.receptionDate = receptionDate;
+        this.deliveryDate = deliveryDate;
     }
 
-    public String getDelivery_number() {
-        return delivery_number;
+    public String getDeliveryNumber() {
+        return deliveryNumber;
     }
 
-    public void setDelivery_number(String delivery_number) {
-        this.delivery_number = delivery_number;
+    public void setDeliveryNumber(String deliveryNumber) {
+        this.deliveryNumber = deliveryNumber;
     }
 
     public String getNif() {
@@ -52,33 +51,35 @@ public class DeliveryService {
         this.nif = nif;
     }
 
-    public String getOrder_number() {
-        return order_number;
+    public String getOrderNumber() {
+        return orderNumber;
     }
 
-    public void setOrder_number(String order_number) {
-        this.order_number = order_number;
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
-    public LocalDateTime getReception_date() {
-        return reception_date;
+    public LocalDateTime getReceptionDate() {
+        return receptionDate;
     }
 
-    public void setReception_date(LocalDateTime reception_date) {
-        this.reception_date = reception_date;
+    public void setReceptionDate(LocalDateTime receptionDate) {
+        this.receptionDate = receptionDate;
     }
 
-    public LocalDateTime getDelivery_date() {
-        return delivery_date;
+    public LocalDateTime getDeliveryDate() {
+        return deliveryDate;
     }
 
-    public void setDelivery_date(LocalDateTime delivery_date) {
-        this.delivery_date = delivery_date;
+    public void setDeliveryDate(LocalDateTime deliveryDate) {
+        this.deliveryDate = deliveryDate;
     }
 
     @Override
     public String toString() {
-        return String.format("DeliveryService [delivery_number=%s, nif=%s, order_number=%s, reception_date=%s, delivery_date=%s]", delivery_number, nif, order_number, reception_date, delivery_date);
+        return String.format(
+                "DeliveryService [delivery_number=%s, nif=%s, order_number=%s, reception_date=%s, delivery_date=%s]",
+                deliveryNumber, nif, orderNumber, receptionDate, deliveryDate);
     }
 
 }

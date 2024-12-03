@@ -9,6 +9,8 @@ import es.uclm.delivery.business.entity.Usuary;
 @Repository
 public interface UsuaryDAO extends JpaRepository<Usuary, Long> {
     Optional<Usuary> findByEmailAndPassword(String email, String password);
+    // Nuevo método
+    boolean existsByEmail(String email);
 
     /*
      * Se hereda de JpaRepository operaciones de acceso a datos comunes a todas las

@@ -16,9 +16,7 @@ header {
     position: fixed;
     /* Fija el header en la parte superior */
     width: 100%;
-    /* Asegura que ocupe todo el ancho */
     z-index: 1000;
-    /* Asegura que esté por encima del contenido */
     box-shadow: 0px 2px 5px rgba(255, 161, 89, 0.8);
 }
 
@@ -62,7 +60,6 @@ h2 {
     flex-basis: 0px;
     text-align: center;
     font-family: 'Averta', sans-serif;
-    align-items: justify;
 }
 
 h1 {
@@ -71,7 +68,6 @@ h1 {
     flex-basis: 0px;
     text-align: center;
     font-family: 'Averta', sans-serif;
-    align-items: justify;
 }
 
 /* Formulario */
@@ -115,7 +111,7 @@ input[disabled] {
 
 }
 
-/* Enlace de inicio de sesión */
+
 .login-link {
     text-align: center;
     margin-top: 10px;
