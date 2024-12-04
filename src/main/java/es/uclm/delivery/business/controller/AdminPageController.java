@@ -1,0 +1,32 @@
+package es.uclm.delivery.business.controller;
+
+import es.uclm.delivery.business.entity.Restaurant;
+import es.uclm.delivery.persistence.RestaurantDAO;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+@Controller
+public class AdminPageController {
+
+    private final RestaurantDAO restaurantDAO;
+
+    public AdminPageController(RestaurantDAO restaurantDAO) {
+        this.restaurantDAO = restaurantDAO;
+    }
+
+    @GetMapping("/adminPage")
+    public String showAdminPage() {
+        return "adminPage";
+    }
+
+
+    @PostMapping("/updateRestaurant/{id}")
+    public String updateRestaurant(@PathVariable("id") String   id, @ModelAttribute Restaurant restaurant, Model model) {
+        restaurantDAO.save(restaurant);
+        return "redirect:/adminPage";
+    }
+}

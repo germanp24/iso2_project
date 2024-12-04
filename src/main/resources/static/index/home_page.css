@@ -1,0 +1,400 @@
+        #bienvenida {
+            padding: 20px 10px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            max-width: 60%;
+            margin: 20px auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #bienvenida h2 {
+            font-size: 1.8em;
+            color: #000;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        #bienvenida p {
+            font-size: 1em;
+            color: #333;
+            font-weight: bold;
+            line-height: 1.4;
+            max-width: 500px;
+            margin: 10px auto;
+        }
+
+
+        #buscador-direccion {
+            margin: 40px auto;
+            max-width: 80%;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            flex-direction: column;
+        }
+
+        #buscador-direccion p {
+            font-size: 1.3em;
+            color: #333;
+            font-weight: bold;
+            line-height: 1.6;
+        }
+
+        #buscador-direccion button {
+            padding: 12px 20px;
+            font-size: 1em;
+            background-color: #FFB74D;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+        }
+
+        #buscador-direccion button:hover {
+            background-color: #FF8A65;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://img.freepik.com/vector-gratis/papel-pintado-mural-restaurante_23-2148703851.jpg') repeat;
+            animation: moverFondo 40s linear infinite;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        @keyframes moverFondo {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: 100% 100%;
+            }
+        }
+
+        header {
+            background-color: rgba(255, 224, 178, 0.9);
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            color: #F57C00;
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .login-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            background-color: #FFB74D;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1em;
+            gap: 8px;
+        }
+
+        .login-button i {
+            font-size: 1.2em;
+        }
+
+        .login-button:hover {
+            background-color: #FF8A65;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #FFF3E0;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: #333;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        section {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        section h2 {
+            font-size: 2.5em;
+            color: #FF8A65;
+        }
+
+        section p {
+            font-size: 1.2em;
+            color: #555;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        #opciones-usuario {
+            background-color: #FFF3E0;
+            padding: 40px 20px;
+        }
+
+        #opciones-usuario h2 {
+            color: #F57C00;
+            margin-bottom: 20px;
+        }
+
+        #opciones-usuario .option-box {
+            background-color: #FFECB3;
+            border-radius: 10px;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+
+        #opciones-usuario img {
+            width: 100px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+        }
+
+        #opciones-usuario h3 {
+            color: #F57C00;
+        }
+
+        #opciones-usuario p {
+            color: #555;
+        }
+
+        #opciones-usuario a {
+            display: inline-block;
+            margin-top: 10px;
+            background-color: #FFB74D;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        #opciones-usuario a:hover {
+            background-color: #FF8A65;
+        }
+
+        #buscador-direccion {
+            margin: 40px auto;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #FFECB3;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            flex-direction: column;
+        }
+
+        #buscador-direccion input {
+            padding: 12px 15px;
+            font-size: 1em;
+            width: 80%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 10px;
+            outline: none;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        #buscador-direccion .icono-gps {
+            font-size: 1.5em;
+            color: #FFB74D;
+        }
+
+        #direccion-guardada {
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: #333;
+            display: none;
+        }
+
+        #direccion-lista {
+            margin-top: 20px;
+            text-align: left;
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        #direccion-lista ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #direccion-lista li {
+            margin-bottom: 10px;
+        }
+
+        #direccion-lista button {
+            background-color: #FF8A65;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        #direccion-lista button:hover {
+            background-color: #FF5722;
+        }
+
+        #ver-direcciones-btn {
+            background-color: #FFB74D;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 1.1em;
+        }
+
+        #ver-direcciones-btn:hover {
+            background-color: #FF8A65;
+        }
+
+        #como-hacer-pedido {
+            background-color: #FFF3E0;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        #como-hacer-pedido h2 {
+            color: #F57C00;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+
+        #como-hacer-pedido .pasos {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        #como-hacer-pedido .paso {
+            background-color: #FFECB3;
+            border-radius: 10px;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #como-hacer-pedido .paso i {
+            font-size: 2.5em;
+            color: #F57C00;
+            margin-bottom: 15px;
+        }
+
+        #como-hacer-pedido .paso h3 {
+            font-size: 1.5em;
+            color: #F57C00;
+            margin-bottom: 10px;
+        }
+
+        #como-hacer-pedido .paso p {
+            font-size: 1em;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .contenedor {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .item {
+            background-color: #FFECB3;
+            border-radius: 10px;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .item i {
+            font-size: 2.5em;
+            color: #F57C00;
+            margin-bottom: 15px;
+        }
+
+        .item h3 {
+            font-size: 1.5em;
+            color: #F57C00;
+            margin-bottom: 10px;
+        }
+
+        .item p {
+            font-size: 1em;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .item a {
+            display: inline-block;
+            margin-top: 10px;
+            background-color: #FFB74D;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1em;
+        }
+
+        .item a:hover {
+            background-color: #FF8A65;
+        }
+
+        .item img {
+            width: 100px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+        }

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Repartidor</title>
+  <link rel="stylesheet" href="/repartidor/delivStyles.css">
+
+</head>
+
+
+<body>
+
+  <header>
+    <img src="https://i.postimg.cc/QdkWSRwp/Dise-o-sin-t-tulo-removebg-preview.png" alt="Logo de la empresa"
+      class="logo">
+    <nav>
+      <div class="language-selector">
+        <select id="language" name="language">
+          <option value="es">Español</option>
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+          <!-- Agrega más opciones según lo necesites -->
+        </select>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <div class="letters-container">
+      <h1>¡Conéctate y reparte cuando quieras!</h1>
+      <div class="register-container">
+        <div class="register-image">
+          <h2>Completa el formulario para empezar a realizar entregas</h2>
+        </div>
+        <form th:action="@{/registerDeliv}" th:object="${registerDeliv}" method="post">
+          <input type="text" id="NIF" th:field="*{nif}" placeholder="NIF" required>
+          <input type="text" id="Nombre" th:field="*{name}" placeholder="Nombre" required>
+          <input type="text" id="Apellidos" th:field="*{surnames}" placeholder="Apellidos" required>
+          <input type="email" id="Email" name="email" placeholder="Correo electrónico" required>
+          <input type="password" id="Password" name="password" placeholder="Contraseña" required>
+
+          <div class="botones-tipo-auto">
+            <!-- Botón de Motocicleta -->
+            <button type="button" class="tipo-auto" data-tipo="MOTO">
+              <img src="https://couriers.glovoapp.com/_nuxt/img/motorbike.d9a4844.svg" alt="MOTORBIKE" />
+            </button>
+
+            <!-- Botón de Coche -->
+            <button type="button" class="tipo-auto" data-tipo="CAR">
+              <img src="https://couriers.glovoapp.com/_nuxt/img/car.352e23f.svg" alt="CAR" />
+            </button>
+
+            <!-- Botón de Bicicleta -->
+            <button type="button" class="tipo-auto" data-tipo="BICYCLE">
+              <img src="https://couriers.glovoapp.com/_nuxt/img/bicycle.644742b.svg" alt="BICYCLE" />
+            </button>
+            <input type="hidden" id="tipoAuto" name="tipoAuto">
+
+          </div>
+          <div>
+            <input type="submit" value="Registrarse" id="registrarse" disabled>
+          </div>
+        </form>
+        <div class="login-link">
+          ¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a>
+        </div>
+      </div>
+    </div>
+    <!-- Aquí enlazas tu archivo JavaScript -->
+    <script src="/repartidor/script.js"></script>
+  </main>
+</body>
+
+</html>
