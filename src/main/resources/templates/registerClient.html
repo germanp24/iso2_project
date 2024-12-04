@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario</title>
+    <link rel="stylesheet" href="/client/clientStyles.css">
+
+</head>
+
+<body>
+    <header>
+        <img src="https://i.postimg.cc/QdkWSRwp/Dise-o-sin-t-tulo-removebg-preview.png" alt="Logo de la empresa"
+            class="logo">
+    </header>
+    <main>
+        <div class="letters-container">
+            <h1>¡Regístrate y disfruta de los mejores platos!</h1>
+            <div class="register-container">
+                <h2>Completa el formulario y disfruta de las ventajas</h2>
+                <form th:action="@{/registerClient}" th:object="${registerClient}" method="post">
+                    <input type="text" th:field="*{dni}" placeholder="DNI" required>
+                    <input type="text" th:field="*{name}" placeholder="Nombre" required>
+                    <input type="text" th:field="*{surnames}" placeholder="Apellidos" required>
+                    <input type="email" name="email" placeholder="Correo Electrónico" required>
+                    <input type="password" name="password" placeholder="Contraseña" required>
+                    <div>
+                        <input type="submit" value="Registrarse">
+                    </div>
+                </form>
+                <div class="login-link">
+                    ¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a>
+                </div>
+                <div class="login-link">
+                    <a href="/registerAdmin">¿Eres Administrador de restaurante?</a>
+                </div>
+                <div class="login-link">
+                    <a href="/registerDeliv">¿Eres uno de nuestros nuevos repartidores?</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>
