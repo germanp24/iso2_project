@@ -65,4 +65,14 @@ public class CustomerOrderController {
 
         return "orderDetails"; // Devuelve la vista orderDetails.html
     }
+
+    // Mapeo para manejar la selección del método de pago, solo accesible con DNI
+    @GetMapping("/selectPaymentMethod")
+    public String selectPaymentMethod(@RequestParam String dni, Model model) {
+
+        // Si el usuario existe, proceder con la selección del método de pago
+        model.addAttribute("dni", dni);
+        return "selectPaymentMethod"; // Renderiza la vista para seleccionar el método de pago
+    }
+    
 }
