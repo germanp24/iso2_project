@@ -14,9 +14,6 @@ public class Restaurant {
     private String name;
 
     @Column
-    private String idAdministrator;
-
-    @Column
     private String imageUrl;
 
     @Column
@@ -25,11 +22,9 @@ public class Restaurant {
     @Column
     private String locality;
 
-    public Restaurant(String cif, String name, String idAdministrator, String imageUrl, String street,
-            String locality) {
+    public Restaurant(String cif, String name, String imageUrl, String street, String locality) {
         this.cif = cif;
         this.name = name;
-        this.idAdministrator = idAdministrator;
         this.imageUrl = imageUrl;
         this.street = street;
         this.locality = locality;
@@ -52,14 +47,6 @@ public class Restaurant {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getIdAdministrator() {
-        return idAdministrator;
-    }
-
-    public void setIdAdministrator(String idAdministrator) {
-        this.idAdministrator = idAdministrator;
     }
 
     public String getImageUrl() {
@@ -88,7 +75,7 @@ public class Restaurant {
 
     @Override
     public String toString() {
-        return String.format("Restaurant [cif=%s, name=%s, id_administrator=%s, imageUrl=%s, street=%s, locality=%s]",
-                cif, name, idAdministrator, imageUrl, street, locality);
+        return String.format("Restaurant [cif=%s, name=%s, imageUrl=%s, street=%s, locality=%s]", 
+            cif, name, imageUrl, street, locality);
     }
 }

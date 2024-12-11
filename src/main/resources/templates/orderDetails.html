@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalles del Pedido</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar {
+            background-color: rgba(255, 183, 77);
+        }
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+        .navbar-brand:hover, .nav-link:hover {
+            color: #ffdab3 !important;
+        }
+        .btn-pedir {
+            background-color: #f36805;
+            color: white;
+            border: 2px solid #f36805;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+        .btn-pedir:hover {
+            background-color: #d55d04;
+            border-color: #d55d04;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="https://i.postimg.cc/QdkWSRwp/Dise-o-sin-t-tulo-removebg-preview.png" alt="YaVoy Logo" style="height: 60px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contacto</a>
+                    </li>
+                </ul>
+                <!-- Botón de iniciar sesión a la derecha -->
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link login-button" href="/login">
+                            <i class="fas fa-user"></i> Iniciar sesión
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido de la página -->
+    <div class="container mt-5">
+        <h1 class="mb-4">Detalles del Pedido</h1>
+
+        <!-- Tarjetas de productos -->
+        <div class="row" th:each="menuItem : ${menuItems}">
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${menuItem.foodName}">Nombre del Producto</h5>
+                        <p class="card-text">
+                            <strong>Precio:</strong> <span th:text="${menuItem.price}">0.00€</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Línea divisoria -->
+        <hr>
+
+        <!-- Precio total -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3>Total del Pedido:</h3>
+            <h3><span th:text="${totalPrice}">0.00</span> €</h3>
+        </div>
+
+        <!-- Botón de Confirmar Pedido -->
+        <div class="text-center mt-4">
+            <form th:action="@{${#strings.isEmpty(dni) ? '/registerClient' : '/selectPaymentMethod'}}" method="get">
+                <input type="hidden" name="dni" th:value="${dni}">
+                <button class="btn btn-pedir mt-3" type="submit" th:text="${#strings.isEmpty(dni) ? 'Confirmar Pedido' : 'Confirmar Pedido'}"></button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
