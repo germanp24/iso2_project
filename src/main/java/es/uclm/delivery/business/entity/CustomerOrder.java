@@ -11,7 +11,7 @@ public class CustomerOrder {
     @Column
     private int orderNumber;
 
-    @Column
+    @Column(nullable = true) // Permitir valores nulos para el DNI
     private String dni;
 
     @Column
@@ -68,5 +68,4 @@ public class CustomerOrder {
         return String.format("CustomerOrder [order_number=%s, dni=%s, date=%s, ordered_food=%s]", orderNumber, dni,
                 date, orderedFood);
     }
-
 }

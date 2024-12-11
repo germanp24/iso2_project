@@ -4,6 +4,7 @@ import es.uclm.delivery.business.entity.Restaurant;
 import es.uclm.delivery.persistence.RestaurantDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,43 +17,35 @@ import java.util.List;
 @Controller
 public class RestaurantController {
 
-    private static final Logger log = LoggerFactory.getLogger(RestaurantController.class);
-    private static final String CIF_RESTAURANT = "cifRestaurant";
+    private static final Logger log = LoggerFactory.getLogger(Restaurant.class);
 
-    private final RestaurantDAO restaurantDAO;
+    @Autowired
+    private RestaurantDAO restaurantDAO;
 
-    public RestaurantController(RestaurantDAO restaurantDAO) {
-        this.restaurantDAO = restaurantDAO;
+    @GetMapping("/restaurant")
+    public String RestaurantForm(Model model) {
+
+        model.addAttribute("restaurant", new Restaurant());
+
+        log.info(restaurantDAO.findAll().toString());
+
+        return "restaurant";
     }
 
-    @GetMapping("/cifRestaurant")
-    public String restaurantForm(Model model) {
-
-        model.addAttribute(CIF_RESTAURANT, new Restaurant());
-        if (log.isInfoEnabled()) {
-            log.info(restaurantDAO.findAll().toString());
-        }
-
-        return CIF_RESTAURANT;
-    }
-
-    @PostMapping("/cifRestaurant")
+    @PostMapping("/restaurant")
     public String restaurantSubmit(@ModelAttribute Restaurant restaurant, Model model) {
-        Restaurant existingRestaurant = restaurantDAO.findByCif(restaurant.getCif());
-
-        if (existingRestaurant != null) {
-            model.addAttribute(CIF_RESTAURANT, restaurant);
-            model.addAttribute("successMessage", "¡El CIF ya está registrado!");
-            log.warn("Intento de registro con un CIF duplicado:");
-            return CIF_RESTAURANT;
+        if (restaurantDAO.findByCif(restaurant.getCif()) != null) {
+            model.addAttribute("errorMessage", "El CIF ya está registrado.");
+            return "restaurant";
         }
 
         Restaurant savedRestaurant = restaurantDAO.save(restaurant);
-        model.addAttribute(CIF_RESTAURANT, savedRestaurant);
+        model.addAttribute("restaurant", savedRestaurant);
         model.addAttribute("successMessage", "¡Restaurante guardado con éxito!");
-        log.info("Restaurante guardado: {}", savedRestaurant);
 
-        return CIF_RESTAURANT;
+        log.info("Restaurante guardado: " + savedRestaurant);
+
+        return "restaurant";
     }
 
     @GetMapping("/restaurants")
@@ -60,17 +53,19 @@ public class RestaurantController {
         List<Restaurant> restaurants;
 
         if (search != null && !search.isEmpty()) {
+            // Filtrar restaurantes cuyo nombre contenga el término de búsqueda (insensible a mayúsculas)
             restaurants = restaurantDAO.findAll().stream()
-                    .filter(r -> r.getName().toLowerCase().contains(search.toLowerCase()))
-                    .toList();
-            model.addAttribute("searchKeyword", search);
+                .filter(r -> r.getName().toLowerCase().contains(search.toLowerCase()))
+                .toList();
+            model.addAttribute("searchKeyword", search); // Mantiene el término de búsqueda en el input del formulario
         } else {
+            // Si no hay término de búsqueda, se muestran todos los restaurantes
             restaurants = restaurantDAO.findAll();
         }
 
-        model.addAttribute("restaurants", restaurants);
-        log.info("Mostrando lista de restaurantes: {}", restaurants);
-        return "restaurants";
+        model.addAttribute("restaurants", restaurants); // Enviar lista al modelo
+        log.info("Mostrando lista de restaurantes: " + restaurants);
+        return "restaurants"; // Redirige a la plantilla restaurants.html
     }
 
-}
+} 
