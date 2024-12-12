@@ -13,19 +13,19 @@ public class Payment {
     private UUID transactionId;
 
     @Column
-    private long order_number;
+    private long orderNumber;
 
     @Column
     private Date transactionDate;
 
     public Payment() {
-        
+
     }
 
-    public Payment(UUID transactionId, Date transactionDate, long order_number) {
+    public Payment(UUID transactionId, Date transactionDate, long orderNumber) {
         this.transactionId = transactionId;
         this.transactionDate = transactionDate;
-        this.order_number = order_number;
+        this.orderNumber = orderNumber;
     }
 
     public UUID getTransactionId() {
@@ -44,17 +44,18 @@ public class Payment {
         this.transactionDate = transactionDate;
     }
 
-    public long getOrder_number() {
-        return order_number;
+    public long getOrderNumber() {
+        return orderNumber;
     }
 
-    public void setOrder_number(long order_number) {
-        this.order_number = order_number;
+    public void setOrderNumber(long orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
     @Override
     public String toString() {
-        return String.format("MenuItem [transactionId=%s, order_number=%s, transactionDate=%s]", transactionId, order_number, transactionDate);
+        return String.format("MenuItem [transactionId=%s, order_number=%s, transactionDate=%s]", transactionId,
+                orderNumber, transactionDate);
     }
 
 }

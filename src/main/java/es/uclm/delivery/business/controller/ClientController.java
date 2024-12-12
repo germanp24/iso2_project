@@ -6,7 +6,6 @@ import es.uclm.delivery.persistence.ClientDAO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,17 +18,21 @@ public class ClientController {
 
     private static final Logger log = LoggerFactory.getLogger(ClientController.class);
 
-    @Autowired
-    private ClientDAO clientDAO;
+    private static final String REG_CLIENT = "registerClient";
+    private final ClientDAO clientDAO;
+
+    public ClientController(ClientDAO clientDAO) {
+        this.clientDAO = clientDAO;
+    }
 
     @GetMapping("/registerClient")
     public String clientForm(Model model) {
 
-        model.addAttribute("registerClient", new Client());
-
-        log.info(clientDAO.findAll().toString());
-
-        return "registerClient";
+        model.addAttribute(REG_CLIENT, new Client());
+        if (log.isInfoEnabled()) {
+            log.info(clientDAO.findAll().toString());
+        }
+        return REG_CLIENT;
 
     }
 
@@ -39,15 +42,15 @@ public class ClientController {
 
         Usuary usuary = new Usuary(password, email, "CLIENT", client, null, null);
 
-        // Guardar el cliente y el usuario
-        client.setUsuary(usuary); // Enlaza el cliente con Usuary
+        client.setUsuary(usuary);
         clientDAO.save(client);
 
-        model.addAttribute("registerClient", client);
+        model.addAttribute(REG_CLIENT, client);
         model.addAttribute("successMessage", "Client registrado con éxito!");
 
-        log.info("Cliente y usuario registrado: " + client + " " + usuary);
+        log.info("Cliente registrado con éxito. Cliente ID: {}, Usuario ID: {}", client.getIdClient(),
+                usuary.getIdUsuary());
 
-        return "registerClient";
+        return REG_CLIENT;
     }
 }

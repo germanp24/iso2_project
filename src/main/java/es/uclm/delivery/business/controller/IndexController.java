@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class IndexController {
-    
+
     @GetMapping("/index")
     public String IndexForm(Model model) {
 
@@ -20,8 +20,7 @@ public class IndexController {
     }
 
     @PostMapping("/index")
-    public String indexSubmit(@ModelAttribute Index index, Model model) {
-
+    public String indexSubmit(@ModelAttribute Index index){
         return "index";
     }
 }

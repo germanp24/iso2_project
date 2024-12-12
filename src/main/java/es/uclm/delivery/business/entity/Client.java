@@ -1,19 +1,12 @@
 package es.uclm.delivery.business.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 @Entity
-public class Client{
+public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_client;
+    private Long idClient;
 
     @Column
     private String dni;
@@ -63,12 +56,12 @@ public class Client{
         this.dni = dni;
     }
 
-    public Long getId_client() {
-        return id_client;
+    public Long getIdClient() {
+        return idClient;
     }
 
-    public void setId_client(Long id_client) {
-        this.id_client = id_client;
+    public void setIdClient(Long idClient) {
+        this.idClient = idClient;
     }
 
     public Usuary getUsuary() {
@@ -81,6 +74,6 @@ public class Client{
 
     @Override
     public String toString() {
-        return String.format("Client [dni=%s, id_client=%s, name=%s, surnames=%s]", dni, id_client, name, surnames);
+        return String.format("Client [dni=%s, id_client=%s, name=%s, surnames=%s]", dni, idClient, name, surnames);
     }
 }

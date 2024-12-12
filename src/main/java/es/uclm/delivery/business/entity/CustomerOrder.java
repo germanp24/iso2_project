@@ -9,34 +9,34 @@ import jakarta.persistence.Id;
 public class CustomerOrder {
     @Id
     @Column
-    private int order_number;
+    private int orderNumber;
 
-    @Column
+    @Column(nullable = true) // Permitir valores nulos para el DNI
     private String dni;
 
     @Column
     private Date date;
 
     @Column
-    private String ordered_food;
+    private String orderedFood;
 
     public CustomerOrder() {
 
     }
 
-    public CustomerOrder(int order_number, String dni, Date date, String ordered_food) {
-        this.order_number = order_number;
+    public CustomerOrder(int orderNumber, String dni, Date date, String orderedFood) {
+        this.orderNumber = orderNumber;
         this.dni = dni;
         this.date = date;
-        this.ordered_food = ordered_food;
+        this.orderedFood = orderedFood;
     }
 
-    public int getOrder_number() {
-        return order_number;
+    public int getOrderNumber() {
+        return orderNumber;
     }
 
-    public void setOrder_number(int order_number) {
-        this.order_number = order_number;
+    public void setOrderNumber(int orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
     public String getDni() {
@@ -55,17 +55,17 @@ public class CustomerOrder {
         this.date = date;
     }
 
-    public String getOrdered_food() {
-        return ordered_food;
+    public String getOrderedFood() {
+        return orderedFood;
     }
 
-    public void setOrdered_food(String ordered_food) {
-        this.ordered_food = ordered_food;
+    public void setOrderedFood(String orderedFood) {
+        this.orderedFood = orderedFood;
     }
 
     @Override
     public String toString() {
-        return String.format("CustomerOrder [order_number=%s, dni=%s, date=%s, ordered_food=%s]", order_number, dni, date, ordered_food);
+        return String.format("CustomerOrder [order_number=%s, dni=%s, date=%s, ordered_food=%s]", orderNumber, dni,
+                date, orderedFood);
     }
-
 }
