@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class RestaurantController {
 
-    private static final Logger log = LoggerFactory.getLogger(Restaurant.class);
+    private static final Logger log = LoggerFactory.getLogger(RestaurantController.class);
 
     @Autowired
     private RestaurantDAO restaurantDAO;
@@ -26,12 +27,10 @@ public class RestaurantController {
     public String RestaurantForm(Model model) {
 
         model.addAttribute("restaurant", new Restaurant());
-
-        log.info(restaurantDAO.findAll().toString());
-
+        log.info("Mostrando formulario de registro de restaurantes.");
         return "restaurant";
     }
-
+  
     @PostMapping("/restaurant")
     public String restaurantSubmit(@ModelAttribute Restaurant restaurant, Model model) {
         if (restaurantDAO.findByCif(restaurant.getCif()) != null) {
@@ -49,23 +48,44 @@ public class RestaurantController {
     }
 
     @GetMapping("/restaurants")
-    public String showRestaurants(@RequestParam(value = "search", required = false) String search, Model model) {
-        List<Restaurant> restaurants;
+    public String showRestaurants(
+            @RequestParam(value = "search", required = false) String search,
+            @RequestParam(value = "locality", required = false) String locality,
+            Model model) {
 
-        if (search != null && !search.isEmpty()) {
-            // Filtrar restaurantes cuyo nombre contenga el término de búsqueda (insensible a mayúsculas)
-            restaurants = restaurantDAO.findAll().stream()
-                .filter(r -> r.getName().toLowerCase().contains(search.toLowerCase()))
-                .toList();
-            model.addAttribute("searchKeyword", search); // Mantiene el término de búsqueda en el input del formulario
+        List<Restaurant> restaurants;
+      
+        // Si la localidad está presente, filtrar por localidad
+        if (locality != null && !locality.isEmpty()) {
+            if (search != null && !search.isEmpty()) {
+                // Si también hay un término de búsqueda por nombre, filtramos ambos
+                restaurants = restaurantDAO.findAll().stream()
+                        .filter(r -> r.getLocality().equalsIgnoreCase(locality) && r.getName().toLowerCase().contains(search.toLowerCase()))
+                        .collect(Collectors.toList());
+            } else {
+                // Si solo hay localidad, mostramos restaurantes de esa localidad
+                restaurants = restaurantDAO.findAll().stream()
+                        .filter(r -> r.getLocality().equalsIgnoreCase(locality))
+                        .collect(Collectors.toList());
+            }
+            model.addAttribute("searchKeyword", search); // Se mantiene el término de búsqueda por nombre
+            model.addAttribute("locality", locality); // Se mantiene la localidad seleccionada
         } else {
-            // Si no hay término de búsqueda, se muestran todos los restaurantes
-            restaurants = restaurantDAO.findAll();
+            // Si no hay localidad, solo se filtra por nombre (si es que se busca algo)
+            if (search != null && !search.isEmpty()) {
+                restaurants = restaurantDAO.findAll().stream()
+                        .filter(r -> r.getName().toLowerCase().contains(search.toLowerCase()))
+                        .collect(Collectors.toList());
+                model.addAttribute("searchKeyword", search); // Se mantiene el término de búsqueda por nombre
+            } else {
+                // Mostrar todos los restaurantes si no hay parámetros de búsqueda
+                restaurants = restaurantDAO.findAll();
+            }
         }
 
-        model.addAttribute("restaurants", restaurants); // Enviar lista al modelo
+        model.addAttribute("restaurants", restaurants);
         log.info("Mostrando lista de restaurantes: " + restaurants);
-        return "restaurants"; // Redirige a la plantilla restaurants.html
-    }
 
-} 
+        return "restaurants";
+    }
+}
