@@ -25,11 +25,12 @@ public class RestaurantController {
 
     @GetMapping("/restaurant")
     public String RestaurantForm(Model model) {
+
         model.addAttribute("restaurant", new Restaurant());
         log.info("Mostrando formulario de registro de restaurantes.");
         return "restaurant";
     }
-
+  
     @PostMapping("/restaurant")
     public String restaurantSubmit(@ModelAttribute Restaurant restaurant, Model model) {
         if (restaurantDAO.findByCif(restaurant.getCif()) != null) {
@@ -53,7 +54,7 @@ public class RestaurantController {
             Model model) {
 
         List<Restaurant> restaurants;
-
+      
         // Si la localidad está presente, filtrar por localidad
         if (locality != null && !locality.isEmpty()) {
             if (search != null && !search.isEmpty()) {
