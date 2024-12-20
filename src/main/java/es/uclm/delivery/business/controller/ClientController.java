@@ -51,6 +51,6 @@ public class ClientController {
         log.info("Cliente registrado con éxito. Cliente ID: {}, Usuario ID: {}", client.getIdClient(),
                 usuary.getIdUsuary());
 
-        return REG_CLIENT;
+        return "homeClient";
     }
 }

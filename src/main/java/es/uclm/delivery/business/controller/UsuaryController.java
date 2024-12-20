@@ -41,7 +41,7 @@ public class UsuaryController {
 
         if (usuary != null) {
             model.addAttribute("userRole", usuary.getRole());
-            return "redirect:/index";
+            return "redirect:/homeClient";
         } else {
             model.addAttribute("error", "Credenciales incorrectas. Por favor, intenta de nuevo.");
             return LOGIN;
