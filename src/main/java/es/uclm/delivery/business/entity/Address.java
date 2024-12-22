@@ -1,40 +1,42 @@
 package es.uclm.delivery.business.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Address {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idAddress;
+    private Long id; // Identificador técnico de Address
 
-    @Column
+    @Column(nullable = false)
     private String street;
 
-    @Column
-    private String number;
+    @Column(nullable = false)
+    private int number; // Número de casa/piso como entero
 
     @Column
-    private int zipcode;
+    private String floorNumber; // Campo opcional para el número del piso
 
-    @Column
-    private String town;
+    @Column(nullable = false)
+    private String locality;
+
+    @OneToOne
+    @JoinColumn(name = "order_number", referencedColumnName = "orderNumber", nullable = false)
+    private CustomerOrder customerOrder; // Relación unidireccional con CustomerOrder
 
     public Address() {
-
     }
 
-    public Address(String street, String number, String town, int zipcode) {
+    public Address(String street, int number, String floorNumber, String locality, CustomerOrder customerOrder) {
         this.street = street;
         this.number = number;
-        this.zipcode = zipcode;
-        this.town = town;
+        this.floorNumber = floorNumber;
+        this.locality = locality;
+        this.customerOrder = customerOrder;
     }
 
+    // Getters y Setters
     public String getStreet() {
         return street;
     }
@@ -43,37 +45,41 @@ public class Address {
         this.street = street;
     }
 
-    public String getNumber() {
+    public int getNumber() {
         return number;
     }
 
-    public void setNumber(String number) {
+    public void setNumber(int number) {
         this.number = number;
     }
 
-    public int getZipcode() {
-        return zipcode;
+    public String getFloorNumber() {
+        return floorNumber;
     }
 
-    public void setZipcode(int zipcode) {
-        this.zipcode = zipcode;
+    public void setFloorNumber(String floorNumber) {
+        this.floorNumber = floorNumber;
     }
 
-    public String getTown() {
-        return town;
+    public String getLocality() {
+        return locality;
     }
 
-    public void setTown(String town) {
-        this.town = town;
+    public void setLocality(String locality) {
+        this.locality = locality;
     }
 
-    public Long getIdAddress() { return idAddress; }
-    public void setIdAddress(Long idAddress) {  this.idAddress = idAddress; }
+    public CustomerOrder getCustomerOrder() {
+        return customerOrder;
+    }
+
+    public void setCustomerOrder(CustomerOrder customerOrder) {
+        this.customerOrder = customerOrder;
+    }
 
     @Override
     public String toString() {
-        return String.format("Address [street=%s, number=%s, town=%s, zipcode=%s, idAddress=%s]"
-                , street, number,town , zipcode ,idAddress);
+        return String.format("Address [street=%s, number=%d, floorNumber=%s, locality=%s, customerOrder=%s]",
+                street, number, floorNumber, locality, customerOrder != null ? customerOrder.getOrderNumber() : "N/A");
     }
-
 }

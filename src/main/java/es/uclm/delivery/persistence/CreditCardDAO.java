@@ -2,10 +2,10 @@ package es.uclm.delivery.persistence;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import es.uclm.delivery.business.entity.Payment;
+import es.uclm.delivery.business.entity.CreditCard;
 
 @Repository
-public interface PaymentDAO extends JpaRepository<Payment, UUID> {
+public interface CreditCardDAO extends JpaRepository<CreditCard, UUID> {
     /*
      * Se hereda de JpaRepository operaciones de acceso a datos comunes a todas las
      * entidades:
