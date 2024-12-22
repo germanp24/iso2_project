@@ -63,7 +63,20 @@ public class ClientController {
     }
 
     @PostMapping("/clientProfile")
-    public String clientProfiletSubmit(@ModelAttribute Client client) {
+    public String clientProfileSubmit(@ModelAttribute Client client) {
         return "clientProfile";
+    }
+
+    @GetMapping("/clientAccount")
+    public String clientAccountForm(Model model) {
+
+        model.addAttribute("client", new Client());
+        
+        return "clientAccount";
+    }
+
+    @PostMapping("/clientAccount")
+    public String clientAccountSubmit(@ModelAttribute Client client) {
+        return "clientAccount";
     }
 }
