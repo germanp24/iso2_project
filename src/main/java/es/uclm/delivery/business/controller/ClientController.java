@@ -53,4 +53,17 @@ public class ClientController {
 
         return "homeClient";
     }
+
+    @GetMapping("/clientProfile")
+    public String clientProfileForm(Model model) {
+
+        model.addAttribute("client", new Client());
+        
+        return "clientProfile";
+    }
+
+    @PostMapping("/clientProfile")
+    public String clientProfiletSubmit(@ModelAttribute Client client) {
+        return "clientProfile";
+    }
 }
