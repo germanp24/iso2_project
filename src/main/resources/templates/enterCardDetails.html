@@ -18,8 +18,10 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 50%;
-            margin: 0 auto;
-            margin-top: 120px; /* Añadido para separar del header */
+            margin: 20px auto; /* Ajusta el espaciado horizontal y vertical */
+        }
+        .form-container:first-of-type {
+            margin-top: 150px; /* Margen superior adicional para el primer recuadro */
         }
         .navbar {
             background-color: rgba(255, 183, 77);
@@ -73,15 +75,30 @@
         </div>
     </nav>
 
-    <!-- Formulario para ingresar los detalles de la tarjeta -->
-    <div class="form-container">
-        <h2 class="text-center">Detalles de Pago</h2>
-        <form action="/saveCardDetails" method="post">
-            <input type="hidden" name="dni" value="${dni}">
+    <!-- Formulario principal -->
+    <form action="/saveCardDetails" method="post">
+        <input type="hidden" name="dni" value="${dni}">
+
+        <!-- Recuadro: Dirección -->
+        <div class="form-container">
+            <h4 class="text-center">Dirección</h4>
             <div class="mb-3">
-                <label for="address" class="form-label">Dirección:</label>
-                <input type="text" class="form-control" id="address" name="address" required>
+                <label for="street" class="form-label">Calle:</label>
+                <input type="text" id="street" name="street" class="form-control" required>
             </div>
+            <div class="mb-3">
+                <label for="number" class="form-label">Número:</label>
+                <input type="text" id="number" name="number" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="floorNumber" class="form-label">Piso (Opcional):</label>
+                <input type="text" id="floorNumber" name="floorNumber" class="form-control">
+            </div>
+        </div>
+
+        <!-- Recuadro: Detalles de Pago -->
+        <div class="form-container">
+            <h4 class="text-center">Detalles de Pago</h4>
             <div class="mb-3">
                 <label for="cardNumber" class="form-label">Número de Tarjeta:</label>
                 <input type="text" class="form-control" id="cardNumber" name="cardNumber" required>
@@ -95,8 +112,8 @@
                 <input type="password" class="form-control" id="cvv" name="cvv" required>
             </div>
             <button type="submit" class="btn btn-primary">Confirmar Pedido</button>
-        </form>
-    </div>
+        </div>
+    </form>
 
     <!-- Scripts de Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-Q4Ka8CX9bD1aIZcx7cLHoA+8dxDAkAwXjz4PWJpoa8r8oWh9zgiHxvmBFG2KgJzB" crossorigin="anonymous"></script>

@@ -62,7 +62,9 @@ public class CreditCard {
 
     @Override
     public String toString() {
+        // Verifica si el cliente es null antes de acceder a su id
         return String.format("CreditCard [cardNumber=%s, cardExpiry=%s, cardCvv=%s, clientId=%s]",
-                cardNumber, cardExpiry, cardCvv, client.getIdClient());
+                cardNumber, cardExpiry, cardCvv, (client != null ? client.getIdClient() : "No Client"));
     }
+
 }

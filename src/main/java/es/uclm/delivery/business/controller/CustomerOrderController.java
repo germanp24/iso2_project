@@ -132,27 +132,38 @@ public class CustomerOrderController {
         System.out.println("Dirección recibida: " + address);
         
         // Redirigir a una página de éxito o próxima acción
-        return "redirect:/success";
+        return "redirect:/orderConfirmation";
     }
 
     // Nuevo método para guardar los detalles de la tarjeta de crédito
     @PostMapping("/saveCardDetails")
-    public String saveCardDetails(@RequestParam String dni, @RequestParam String address,
-                                   @RequestParam String cardNumber, @RequestParam String expiryDate,
-                                   @RequestParam String cvv, Model model) {
-        // Obtener el cliente por DNI
-        Client client = clientDAO.findByDni(dni);
+    public String saveCardDetails(
+            @RequestParam String dni,
+            @RequestParam String street,
+            @RequestParam int number,
+            @RequestParam(required = false) String floorNumber,
+            @RequestParam String cardNumber,
+            @RequestParam String expiryDate,
+            @RequestParam String cvv
+    ) {
+        // Crear el objeto Address y asignar los valores recibidos
+        Address address = new Address();
+        address.setStreet(street);
+        address.setNumber(number);
+        address.setFloorNumber(floorNumber);
+        
+        // Crear el objeto CreditCard y asignar los valores recibidos (sin client)
+        CreditCard creditCard = new CreditCard();
+        creditCard.setCardNumber(cardNumber);
+        creditCard.setCardExpiry(expiryDate);
+        creditCard.setCardCvv(cvv);
 
-        // Guardar la tarjeta de crédito
-        CreditCard creditCard = new CreditCard(cardNumber, expiryDate, cvv, client);
-        creditCardDAO.save(creditCard);
+        // Aquí solo imprimimos los datos como ejemplo
+        System.out.println("Dirección recibida: " + address);
+        System.out.println("Tarjeta de crédito recibida: " + creditCard);
 
-        // Crear la orden
-        CustomerOrder order = new CustomerOrder();
-        order.setDni(dni);
-        order.setAddress(address);
-        customerOrderDAO.save(order);
-
+        // Redirigir a la página de confirmación de la orden
         return "redirect:/orderConfirmation";
     }
+
 }
