@@ -132,7 +132,7 @@ public class CustomerOrderController {
         System.out.println("Dirección recibida: " + address);
         
         // Redirigir a una página de éxito o próxima acción
-        return "redirect:/orderConfirmation";
+        return "orderConfirmation";
     }
 
     // Nuevo método para guardar los detalles de la tarjeta de crédito
@@ -163,7 +163,7 @@ public class CustomerOrderController {
         System.out.println("Tarjeta de crédito recibida: " + creditCard);
 
         // Redirigir a la página de confirmación de la orden
-        return "redirect:/orderConfirmation";
+        return "orderConfirmation";
     }
 
 }
