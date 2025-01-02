@@ -1,49 +1,84 @@
 package es.uclm.delivery.business.entity;
 
 import java.sql.Date;
-
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
 public class CustomerOrder {
+
     @Id
-    private int orderNumber;
+    @Column
+    private int orderNumber; // orderNumber como clave primaria
 
     @Column(nullable = false)
-    private String status;
+    private String dni;
 
-    @OneToOne(mappedBy = "customerOrder",cascade = CascadeType.ALL)
-    private DeliveryService deliveryService;
+    @Column(nullable = true)
+    private String address;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idClient")
-    private Client client;
+    @Column(nullable = false)
+    private Date date;
 
+    @Column(nullable = false)
+    private String orderedFood;
 
     public CustomerOrder() {
+
     }
 
-    public CustomerOrder(String status, DeliveryService deliveryService, Client client) {
-        this.status = status;
-        this.deliveryService = deliveryService;
-        this.client = client;
+    public CustomerOrder(int orderNumber, String dni, String address, Date date, String orderedFood) {
+        this.orderNumber = orderNumber;
+        this.dni = dni;
+        this.address = address;
+        this.date = date;
+        this.orderedFood = orderedFood;
     }
 
+    // Getters y Setters
     public int getOrderNumber() {
         return orderNumber;
     }
+
     public void setOrderNumber(int orderNumber) {
         this.orderNumber = orderNumber;
     }
 
-    public String getStatus() {return status;}
-    public void setStatus(String status) {this.status = status;}
+    public String getDni() {
+        return dni;
+    }
 
-    public DeliveryService getDeliveryService() {return deliveryService;}
-    public void setDeliveryService(DeliveryService deliveryService) {this.deliveryService = deliveryService;}
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getOrderedFood() {
+        return orderedFood;
+    }
+
+    public void setOrderedFood(String orderedFood) {
+        this.orderedFood = orderedFood;
+    }
 
     @Override
     public String toString() {
-        return String.format("CustomerOrder [order_number=%s, status=%s]", orderNumber, status);
+        return String.format("CustomerOrder [orderNumber=%s, dni=%s, date=%s, address=%s, orderedFood=%s]", orderNumber, dni, date, address, orderedFood);
     }
 }
