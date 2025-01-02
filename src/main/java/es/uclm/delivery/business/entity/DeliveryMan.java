@@ -1,13 +1,9 @@
 package es.uclm.delivery.business.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+import java.util.Random;
 
 @Entity
 public class DeliveryMan {
@@ -16,13 +12,24 @@ public class DeliveryMan {
     private Long idDeliveryMan;
 
     @Column
-    private String nif;
+    @Pattern(regexp = "\\d{8}[A-Za-z]", message = "El DNI debe tener 8 números seguidos de una letra")
+    private String dni;
+
+    @Column (unique = true)
+    private String nif_delivery;
 
     @Column
-    private String name;
+    private String names;
 
     @Column
-    private String surnames;
+    private String surnames_M;
+
+    @Column
+    private String surnames_F;
+
+    @Column
+    @Size(min = 9, max = 9, message = "El número de teléfono debe tener 9 dígitos")
+    private String phone;
 
     @Column
     private String tipoAuto;
@@ -30,7 +37,7 @@ public class DeliveryMan {
     @Column
     private int efficiency;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuary_id")
     private Usuary usuary;
 
@@ -38,75 +45,84 @@ public class DeliveryMan {
 
     }
 
-    public DeliveryMan(String nif, String name, String surnames, int efficiency, String tipoAuto, Usuary usuary) {
-        this.nif = nif;
-        this.name = name;
-        this.surnames = surnames;
+    public DeliveryMan(String dni, String names, String surnamesM, String surnamesF, int efficiency, String tipoAuto, String phone, Usuary usuary) {
+        this.dni = dni;
+        this.names = names;
+        this.surnames_M = surnamesM;
+        this.surnames_F = surnamesF;
+        this.phone = phone;
         this.efficiency = efficiency;
-        this.usuary = usuary;
         this.tipoAuto = tipoAuto;
+        this.usuary = usuary;
     }
+
+    @PrePersist
+    private void generateNifAdmin() {
+        if (this.nif_delivery == null || this.nif_delivery.isEmpty()) {
+            this.nif_delivery = generateEmployeeId();
+        }
+    }
+    private String generateEmployeeId() {
+        Random random = new Random();
+        String numbers = String.format("%06d", random.nextInt(1000000));
+        char letter = (char) ('A' + random.nextInt(26));
+        return numbers + letter;
+    }
+
+    public String getNif_admin() {return nif_delivery;}
+    public void setNif_admin(String nif_admin) {this.nif_delivery = nif_admin;}
 
     public Long getIdDeliveryMan() {
         return idDeliveryMan;
     }
-
     public void setIdDeliveryMan(Long idDeliveryMan) {
         this.idDeliveryMan = idDeliveryMan;
     }
 
-    public String getNif() {
-        return nif;
+    public String getDni() {return dni;}
+    public void setDni(String dni) {this.dni = dni;}
+
+    public String getNames() {
+        return names;
+    }
+    public void setNames(String names) {
+        this.names = names;
     }
 
-    public void setNif(String nif) {
-        this.nif = nif;
-    }
+    public String getSurnames_M() {return surnames_M;}
+    public void setSurnames_M(String surnames_M) {this.surnames_M = surnames_M;}
 
-    public String getName() {
-        return name;
-    }
+    public String getSurnames_F() {return surnames_F;}
+    public void setSurnames_F(String surnames_F) {this.surnames_F = surnames_F;}
 
-    public void setName_a(String name) {
-        this.name = name;
-    }
-
-    public String getSurnames() {
-        return surnames;
-    }
-
-    public void setSurnames(String surnames) {
-        this.surnames = surnames;
-    }
+    public String getPhone() {return phone;}
+    public void setPhone(String phone) {this.phone = phone;}
 
     public int getEfficiency() {
         return efficiency;
     }
-
     public void setEfficiency(int efficiency) {
         this.efficiency = efficiency;
     }
 
-    public String getTransport() {
+    public String getTipoAuto() {
         return tipoAuto;
     }
-
-    public void setTransport(String tipoAuto) {
+    public void setTipoAuto(String tipoAuto) {
         this.tipoAuto = tipoAuto;
     }
 
     public Usuary getUsuary() {
         return usuary;
     }
-
     public void setUsuary(Usuary usuary) {
         this.usuary = usuary;
     }
 
     @Override
     public String toString() {
-        return "DeliveryMan [id_DeliveryMan=" + idDeliveryMan + ", nif=" + nif + ", name=" + name + ", surnames="
-                + surnames + ", efficiency=" + efficiency + ", tipoAuto=" + tipoAuto + ", usuary=" + usuary + "]";
+        return String.format("DeliveryMan [dni=%s, idDeliveryMan=%s, name=%s, surnames_M%s, surnames_F=%s, phone=%s, efficiency=%s, tipoAuto=%s, nif_delivery=%s]",
+                dni,idDeliveryMan,names,surnames_M,surnames_F,phone,efficiency,tipoAuto,nif_delivery);
     }
 
 }

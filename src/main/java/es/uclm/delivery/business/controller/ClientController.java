@@ -37,11 +37,11 @@ public class ClientController {
     }
 
     @PostMapping("/registerClient")
-    public String clientSubmit(@ModelAttribute Client client, @RequestParam String email, @RequestParam String password,
+    public String clientSubmit(@ModelAttribute Client client,
+           @RequestParam String email, @RequestParam String password,
             Model model) {
 
-        Usuary usuary = new Usuary(password, email, "CLIENT", client, null, null);
-
+        Usuary usuary = new Usuary(password,email,"CLIENT");
         client.setUsuary(usuary);
         clientDAO.save(client);
 

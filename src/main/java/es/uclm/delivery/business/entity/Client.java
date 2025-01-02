@@ -9,15 +9,15 @@ public class Client {
     private Long idClient;
 
     @Column
-    private String dni;
-
-    @Column
     private String name;
 
     @Column
-    private String surnames;
+    private String surnames_M;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @Column
+    private String surnames_F;
+
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuary_id")
     private Usuary usuary;
 
@@ -25,55 +25,45 @@ public class Client {
 
     }
 
-    public Client(String name, String surnames, String dni, Usuary usuary) {
+    public Client(String name, String surnames_F,String surnames_M, Usuary usuary) {
         this.name = name;
-        this.surnames = surnames;
-        this.dni = dni;
+        this.surnames_M = surnames_M;
+        this.surnames_F = surnames_F;
         this.usuary = usuary;
     }
 
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSurnames() {
-        return surnames;
-    }
-
-    public void setSurnames(String surnames) {
-        this.surnames = surnames;
-    }
-
-    public String getDni() {
-        return dni;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
     }
 
     public Long getIdClient() {
         return idClient;
     }
-
     public void setIdClient(Long idClient) {
         this.idClient = idClient;
     }
 
+    public String getSurnames_M() {return surnames_M;}
+    public void setSurnames_M(String surnames_M) {this.surnames_M = surnames_M;}
+
+    public String getSurnames_F() {return surnames_F;}
+    public void setSurnames_F(String surnames_F) {this.surnames_F = surnames_F;}
+
     public Usuary getUsuary() {
         return usuary;
     }
-
     public void setUsuary(Usuary usuary) {
         this.usuary = usuary;
     }
 
+
     @Override
     public String toString() {
-        return String.format("Client [dni=%s, id_client=%s, name=%s, surnames=%s]", dni, idClient, name, surnames);
+        return String.format("Client [id_client=%s, name=%s, surnames_M=%s, surname_F=%s]", idClient, name, surnames_M, surnames_F,usuary);
     }
+
+
 }

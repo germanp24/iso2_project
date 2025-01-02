@@ -1,13 +1,14 @@
 package es.uclm.delivery.business.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.SimpleTimeZone;
 
 @Entity
 public class Restaurant {
     @Id
-    @Column
     private String cif;
 
     @Column
@@ -22,6 +23,12 @@ public class Restaurant {
     @Column
     private String locality;
 
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MenuItem> menu = new ArrayList<>();
+
+    public Restaurant() {
+
+    }
     public Restaurant(String cif, String name, String imageUrl, String street, String locality) {
         this.cif = cif;
         this.name = name;
@@ -30,13 +37,10 @@ public class Restaurant {
         this.locality = locality;
     }
 
-    public Restaurant() {
-    }
 
     public String getCif() {
         return cif;
     }
-
     public void setCif(String cif) {
         this.cif = cif;
     }
@@ -44,7 +48,6 @@ public class Restaurant {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -52,7 +55,6 @@ public class Restaurant {
     public String getImageUrl() {
         return imageUrl;
     }
-
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
@@ -60,7 +62,6 @@ public class Restaurant {
     public String getStreet() {
         return street;
     }
-
     public void setStreet(String street) {
         this.street = street;
     }
@@ -68,10 +69,12 @@ public class Restaurant {
     public String getLocality() {
         return locality;
     }
-
     public void setLocality(String locality) {
         this.locality = locality;
     }
+
+    public List<MenuItem> getMenu(){return menu;}
+    public void setMenu(List<MenuItem> menu) {this.menu = menu;}
 
     @Override
     public String toString() {

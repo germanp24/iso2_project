@@ -1,12 +1,9 @@
 package es.uclm.delivery.business.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 
@@ -24,34 +21,29 @@ public class Usuary {
     @Column
     private String role;
 
-    @OneToOne(mappedBy = "usuary", cascade = CascadeType.ALL)
-    private Client client;
+    @OneToMany(mappedBy = "usuary", cascade = CascadeType.ALL, orphanRemoval=true)
+    private List<Client> client = new ArrayList<>();
 
-    @OneToOne(mappedBy = "usuary", cascade = CascadeType.ALL)
-    private DeliveryMan deliveryMan;
+    @OneToMany(mappedBy = "usuary", cascade = CascadeType.ALL)
+    private List<DeliveryMan> deliveryMan = new ArrayList<>();
 
-    @OneToOne(mappedBy = "usuary", cascade = CascadeType.ALL)
-    private RestaurantAdministrator restaurantAdministrator;
+    @OneToMany(mappedBy = "usuary", cascade = CascadeType.ALL, orphanRemoval=true)
+    private List<RestaurantAdministrator> restaurantAdministrator =  new ArrayList<>();
 
     public Usuary() {
 
     }
 
-    public Usuary(String password, String email, String role, Client client, DeliveryMan deliveryMan,
-            RestaurantAdministrator restaurantAdministrator) {
+    public Usuary(String password, String email, String role) {
         this.password = password;
         this.email = email;
         this.role = role;
-        this.client = client;
-        this.deliveryMan = deliveryMan;
-        this.restaurantAdministrator = restaurantAdministrator;
-
     }
+
 
     public Long getIdUsuary() {
         return idUsuary;
     }
-
     public void setIdUsuary(Long idUsuary) {
         this.idUsuary = idUsuary;
     }
@@ -59,7 +51,6 @@ public class Usuary {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -67,7 +58,6 @@ public class Usuary {
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -75,34 +65,20 @@ public class Usuary {
     public String getRole() {
         return role;
     }
-
     public void setRole(String role) {
         this.role = role;
     }
 
-    public Client getClient() {
-        return client;
-    }
+    public List<Client> getClient() {return client;}
+    public void setClient(List<Client> client) {this.client = client;}
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
+    public List<DeliveryMan> getDeliveryMan() {return deliveryMan;}
+    public void setDeliveryMan(List<DeliveryMan> deliveryMan) {this.deliveryMan = deliveryMan;}
 
-    public DeliveryMan getDeliveryMan() {
-        return deliveryMan;
-    }
-
-    public void setDeliveryMan(DeliveryMan deliveryMan) {
-        this.deliveryMan = deliveryMan;
-    }
-
-    public RestaurantAdministrator getRestaurantAdministrator() {
+    public List<RestaurantAdministrator> getRestaurantAdministrator() {
         return restaurantAdministrator;
     }
-
-    public void setRestaurantAdministrator(RestaurantAdministrator restaurantAdministrator) {
-        this.restaurantAdministrator = restaurantAdministrator;
-    }
+    public void setRestaurantAdministrator(List<RestaurantAdministrator> restaurantAdministrator) {this.restaurantAdministrator = restaurantAdministrator;}
 
     @Override
     public String toString() {

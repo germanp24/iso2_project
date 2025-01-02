@@ -37,10 +37,11 @@ public class DeliveryManController {
 
     @PostMapping("/registerDeliv")
     public String repartidorSubmit(@ModelAttribute DeliveryMan deliveryMan, @RequestParam String email,
-            @RequestParam String password, Model model) {
-        Usuary usuary = new Usuary(password, email, "DELIVERYMAN", null, deliveryMan, null);
+            @RequestParam String password,@RequestParam String tipoAuto ,Model model) {
+        Usuary usuary = new Usuary(password, email, "DELIVERYMAN");
 
         deliveryMan.setUsuary(usuary);
+        deliveryMan.setTipoAuto(tipoAuto);
         deliveryManDAO.save(deliveryMan);
 
         model.addAttribute(REG_DELIVMAN, deliveryMan);

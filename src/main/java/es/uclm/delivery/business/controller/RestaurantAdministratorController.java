@@ -41,8 +41,7 @@ public class RestaurantAdministratorController {
     public String restaurantAdministratorSubmit(@ModelAttribute RestaurantAdministrator restaurantAdministrator,
             @RequestParam String email, @RequestParam String password, Model model) {
 
-        Usuary usuary = new Usuary(password, email, "ADMIN", null, null, restaurantAdministrator);
-
+        Usuary usuary = new Usuary(password, email,"ADMIN");
         restaurantAdministrator.setUsuary(usuary);
         restaurantAdministratorDAO.save(restaurantAdministrator);
 

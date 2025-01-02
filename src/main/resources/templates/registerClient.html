@@ -20,9 +20,9 @@
             <div class="register-container">
                 <h2>Completa el formulario y disfruta de las ventajas</h2>
                 <form th:action="@{/registerClient}" th:object="${registerClient}" method="post">
-                    <input type="text" th:field="*{dni}" placeholder="DNI" required>
                     <input type="text" th:field="*{name}" placeholder="Nombre" required>
-                    <input type="text" th:field="*{surnames}" placeholder="Apellidos" required>
+                    <input type="text" th:field="*{surnames_F}" placeholder="Apellidos" required>
+                    <input type="text" th:field="*{surnames_M}" placeholder="Apellidos" required>
                     <input type="email" name="email" placeholder="Correo Electrónico" required>
                     <input type="password" name="password" placeholder="Contraseña" required>
                     <div>

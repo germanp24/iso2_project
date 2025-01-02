@@ -8,23 +8,11 @@
   <link rel="stylesheet" href="/repartidor/delivStyles.css">
 
 </head>
-
-
 <body>
 
   <header>
     <img src="https://i.postimg.cc/QdkWSRwp/Dise-o-sin-t-tulo-removebg-preview.png" alt="Logo de la empresa"
       class="logo">
-    <nav>
-      <div class="language-selector">
-        <select id="language" name="language">
-          <option value="es">Español</option>
-          <option value="en">English</option>
-          <option value="fr">Français</option>
-          <!-- Agrega más opciones según lo necesites -->
-        </select>
-      </div>
-    </nav>
   </header>
   <main>
     <div class="letters-container">
@@ -34,13 +22,21 @@
           <h2>Completa el formulario para empezar a realizar entregas</h2>
         </div>
         <form th:action="@{/registerDeliv}" th:object="${registerDeliv}" method="post">
-          <input type="text" id="NIF" th:field="*{nif}" placeholder="NIF" required>
-          <input type="text" id="Nombre" th:field="*{name}" placeholder="Nombre" required>
-          <input type="text" id="Apellidos" th:field="*{surnames}" placeholder="Apellidos" required>
-          <input type="email" id="Email" name="email" placeholder="Correo electrónico" required>
+          <input type="text" id="DNI" th:field="*{dni}" placeholder="DNI (8 números + letra)" required maxlength="9"
+                 pattern="^\d{8}[A-Za-z]$" title="El DNI debe tener 8 dígitos seguidos de una letra (por ejemplo, 12345678A)">
+
+          <input type="text" id="Name" th:field="*{names}" placeholder="Nombre" required>
+
+          <input type="text" id="Surnames_M" th:field="*{surnames_M}" placeholder="Apellidos Materno" required>
+          <input type="text" id="Surnames_F" th:field="*{surnames_F}" placeholder="Apellidos Paterno" required>
+
+          <input type="text" id="Phone" th:field="*{phone}" placeholder="Número de teléfono" required maxlength="9"
+                 pattern="^\d{9}$" title="El teléfono debe tener 9 dígitos">
+
+          <input type="email" id="Email" name="email" placeholder="Correo Electrónico" required>
           <input type="password" id="Password" name="password" placeholder="Contraseña" required>
 
-          <div class="botones-tipo-auto">
+          <div class="botones-tipo-auto" th:field="*{tipoAuto}">
             <!-- Botón de Motocicleta -->
             <button type="button" class="tipo-auto" data-tipo="MOTO">
               <img src="https://couriers.glovoapp.com/_nuxt/img/motorbike.d9a4844.svg" alt="MOTORBIKE" />
@@ -55,7 +51,7 @@
             <button type="button" class="tipo-auto" data-tipo="BICYCLE">
               <img src="https://couriers.glovoapp.com/_nuxt/img/bicycle.644742b.svg" alt="BICYCLE" />
             </button>
-            <input type="hidden" id="tipoAuto" name="tipoAuto">
+            <input type="hidden" id="tipoAuto" name="tipoAuto" th:field="*{tipoAuto}">
 
           </div>
           <div>
@@ -67,9 +63,8 @@
         </div>
       </div>
     </div>
-    <!-- Aquí enlazas tu archivo JavaScript -->
-    <script src="/repartidor/script.js"></script>
   </main>
+  <script src="/repartidor/scriptD.js"></script>
 </body>
 
 </html>
