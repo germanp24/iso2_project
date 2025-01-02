@@ -7,30 +7,36 @@ import jakarta.persistence.Id;
 
 @Entity
 public class CustomerOrder {
+
     @Id
     @Column
-    private int orderNumber;
+    private int orderNumber; // orderNumber como clave primaria
 
-    @Column(nullable = true) // Permitir valores nulos para el DNI
+    @Column(nullable = false)
     private String dni;
 
-    @Column
+    @Column(nullable = true)
+    private String address;
+
+    @Column(nullable = false)
     private Date date;
 
-    @Column
+    @Column(nullable = false)
     private String orderedFood;
 
     public CustomerOrder() {
 
     }
 
-    public CustomerOrder(int orderNumber, String dni, Date date, String orderedFood) {
+    public CustomerOrder(int orderNumber, String dni, String address, Date date, String orderedFood) {
         this.orderNumber = orderNumber;
         this.dni = dni;
+        this.address = address;
         this.date = date;
         this.orderedFood = orderedFood;
     }
 
+    // Getters y Setters
     public int getOrderNumber() {
         return orderNumber;
     }
@@ -45,6 +51,14 @@ public class CustomerOrder {
 
     public void setDni(String dni) {
         this.dni = dni;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Date getDate() {
@@ -65,7 +79,6 @@ public class CustomerOrder {
 
     @Override
     public String toString() {
-        return String.format("CustomerOrder [order_number=%s, dni=%s, date=%s, ordered_food=%s]", orderNumber, dni,
-                date, orderedFood);
+        return String.format("CustomerOrder [orderNumber=%s, dni=%s, date=%s, address=%s, orderedFood=%s]", orderNumber, dni, date, address, orderedFood);
     }
 }
