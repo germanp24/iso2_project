@@ -22,6 +22,7 @@ public class DeliveryManController {
 
     private final DeliveryManDAO deliveryManDAO;
 
+
     public DeliveryManController(DeliveryManDAO deliveryManDAO) {
         this.deliveryManDAO = deliveryManDAO;
     }

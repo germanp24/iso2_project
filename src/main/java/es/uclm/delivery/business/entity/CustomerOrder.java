@@ -1,71 +1,49 @@
 package es.uclm.delivery.business.entity;
 
 import java.sql.Date;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+
+import jakarta.persistence.*;
 
 @Entity
 public class CustomerOrder {
     @Id
-    @Column
     private int orderNumber;
 
-    @Column(nullable = true) // Permitir valores nulos para el DNI
-    private String dni;
+    @Column(nullable = false)
+    private String status;
 
-    @Column
-    private Date date;
+    @OneToOne(mappedBy = "customerOrder",cascade = CascadeType.ALL)
+    private DeliveryService deliveryService;
 
-    @Column
-    private String orderedFood;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idClient")
+    private Client client;
+
 
     public CustomerOrder() {
-
     }
 
-    public CustomerOrder(int orderNumber, String dni, Date date, String orderedFood) {
-        this.orderNumber = orderNumber;
-        this.dni = dni;
-        this.date = date;
-        this.orderedFood = orderedFood;
+    public CustomerOrder(String status, DeliveryService deliveryService, Client client) {
+        this.status = status;
+        this.deliveryService = deliveryService;
+        this.client = client;
     }
 
     public int getOrderNumber() {
         return orderNumber;
     }
-
     public void setOrderNumber(int orderNumber) {
         this.orderNumber = orderNumber;
     }
 
-    public String getDni() {
-        return dni;
-    }
+    public String getStatus() {return status;}
+    public void setStatus(String status) {this.status = status;}
 
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public String getOrderedFood() {
-        return orderedFood;
-    }
-
-    public void setOrderedFood(String orderedFood) {
-        this.orderedFood = orderedFood;
-    }
+    public DeliveryService getDeliveryService() {return deliveryService;}
+    public void setDeliveryService(DeliveryService deliveryService) {this.deliveryService = deliveryService;}
 
     @Override
     public String toString() {
-        return String.format("CustomerOrder [order_number=%s, dni=%s, date=%s, ordered_food=%s]", orderNumber, dni,
-                date, orderedFood);
+        return String.format("CustomerOrder [order_number=%s, status=%s]", orderNumber, status);
     }
 }

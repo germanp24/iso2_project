@@ -1,6 +1,7 @@
 package es.uclm.delivery.business.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.SimpleTimeZone;
 @Entity
 public class Restaurant {
     @Id
+    @Pattern(regexp = "\\d{6}[A-Za-z]", message = "El Cif del restaurante debe contener 6 números seguidos de una letra")
     private String cif;
 
     @Column

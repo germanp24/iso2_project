@@ -3,6 +3,9 @@ package es.uclm.delivery.business.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @Entity
@@ -40,6 +43,9 @@ public class DeliveryMan {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuary_id")
     private Usuary usuary;
+
+    @OneToMany(mappedBy = "deliveryMan", cascade = CascadeType.ALL, orphanRemoval=true)
+    private List<DeliveryService> deliveryServices = new ArrayList<>();
 
     public DeliveryMan() {
 
@@ -118,6 +124,9 @@ public class DeliveryMan {
     public void setUsuary(Usuary usuary) {
         this.usuary = usuary;
     }
+
+    public List<DeliveryService> getDeliveryServices() {return deliveryServices;}
+    public void setDeliveryServices(List<DeliveryService> deliveryServices) {this.deliveryServices = deliveryServices;}
 
     @Override
     public String toString() {

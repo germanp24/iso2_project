@@ -2,6 +2,9 @@ package es.uclm.delivery.business.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Client {
     @Id
@@ -20,6 +23,9 @@ public class Client {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuary_id")
     private Usuary usuary;
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval=true)
+    private List<CustomerOrder> customerOrder = new ArrayList<>();
 
     public Client() {
 
@@ -58,6 +64,9 @@ public class Client {
     public void setUsuary(Usuary usuary) {
         this.usuary = usuary;
     }
+
+    public List<CustomerOrder> getCustomerOrder() {return customerOrder;}
+    public void setCustomerOrder(List<CustomerOrder> customerOrder) {this.customerOrder = customerOrder;}
 
 
     @Override
