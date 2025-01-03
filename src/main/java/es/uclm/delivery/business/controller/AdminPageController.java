@@ -5,9 +5,10 @@ import es.uclm.delivery.persistence.RestaurantDAO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+
+import java.util.List;
 
 @Controller
 public class AdminPageController {
@@ -19,13 +20,15 @@ public class AdminPageController {
     }
 
     @GetMapping("/adminPage")
-    public String showAdminPage() {
+    public String showAdminPage(Model model) {
+        List<Restaurant> restaurants = restaurantDAO.findAll();
+        System.out.println("RESTAURANTES OBTENIDOS DE LA BASE DE DATOS: " + restaurants);
+        model.addAttribute("restaurants", restaurants);
         return "adminPage";
     }
 
-
-    @PostMapping("/updateRestaurant/{id}")
-    public String updateRestaurant(@PathVariable("id") String   id, @ModelAttribute Restaurant restaurant, Model model) {
+    @PostMapping("/updateRestaurant")
+    public String updateRestaurant(@ModelAttribute Restaurant restaurant) {
         restaurantDAO.save(restaurant);
         return "redirect:/adminPage";
     }
