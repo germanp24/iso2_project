@@ -14,24 +14,23 @@ import java.util.List;
 @Controller
 public class AdminPageController {
 
-    private static final String redirectToAdminPage = "redirect:/adminPage";
+    private static final String REDIRECT_TO_ADMIN_PAGE = "redirect:/adminPage";
 
     private final RestaurantDAO restaurantDAO;
 
     public AdminPageController(RestaurantDAO restaurantDAO) {
         this.restaurantDAO = restaurantDAO;
-    }
+        }
 
-    @GetMapping("/adminPage")
-    public String showAdminPage(Model model) {
+        @GetMapping("/adminPage")
+        public String showAdminPage(Model model) {
         List<Restaurant> restaurants = restaurantDAO.findAll();
-        System.out.println("RESTAURANTES OBTENIDOS DE LA BASE DE DATOS: " + restaurants);
         model.addAttribute("restaurants", restaurants);
         return "adminPage";
-    }
+        }
 
-    @PostMapping("/updateRestaurant")
-    public String updateRestaurant(@ModelAttribute Restaurant restaurant) {
+        @PostMapping("/updateRestaurant")
+        public String updateRestaurant(@ModelAttribute Restaurant restaurant) {
         return saveAndRedirect(restaurant);
     }
 
@@ -43,11 +42,11 @@ public class AdminPageController {
     @PostMapping("/deleteRestaurant")
     public String deleteRestaurant(@RequestParam String cif) {
         restaurantDAO.deleteById(cif);
-        return redirectToAdminPage;
+        return REDIRECT_TO_ADMIN_PAGE;
     }
 
     private String saveAndRedirect(Restaurant restaurant) {
         restaurantDAO.save(restaurant);
-        return redirectToAdminPage;
+        return REDIRECT_TO_ADMIN_PAGE;
     }
 }
