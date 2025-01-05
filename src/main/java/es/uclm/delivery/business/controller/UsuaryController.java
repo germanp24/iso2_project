@@ -40,17 +40,8 @@ public class UsuaryController {
         Usuary usuary = usuaryDAO.findByEmailAndPassword(email, password).orElse(null);
 
         if (usuary != null) {
-            switch (usuary.getRole()) {
-                case "CLIENT":
-                    return "redirect:/client/home?email=" + email;
-                case "DELIVERYMAN":
-                    return "redirect:/delivery/home?email=" + email;
-                case "ADMIN":
-                    return "redirect:/admin/dashboard";
-                default:
-                    model.addAttribute("error", "Rol no reconocido.");
-                    return "login";
-            }
+            model.addAttribute("userRole", usuary.getRole());
+            return "redirect:/homeClient";
         } else {
             model.addAttribute("error", "Credenciales incorrectas. Por favor, intenta de nuevo.");
             return "login";
