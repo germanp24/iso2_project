@@ -44,7 +44,8 @@ public class UsuaryController {
             return "redirect:/homeClient";
         } else {
             model.addAttribute("error", "Credenciales incorrectas. Por favor, intenta de nuevo.");
-            return LOGIN;
+            return "login";
         }
     }
+
 }

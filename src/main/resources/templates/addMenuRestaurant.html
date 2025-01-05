@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Menu Management</title>
+    <link href="/restaurants/menuDetails.css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <a href="/index" class="logo-button">
+        <img src="https://i.postimg.cc/QdkWSRwp/Dise-o-sin-t-tulo-removebg-preview.png" alt="Logo de la empresa" class="logo">
+    </a>
+</header>
+<main>
+    <div class="letters-container">
+        <h1>Añade un nuevo menu</h1>
+        <form th:action="@{/menuRestaurants}" th:object="${menuItem}" method="post">
+            <div class="register-container">
+                <label for="foodName">Food Name:</label>
+                <input type="text" id="foodName" name="foodName" th:value="*{foodName}" required />
+                <br/>
+                <label for="price">Price:</label>
+                <input type="number" id="price" name="price" th:value="*{price}" step="0.01" required />
+                <br />
+                <label for="category">Category:</label>
+                <input type="text" id="category" name="category" th:value="*{category}" required />
+                <br />
+                <label for="restaurant">Restaurant:</label>
+                <br/>
+                <select id="restaurant" name="restaurant.cif" th:field="*{restaurant.cif}" required>
+                    <option value="" disabled selected></option>
+                    <option th:each="restaurant : ${restaurants}"
+                            th:value="${restaurant.cif}"
+                            th:text="${restaurant.name}">
+                    </option>
+                </select>
+                <br />
+                <label for="imgMenu">Menu Image URL:</label>
+                <input type="url" id="imgMenu" name="imgMenu" th:value="*{imgMenu}" placeholder="Introduce la URL de la imagen"/>
+                <br/>
+            </div>
+            <br/>
+            <div class="register-container">
+                <h3>Menu Contents</h3>
+                <div id="contents">
+                    <div>
+                        <label>Item Name:</label>
+                        <input type="text" name="contents[0].itemName" />
+                        <label>Description:</label>
+                        <input type="text" name="contents[0].description" />
+                    </div>
+                </div>
+                <button type="button" onclick="addContent()">Add Content</button>
+                <br/>
+            </div>
+            <div>
+                <input type="submit" value="Add Menu Item" disabled>
+            </div>
+
+        </form>
+    </div>
+</main>
+    <script>
+        let contentIndex = 1;
+
+        function addContent() {
+            const contentsDiv = document.getElementById('contents');
+            const newContent = document.createElement('div');
+            newContent.innerHTML = `
+            <label>Item Name:</label>
+            <input type="text" name="contents[${contentIndex}].itemName" required />
+            <label>Description:</label>
+            <input type="text" name="contents[${contentIndex}].description" />
+        `;
+            contentsDiv.appendChild(newContent);
+            contentIndex++;
+        }
+    </script>
+
+
+</div>
+</body>
+</html>

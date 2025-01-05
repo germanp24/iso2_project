@@ -4,6 +4,7 @@ import es.uclm.delivery.business.entity.Client;
 import es.uclm.delivery.business.entity.Usuary;
 import es.uclm.delivery.persistence.ClientDAO;
 
+import es.uclm.delivery.persistence.UsuaryDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -20,9 +21,12 @@ public class ClientController {
 
     private static final String REG_CLIENT = "registerClient";
     private final ClientDAO clientDAO;
+    private final UsuaryDAO usuaryDAO;
 
-    public ClientController(ClientDAO clientDAO) {
+    public ClientController(ClientDAO clientDAO, UsuaryDAO usuaryDAO) {
+
         this.clientDAO = clientDAO;
+        this.usuaryDAO = usuaryDAO;
     }
 
     @GetMapping("/registerClient")
@@ -36,12 +40,23 @@ public class ClientController {
 
     }
 
+    @GetMapping("/client/home")
+    public String clientHome(@RequestParam String email, Model model) {
+        Usuary usuary = usuaryDAO.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado"));
+
+        model.addAttribute("clientName", usuary.getEmail());
+        log.info("Cargando home para el cliente: {}", usuary.getEmail());
+        return "client/home";
+    }
+
+
     @PostMapping("/registerClient")
-    public String clientSubmit(@ModelAttribute Client client, @RequestParam String email, @RequestParam String password,
+    public String clientSubmit(@ModelAttribute Client client,
+           @RequestParam String email, @RequestParam String password,
             Model model) {
 
-        Usuary usuary = new Usuary(password, email, "CLIENT", client, null, null);
-
+        Usuary usuary = new Usuary(password,email,"CLIENT");
         client.setUsuary(usuary);
         clientDAO.save(client);
 
