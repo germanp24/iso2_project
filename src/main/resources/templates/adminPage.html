@@ -75,7 +75,7 @@
             background-color: #ddd;
         }
 
-        .edit-button {
+        .edit-button, .delete-button {
             background-color: #4CAF50;
             color: white;
             padding: 5px 10px;
@@ -84,8 +84,16 @@
             cursor: pointer;
         }
 
-        .edit-button:hover {
+        .edit-button:hover, .delete-button:hover {
             background-color: #45a049;
+        }
+
+        .delete-button {
+            background-color: #f44336;
+        }
+
+        .delete-button:hover {
+            background-color: #e53935;
         }
     </style>
 </head>
@@ -95,6 +103,12 @@
         <p>Restaurantes disponibles</p>
         <a href="/index" class="logout-button">Cerrar Sesión</a>
     </header>
+
+    <div class="container mt-4">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+            Añadir Restaurante
+        </button>
+    </div>
 
     <table class="restaurant-table">
         <thead>
@@ -119,12 +133,56 @@
                             th:attr="data-id=${restaurant.cif}, data-name=${restaurant.name}, data-imageUrl=${restaurant.imageUrl}, data-locality=${restaurant.locality}, data-street=${restaurant.street}">
                         Editar
                     </button>
+                    <form th:action="@{/deleteRestaurant}" method="post" style="display:inline;">
+                        <input type="hidden" name="cif" th:value="${restaurant.cif}">
+                        <button type="submit" class="delete-button">Eliminar</button>
+                    </form>
                 </td>
             </tr>
         </tbody>
     </table>
 
-    <!-- Modal -->
+    <!-- Modal para añadir restaurante -->
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form th:action="@{/addRestaurant}" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addModalLabel">Añadir Restaurante</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="addCif" class="form-label">CIF</label>
+                            <input type="text" class="form-control" id="addCif" name="cif" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addName" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="addName" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addImageUrl" class="form-label">URL de la Imagen</label>
+                            <input type="text" class="form-control" id="addImageUrl" name="imageUrl" value="https://i.postimg.cc/tJ8bHvQb/default-Restaurant.jpg" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addLocality" class="form-label">Localidad</label>
+                            <input type="text" class="form-control" id="addLocality" name="locality" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addStreet" class="form-label">Calle</label>
+                            <input type="text" class="form-control" id="addStreet" name="street" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Añadir</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para editar restaurante -->
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

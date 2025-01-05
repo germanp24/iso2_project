@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.List;
@@ -30,6 +31,18 @@ public class AdminPageController {
     @PostMapping("/updateRestaurant")
     public String updateRestaurant(@ModelAttribute Restaurant restaurant) {
         restaurantDAO.save(restaurant);
+        return "redirect:/adminPage";
+    }
+
+    @PostMapping("/addRestaurant")
+    public String addRestaurant(@ModelAttribute Restaurant restaurant) {
+        restaurantDAO.save(restaurant);
+        return "redirect:/adminPage";
+    }
+
+    @PostMapping("/deleteRestaurant")
+    public String deleteRestaurant(@RequestParam String cif) {
+        restaurantDAO.deleteById(cif);
         return "redirect:/adminPage";
     }
 }
