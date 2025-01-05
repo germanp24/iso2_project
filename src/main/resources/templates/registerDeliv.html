@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xml:lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xml:lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -10,10 +10,11 @@
 </head>
 <body>
 
-  <header>
-    <img src="https://i.postimg.cc/QdkWSRwp/Dise-o-sin-t-tulo-removebg-preview.png" alt="Logo de la empresa"
-      class="logo">
-  </header>
+<header>
+  <a href="/index" class="logo-button">
+    <img src="https://i.postimg.cc/QdkWSRwp/Dise-o-sin-t-tulo-removebg-preview.png" alt="Logo de la empresa" class="logo">
+  </a>
+</header>
   <main>
     <div class="letters-container">
       <h1>¡Conéctate y reparte cuando quieras!</h1>
@@ -22,7 +23,7 @@
           <h2>Completa el formulario para empezar a realizar entregas</h2>
         </div>
         <form th:action="@{/registerDeliv}" th:object="${registerDeliv}" method="post">
-          <input type="text" id="DNI" th:field="*{dni}" placeholder="DNI (8 números + letra)" required maxlength="9"
+          <input type="text" id="dni" name="dni" th:field="*{dni}" placeholder="DNI (8 números + letra)" required maxlength="9"
                  pattern="^\d{8}[A-Za-z]$" title="El DNI debe tener 8 dígitos seguidos de una letra (por ejemplo, 12345678A)">
 
           <input type="text" id="Name" th:field="*{names}" placeholder="Nombre" required>
@@ -36,6 +37,15 @@
           <input type="email" id="Email" name="email" placeholder="Correo Electrónico" required>
           <input type="password" id="Password" name="password" placeholder="Contraseña" required>
 
+          <label>¿Dónde y cómo entregarás?</label>
+
+          <label>Localidad</label>
+          <select id="localit" name="localit" required>
+            <option value="" disabled selected>Selecciona una localit</option>
+            <option th:each="localit : ${locations}" th:value="${localit}" th:text="${localit}"></option>
+          </select>
+
+          <label>Vehiculo</label>
           <div class="botones-tipo-auto" th:field="*{tipoAuto}">
             <!-- Botón de Motocicleta -->
             <button type="button" class="tipo-auto" data-tipo="MOTO">
@@ -57,7 +67,15 @@
           <div>
             <input type="submit" value="Registrarse" id="registrarse" disabled>
           </div>
+
         </form>
+        <div th:if="${successMessage}" class="success-message">
+          <p th:text="${successMessage}"></p>
+        </div>
+        <div th:if="${errorMessage}" class="error-message">
+          <p th:text="${errorMessage}"></p>
+        </div>
+
         <div class="login-link">
           ¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a>
         </div>

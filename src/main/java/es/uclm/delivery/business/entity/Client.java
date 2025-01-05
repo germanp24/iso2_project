@@ -12,6 +12,9 @@ public class Client {
     private Long idClient;
 
     @Column
+    private String dni;
+
+    @Column
     private String name;
 
     @Column
@@ -24,19 +27,23 @@ public class Client {
     @JoinColumn(name = "usuary_id")
     private Usuary usuary;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval=true)
-    private List<CustomerOrder> customerOrder = new ArrayList<>();
+    //@OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval=true)
+    //private List<CustomerOrder> customerOrder = new ArrayList<>();
 
     public Client() {
 
     }
 
-    public Client(String name, String surnames_F,String surnames_M, Usuary usuary) {
+    public Client(String dni, String name, String surnames_F, String surnames_M, Usuary usuary) {
+        this.dni = dni;
         this.name = name;
         this.surnames_M = surnames_M;
         this.surnames_F = surnames_F;
         this.usuary = usuary;
     }
+
+    public String getDni() {return dni;}
+    public void setDni(String dni) {this.dni = dni;}
 
     public String getName() {
         return name;
@@ -65,8 +72,8 @@ public class Client {
         this.usuary = usuary;
     }
 
-    public List<CustomerOrder> getCustomerOrder() {return customerOrder;}
-    public void setCustomerOrder(List<CustomerOrder> customerOrder) {this.customerOrder = customerOrder;}
+    //public List<CustomerOrder> getCustomerOrder() {return customerOrder;}
+    //public void setCustomerOrder(List<CustomerOrder> customerOrder) {this.customerOrder = customerOrder;}
 
 
     @Override

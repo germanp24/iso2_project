@@ -2,18 +2,18 @@ package es.uclm.delivery.business.controller;
 
 import es.uclm.delivery.business.entity.MenuItem;
 import es.uclm.delivery.business.entity.Restaurant;
-import es.uclm.delivery.business.entity.MenuContent;
+import es.uclm.delivery.business.entity.Usuary;
 import es.uclm.delivery.persistence.MenuItemDAO;
 import es.uclm.delivery.persistence.RestaurantDAO;
+import es.uclm.delivery.persistence.UsuaryDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
+import java.util.Optional;
 
 @Controller
 public class MenuItemController {
@@ -22,14 +22,19 @@ public class MenuItemController {
 
     private final MenuItemDAO menuItemDAO;
     private final RestaurantDAO restaurantDAO;
+    private final UsuaryDAO usuaryDAO;
 
-    public MenuItemController(MenuItemDAO menuItemDAO, RestaurantDAO restaurantDAO) {
+    public MenuItemController(MenuItemDAO menuItemDAO, RestaurantDAO restaurantDAO, UsuaryDAO usuaryDAO) {
         this.menuItemDAO = menuItemDAO;
         this.restaurantDAO = restaurantDAO;
+        this.usuaryDAO = usuaryDAO;
     }
 
     @GetMapping("/restaurant/{cif}")
-    public String restaurantDetails(@PathVariable String cif, Model model) {
+    public String restaurantDetails(@PathVariable String cif, @RequestParam(required = false) String email, Model model) {
+
+        log.info("Cargando detalles del restaurante con CIF: {}", cif);
+
         // Buscar el restaurante por CIF
         Restaurant restaurant = restaurantDAO.findById(cif)
                 .orElseThrow(() -> new IllegalArgumentException("Restaurant not found"));
@@ -37,25 +42,38 @@ public class MenuItemController {
         // Obtener los menús asociados al restaurante
         List<MenuItem> menuItems = menuItemDAO.findByRestaurantCif(cif);
 
-        // Añadir datos al modelo
-        model.addAttribute("restaurant", restaurant);
-        model.addAttribute("menuItems", menuItems);
+        boolean isClient = false;
+        if (email != null) {
+            Optional<Usuary> usuaryOptional = usuaryDAO.existsByEmail(email);
+            if (usuaryOptional.isPresent()) {
+                Usuary usuary = usuaryOptional.get();
+                log.info("Usuario encontrado: {}, Rol: {}", usuary.getEmail(), usuary.getRole());
+                isClient = "CLIENT".equals(usuary.getRole());
+            } else {
+                log.warn("No se encontró un usuario con el correo: {}", email);
+            }
+        }
 
-        return "restaurantDetails"; // Nombre de la plantilla Thymeleaf
+            // Añadir datos al modelo
+            model.addAttribute("restaurant", restaurant);
+            model.addAttribute("menuItems", menuItems);
+            model.addAttribute("isClient", isClient);
+
+            return "menuDetails";
     }
 
 
-    @GetMapping("/menuRestaurants")
+    @GetMapping("/addMenuRestaurant")
     public String menuItemForm(Model model) {
 
         model.addAttribute("menuItem", new MenuItem());
         model.addAttribute("menuItems", menuItemDAO.findAll());
         model.addAttribute("restaurants", restaurantDAO.findAll());
 
-        return "menuRestaurants";
+        return "addMenuRestaurant";
     }
 
-    @PostMapping("/menuRestaurants")
+    @PostMapping("/addMenuRestaurant")
     public String menuItemSubmit(@ModelAttribute MenuItem menuItem, Model model) {
         try {
             // Validar si el restaurante existe
@@ -75,7 +93,28 @@ public class MenuItemController {
             model.addAttribute("errorMessage", "Error saving menu item: " + e.getMessage());
             log.error("Error saving menu item", e);
         }
-        return "redirect:/menuRestaurants";
+        return "redirect:/addMenuRestaurant";
+    }
+
+    @PostMapping("/menuRestaurants/orderDetails")
+    public String orderMenu(@RequestParam String menuItemId, @RequestParam String email, Model model) {
+        // Validar si el usuario tiene el rol de cliente
+        boolean isClient = usuaryDAO.existsByEmail(email)
+                .map(user -> "CLIENT".equals(user.getRole()))
+                .orElse(false);
+
+        if (!isClient) {
+            model.addAttribute("errorMessage", "Solo los clientes pueden realizar pedidos.");
+            return "error"; // Página de error o redirección
+        }
+
+        // Buscar el menú por ID
+        MenuItem menuItem = menuItemDAO.findById(menuItemId)
+                .orElseThrow(() -> new IllegalArgumentException("Menú no encontrado"));
+
+        // Aquí puedes agregar lógica para registrar el pedido en la base de datos
+        model.addAttribute("successMessage", "Pedido realizado con éxito: " + menuItem.getFoodName());
+        return "orderConfirmation"; // Página de confirmación
     }
 
 

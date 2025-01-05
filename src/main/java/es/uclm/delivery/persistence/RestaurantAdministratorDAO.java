@@ -5,7 +5,8 @@ import org.springframework.stereotype.Repository;
 import es.uclm.delivery.business.entity.RestaurantAdministrator;
 
 @Repository
-public interface RestaurantAdministratorDAO extends JpaRepository<RestaurantAdministrator, Long> {
+public interface RestaurantAdministratorDAO extends JpaRepository<RestaurantAdministrator, String> {
+    RestaurantAdministrator findByDni (String dni);
     /*
      * Se hereda de JpaRepository operaciones de acceso a datos comunes a todas las
      * entidades:

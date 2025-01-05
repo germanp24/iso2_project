@@ -1,4 +1,4 @@
-const dni = document.getElementById('DNI');
+const dni = document.getElementById('dni');
 const name = document.getElementById('Name');
 const surname_m = document.getElementById('Surnames_M');
 const surname_f =document.getElementById('Surnames_F');
@@ -50,3 +50,5 @@ document.querySelector('form').addEventListener('input', () => {
 
 // Inicialización: Desactivar el botón al cargar la página
 actualizarEstadoBoton();
+
+

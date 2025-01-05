@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Entity
 public class DeliveryMan {
@@ -47,6 +45,14 @@ public class DeliveryMan {
     @OneToMany(mappedBy = "deliveryMan", cascade = CascadeType.ALL, orphanRemoval=true)
     private List<DeliveryService> deliveryServices = new ArrayList<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "delivRestaurant",
+            joinColumns = @JoinColumn(name = "nif_delivery"),
+            inverseJoinColumns = @JoinColumn (name = "cif")
+    )
+    private Set<Restaurant> restaurant = new HashSet<>();
+
     public DeliveryMan() {
 
     }
@@ -75,8 +81,8 @@ public class DeliveryMan {
         return numbers + letter;
     }
 
-    public String getNif_admin() {return nif_delivery;}
-    public void setNif_admin(String nif_admin) {this.nif_delivery = nif_admin;}
+    public String getNif_delivery() {return nif_delivery;}
+    public void setNif_delivery(String nif_delivery) {this.nif_delivery = nif_delivery;}
 
     public Long getIdDeliveryMan() {
         return idDeliveryMan;
@@ -127,6 +133,9 @@ public class DeliveryMan {
 
     public List<DeliveryService> getDeliveryServices() {return deliveryServices;}
     public void setDeliveryServices(List<DeliveryService> deliveryServices) {this.deliveryServices = deliveryServices;}
+
+    public Set<Restaurant> getRestaurant() {return restaurant;}
+    public void setRestaurant(Set<Restaurant> restaurant) {this.restaurant = restaurant;}
 
     @Override
     public String toString() {

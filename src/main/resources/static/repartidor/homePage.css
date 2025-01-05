@@ -1,0 +1,17 @@
+/* Estilo básico para el enlace del logo */
+.logo-button {
+    display: inline-block;
+    text-decoration: none;
+}
+
+/* Estilo del logo */
+.logo-button img {
+    max-width: 150px; /* Ajusta el tamaño según sea necesario */
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+/* Efecto hover */
+.logo-button img:hover {
+    transform: scale(1.1); /* Aumenta ligeramente el tamaño al pasar el mouse */
+}

@@ -3,9 +3,7 @@ package es.uclm.delivery.business.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.SimpleTimeZone;
+import java.util.*;
 
 @Entity
 public class Restaurant {
@@ -27,6 +25,12 @@ public class Restaurant {
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MenuItem> menu = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "restaurant")
+    private Set<DeliveryMan> deliveryMan = new HashSet<>();
+
+    @ManyToMany(mappedBy = "restaurant")
+    private Set<RestaurantAdministrator> restaurantAdministrator = new HashSet<>();
 
     public Restaurant() {
 
@@ -77,6 +81,12 @@ public class Restaurant {
 
     public List<MenuItem> getMenu(){return menu;}
     public void setMenu(List<MenuItem> menu) {this.menu = menu;}
+
+    public Set<DeliveryMan> getDeliveryMan() {return deliveryMan;}
+    public void setDeliveryMan(Set<DeliveryMan> deliveryMan) {this.deliveryMan = deliveryMan;}
+
+    public Set<RestaurantAdministrator> getRestaurantAdministrator() {return restaurantAdministrator;}
+    public void setRestaurantAdministrator(Set<RestaurantAdministrator> restaurantAdministrator) {this.restaurantAdministrator = restaurantAdministrator;}
 
     @Override
     public String toString() {

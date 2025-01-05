@@ -11,8 +11,9 @@
 
 <body>
     <header>
-        <img src="https://i.postimg.cc/QdkWSRwp/Dise-o-sin-t-tulo-removebg-preview.png" alt="Logo de la empresa"
-            class="logo">
+        <a href="/index" class="logo-button">
+            <img src="https://i.postimg.cc/QdkWSRwp/Dise-o-sin-t-tulo-removebg-preview.png" alt="Logo de la empresa" class="logo">
+        </a>
     </header>
     <main>
         <div class="letters-container">
@@ -20,7 +21,7 @@
             <div class="register-container">
                 <h2>Completa el formulario para empezar a ser nuestro Administrador</h2>
                 <form th:action="@{/registerAdmin}" th:object="${registerAdmin}" method="post">
-                    <input type="text" th:field="*{dni}" placeholder="DNI (8 números + letra)" required maxlength="9"
+                    <input type="text" id="dni" name="dni" th:field="*{dni}" placeholder="DNI (8 números + letra)" required maxlength="9"
                            pattern="^\d{8}[A-Za-z]$" title="El DNI debe tener 8 dígitos seguidos de una letra (por ejemplo, 12345678A)">
                     <input type="text" th:field="*{name}" placeholder="Nombre" required>
                     <input type="text" th:field="*{surnames_M}" placeholder="Apellido Materno" required>
@@ -29,10 +30,23 @@
                            pattern="^\d{9}$" title="El teléfono debe tener 9 dígitos">
                     <input type="email" name="email" placeholder="Correo electrónico" required>
                     <input type="password" name="password" placeholder="Contraseña" required>
+
+                    <label>¿Cual de nuestros restaurantes quieres pertenecer?</label>
+                    <select id="nameRest" name="nameRest" required>
+                        <option value="" disabled selected>Selecciona un restaurante</option>
+                        <option th:each="nameRest : ${nameRestaurant}" th:value="${nameRest}" th:text="${nameRest}"></option>
+
+                    </select>
                     <div>
                         <input type="submit" id="registrarse" value="Registrarse">
                     </div>
                 </form>
+                <div th:if="${successMessage}" class="success-message">
+                    <p th:text="${successMessage}"></p>
+                </div>
+                <div th:if="${errorMessage}" class="error-message">
+                    <p th:text="${errorMessage}"></p>
+                </div>
                 <div class="login-link">
                     ¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a>
                 </div>

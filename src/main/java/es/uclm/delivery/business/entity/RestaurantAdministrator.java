@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-import java.util.Random;
+import java.util.*;
 
 @Entity
 public class RestaurantAdministrator {
@@ -35,6 +35,14 @@ public class RestaurantAdministrator {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuary_id")
     private Usuary usuary;
+
+    @ManyToMany
+    @JoinTable(
+            name = "Administador",
+            joinColumns = @JoinColumn(name = "nif_admin"),
+            inverseJoinColumns = @JoinColumn (name = "cif")
+    )
+    private Set<Restaurant> restaurant = new HashSet<>();
 
     public RestaurantAdministrator() {
     }
@@ -100,6 +108,9 @@ public class RestaurantAdministrator {
     public void setUsuary(Usuary usuary) {
         this.usuary = usuary;
     }
+
+    public Set<Restaurant> getRestaurant() {return restaurant;}
+    public void setRestaurant(Set<Restaurant> restaurant) {this.restaurant = restaurant;}
 
     @Override
     public String toString() {
