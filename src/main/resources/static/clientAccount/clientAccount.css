@@ -1,0 +1,121 @@
+/* Estilos globales */
+body {
+    background-color: #FFF3E0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: rgba(255, 224, 178, 0.9);
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5em;
+    color: #F57C00;
+    margin: 0;
+}
+
+header p {
+    font-size: 1.2em;
+    color: #000;
+    margin: 10px 0 0;
+}
+
+/* Sección de configuración de cuenta */
+#configuracion-cuenta {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.campo {
+    margin-bottom: 20px;
+}
+
+.campo label {
+    display: block;
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.campo input {
+    width: 80%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.campo input::placeholder {
+    color: #888;
+}
+
+/* Botones de acción */
+.acciones {
+    margin-top: 30px;
+}
+
+.accion-btn {
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 1em;
+    background-color: #FFB74D;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+}
+
+.accion-btn:hover {
+    transform: translateY(-5px);
+    background-color: #FF8A65;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.accion-btn.eliminar {
+    background-color: #FF6F00;
+}
+
+.accion-btn.eliminar:hover {
+    background-color: #FF5722;
+}
+
+#configuracion-cuenta .campo {
+    text-align: left; 
+    width: 80%; 
+    margin: 0 auto 20px; 
+}
+
+#configuracion-cuenta .campo input {
+    width: 100%; 
+}
+
+/* Estilo base para los botones */
+.accion-btn.guardar {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.accion-btn.guardar:hover {
+    background-color: #45a049;
+    transform: translateY(-3px); 
+}
