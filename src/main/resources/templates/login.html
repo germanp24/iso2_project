@@ -16,15 +16,15 @@
     <div class="letters-container">
         <h2>Login</h2>
         <div class="register-container">
-        <form th:action="@{/login}" method="post">
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Contraseña" required>
-            <input type="submit" value="Iniciar Sesión">
-        </form>
-        <p th:if="${error}" th:text="${error}" style="color:red;"></p>
+            <form th:action="@{/login}" method="post">
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Contraseña" required>
+                <input type="submit" value="Iniciar Sesión">
+            </form>
+            <p th:if="${error}" th:text="${error}" style="color:red;"></p>
 
             <div class="login-link">
-                ¿Aun no te has registrado? <a href="/registerClient">Registrate</a>
+                ¿No tienes cuenta? <a href="/registerClient">Create una</a>
             </div>
         </div>
     </div>
