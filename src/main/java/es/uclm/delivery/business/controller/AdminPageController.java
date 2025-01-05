@@ -14,6 +14,8 @@ import java.util.List;
 @Controller
 public class AdminPageController {
 
+    private static final String redirectToAdminPage = "redirect:/adminPage";
+
     private final RestaurantDAO restaurantDAO;
 
     public AdminPageController(RestaurantDAO restaurantDAO) {
@@ -30,19 +32,22 @@ public class AdminPageController {
 
     @PostMapping("/updateRestaurant")
     public String updateRestaurant(@ModelAttribute Restaurant restaurant) {
-        restaurantDAO.save(restaurant);
-        return "redirect:/adminPage";
+        return saveAndRedirect(restaurant);
     }
 
     @PostMapping("/addRestaurant")
     public String addRestaurant(@ModelAttribute Restaurant restaurant) {
-        restaurantDAO.save(restaurant);
-        return "redirect:/adminPage";
+        return saveAndRedirect(restaurant);
     }
 
     @PostMapping("/deleteRestaurant")
     public String deleteRestaurant(@RequestParam String cif) {
         restaurantDAO.deleteById(cif);
-        return "redirect:/adminPage";
+        return redirectToAdminPage;
+    }
+
+    private String saveAndRedirect(Restaurant restaurant) {
+        restaurantDAO.save(restaurant);
+        return redirectToAdminPage;
     }
 }
