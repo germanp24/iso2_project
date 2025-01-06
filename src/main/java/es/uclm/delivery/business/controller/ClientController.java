@@ -42,14 +42,13 @@ public class ClientController {
 
     @GetMapping("/client/home")
     public String clientHome(@RequestParam String email, Model model) {
-        Usuary usuary = usuaryDAO.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado"));
 
-        model.addAttribute("clientName", usuary.getEmail());
-        log.info("Cargando home para el cliente: {}", usuary.getEmail());
+        Client client = clientDAO.findByUsuary_Email(email)
+                .orElseThrow(() -> new IllegalArgumentException("Cliente no asociado"));
+
+        model.addAttribute("clientName", client.getName());
         return "client/home";
     }
-
 
     @PostMapping("/registerClient")
     public String clientSubmit(@ModelAttribute Client client,
@@ -66,31 +65,31 @@ public class ClientController {
         log.info("Cliente registrado con éxito. Cliente ID: {}, Usuario ID: {}", client.getIdClient(),
                 usuary.getIdUsuary());
 
-        return "homeClient";
+        return "client/home";
     }
 
-    @GetMapping("/clientProfile")
+    @GetMapping("/client/clientProfile")
     public String clientProfileForm(Model model) {
 
         model.addAttribute("client", new Client());
         
-        return "clientProfile";
+        return "client/clientProfile";
     }
 
-    @PostMapping("/clientProfile")
+    @PostMapping("/client/clientProfile")
     public String clientProfileSubmit(@ModelAttribute Client client) {
         return "clientProfile";
     }
 
-    @GetMapping("/clientAccount")
+    @GetMapping("/client/clientAccount")
     public String clientAccountForm(Model model) {
 
         model.addAttribute("client", new Client());
         
-        return "clientAccount";
+        return "client/clientAccount";
     }
 
-    @PostMapping("/clientAccount")
+    @PostMapping("/client/clientAccount")
     public String clientAccountSubmit(@ModelAttribute Client client) {
         return "clientAccount";
     }

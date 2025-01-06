@@ -1,5 +1,6 @@
 package es.uclm.delivery.business.controller;
 
+import es.uclm.delivery.business.entity.Client;
 import es.uclm.delivery.business.entity.DeliveryMan;
 import es.uclm.delivery.business.entity.Restaurant;
 import es.uclm.delivery.business.entity.Usuary;
@@ -55,6 +56,18 @@ public class DeliveryManController {
         return REG_DELIVMAN;
     }
 
+    @GetMapping("/delivery/home")
+    public String deliveryHome(@RequestParam String email, Model model) {
+        DeliveryMan deliveryMan = deliveryManDAO.findByUsuary_Email(email)
+                .orElseThrow(() -> new IllegalArgumentException("Repartidor no encontrado"));
+
+        model.addAttribute("deliveryManName", deliveryMan.getNames());
+        model.addAttribute("assignedRestaurants", deliveryMan.getRestaurant().size());
+        model.addAttribute("totalDeliveries", deliveryMan.getDeliveryServices().size());
+        return "delivery/home";
+    }
+
+
     @PostMapping("/registerDeliv")
     public String repartidorSubmit(@ModelAttribute DeliveryMan deliveryMan, @RequestParam String email,
             @RequestParam String password,@RequestParam String tipoAuto ,@RequestParam String localit  ,Model model) {
@@ -77,6 +90,6 @@ public class DeliveryManController {
         model.addAttribute(REG_DELIVMAN, deliveryMan);
         model.addAttribute("successMessage", "¡Repartidor guardado con éxito!");
 
-        return REG_DELIVMAN;
+        return "delivery/home";
     }
 }

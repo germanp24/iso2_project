@@ -13,7 +13,7 @@
 <main>
     <div class="letters-container">
         <h1>Añade un nuevo menu</h1>
-        <form th:action="@{/menuRestaurants}" th:object="${menuItem}" method="post">
+        <form th:action="@{/addMenuRestaurant}" th:object="${menuItem}" method="post">
             <div class="register-container">
                 <label for="foodName">Food Name:</label>
                 <input type="text" id="foodName" name="foodName" th:value="*{foodName}" required />
@@ -53,7 +53,7 @@
                 <br/>
             </div>
             <div>
-                <input type="submit" value="Add Menu Item" disabled>
+                <input type="submit" value="Add Menu Item" >
             </div>
 
         </form>

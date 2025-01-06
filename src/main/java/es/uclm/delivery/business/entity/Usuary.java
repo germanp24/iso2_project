@@ -22,7 +22,7 @@ public class Usuary {
     private String role;
 
     @OneToMany(mappedBy = "usuary", cascade = CascadeType.ALL, orphanRemoval=true)
-    private List<Client> client = new ArrayList<>();
+    private List<Client> client;
 
     @OneToMany(mappedBy = "usuary", cascade = CascadeType.ALL)
     private List<DeliveryMan> deliveryMan = new ArrayList<>();

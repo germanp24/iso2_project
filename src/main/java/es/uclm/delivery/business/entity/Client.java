@@ -1,6 +1,7 @@
 package es.uclm.delivery.business.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ public class Client {
     private Long idClient;
 
     @Column
+    @Pattern(regexp = "\\d{8}[A-Za-z]", message = "El DNI debe tener 8 números seguidos de una letra")
     private String dni;
 
     @Column

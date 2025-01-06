@@ -95,27 +95,4 @@ public class MenuItemController {
         }
         return "redirect:/addMenuRestaurant";
     }
-
-    @PostMapping("/menuRestaurants/orderDetails")
-    public String orderMenu(@RequestParam String menuItemId, @RequestParam String email, Model model) {
-        // Validar si el usuario tiene el rol de cliente
-        boolean isClient = usuaryDAO.existsByEmail(email)
-                .map(user -> "CLIENT".equals(user.getRole()))
-                .orElse(false);
-
-        if (!isClient) {
-            model.addAttribute("errorMessage", "Solo los clientes pueden realizar pedidos.");
-            return "error"; // Página de error o redirección
-        }
-
-        // Buscar el menú por ID
-        MenuItem menuItem = menuItemDAO.findById(menuItemId)
-                .orElseThrow(() -> new IllegalArgumentException("Menú no encontrado"));
-
-        // Aquí puedes agregar lógica para registrar el pedido en la base de datos
-        model.addAttribute("successMessage", "Pedido realizado con éxito: " + menuItem.getFoodName());
-        return "orderConfirmation"; // Página de confirmación
-    }
-
-
 }
