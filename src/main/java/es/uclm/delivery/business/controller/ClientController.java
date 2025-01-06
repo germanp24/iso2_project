@@ -68,7 +68,7 @@ public class ClientController {
         return "client/home";
     }
 
-    @GetMapping("/client/clientProfile")
+    @GetMapping("clientProfile")
     public String clientProfileForm(Model model) {
 
         model.addAttribute("client", new Client());
@@ -76,12 +76,12 @@ public class ClientController {
         return "client/clientProfile";
     }
 
-    @PostMapping("/client/clientProfile")
+    @PostMapping("clientProfile")
     public String clientProfileSubmit(@ModelAttribute Client client) {
         return "clientProfile";
     }
 
-    @GetMapping("/client/clientAccount")
+    @GetMapping("clientAccount")
     public String clientAccountForm(Model model) {
 
         model.addAttribute("client", new Client());
@@ -89,7 +89,7 @@ public class ClientController {
         return "client/clientAccount";
     }
 
-    @PostMapping("/client/clientAccount")
+    @PostMapping("clientAccount")
     public String clientAccountSubmit(@ModelAttribute Client client) {
         return "clientAccount";
     }

@@ -1,9 +1,7 @@
 package es.uclm.delivery.business.controller;
 
-import es.uclm.delivery.business.entity.CustomerOrder;
 import es.uclm.delivery.business.entity.MenuItem;
 import es.uclm.delivery.business.entity.CreditCard;
-import es.uclm.delivery.business.entity.Client;
 import es.uclm.delivery.business.entity.Address;
 
 import es.uclm.delivery.persistence.CustomerOrderDAO;
@@ -36,7 +34,7 @@ public class CustomerOrderController {
     }
 
     // Mapeo para acceder a la página de detalles del pedido sin necesidad de DNI
-    @GetMapping("/orderDetails")
+    /*@GetMapping("/orderDetails")
     public String showOrderDetails(Model model) {
         // Aquí no hay un DNI específico, simplemente se muestran todos los productos seleccionados
         List<MenuItem> selectedMenuItems = menuItemDAO.findAll();  // Obtener todos los productos
@@ -47,13 +45,30 @@ public class CustomerOrderController {
         model.addAttribute("menuItems", selectedMenuItems);
         model.addAttribute("totalPrice", totalPrice); // Precio total
         return "orderDetails"; // Devuelve la vista orderDetails.html
+    }*/
+
+    /*@PostMapping("/orderDetails")
+    public String showOrderDetails(@RequestParam("menuItemId") String menuItemId, Model model) {
+        // Obtener el menú seleccionado usando el ID
+        MenuItem selectedMenuItem = menuItemDAO.findById(menuItemId).orElse(null); // Usar findById para obtener el menú
+
+        if (selectedMenuItem != null) {
+            // Si el menú es válido, añadirlo al modelo
+            model.addAttribute("selectedMenuItem", selectedMenuItem);
+        } else {
+            // Si no se encuentra el menú, redirigir o mostrar error
+            model.addAttribute("error", "Elemento de menú no encontrado");
+        }
+
+        return "orderDetails"; // Devuelve la vista orderDetails.html
     }
+*/
 
     // Mapeo para acceder a la página de detalles con el DNI en la URL
-    @GetMapping("/orderDetails/{dni}")
+   /* @GetMapping("/orderDetails/{dni}")
     public String showOrderDetailsByDni(@PathVariable String dni, Model model) {
         // Aquí el DNI es necesario para filtrar los productos asociados
-        List<CustomerOrder> orders = customerOrderDAO.findAll().stream()
+        List<Client> orders = clientDAO.findAll().stream()
                 .filter(order -> order.getDni().equals(dni))
                 .collect(Collectors.toList());
 
@@ -77,7 +92,7 @@ public class CustomerOrderController {
 
         return "orderDetails"; // Devuelve la vista orderDetails.html
     }
-
+*/
     // Mapeo para manejar la selección del método de pago, solo accesible con DNI
     @GetMapping("/selectPaymentMethod")
     public String selectPaymentMethod(@RequestParam String dni, Model model) {
@@ -165,5 +180,6 @@ public class CustomerOrderController {
         // Redirigir a la página de confirmación de la orden
         return "orderConfirmation";
     }
+
 
 }
