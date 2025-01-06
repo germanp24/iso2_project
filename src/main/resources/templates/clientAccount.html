@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yavoy - Configuración de Cuenta</title>
+    <link rel="stylesheet" href="clientAccount/clientAccount.css">
+</head>
+
+<body>
+    <header>
+        <h1>Yavoy</h1>
+        <p>Configuración de tu cuenta</p>
+    </header>
+
+    <section id="configuracion-cuenta">
+        <div class="campo">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" placeholder="Escribe tu nombre">
+        </div>
+        <div class="campo">
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" id="apellidos" placeholder="Escribe tus apellidos">
+        </div>
+        <div class="campo">
+            <label for="email">Correo electrónico:</label>
+            <input type="email" id="email" placeholder="Escribe tu correo">
+        </div>
+        <div class="acciones">
+            <button class="accion-btn" onclick="location.href='/tarjetas'">Tarjetas Asociadas</button>
+            <button class="accion-btn guardar" onclick="location.href='/clientAccount'">Guardar Cambios</button>
+            <button class="accion-btn eliminar" onclick="location.href='/index'">Eliminar Cuenta</button>
+        </div>
+    </section>
+
+    <script>
+        // Agregar funciones de validación o interacción si es necesario
+    </script>
+</body>
+
+</html>

@@ -2,8 +2,15 @@ package es.uclm.delivery.business.controller;
 
 import es.uclm.delivery.business.entity.CustomerOrder;
 import es.uclm.delivery.business.entity.MenuItem;
+import es.uclm.delivery.business.entity.CreditCard;
+import es.uclm.delivery.business.entity.Client;
+import es.uclm.delivery.business.entity.Address;
+
 import es.uclm.delivery.persistence.CustomerOrderDAO;
 import es.uclm.delivery.persistence.MenuItemDAO;
+import es.uclm.delivery.persistence.ClientDAO;
+import es.uclm.delivery.persistence.CreditCardDAO;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +24,15 @@ public class CustomerOrderController {
 
     private final CustomerOrderDAO customerOrderDAO;
     private final MenuItemDAO menuItemDAO;
+    private final ClientDAO clientDAO;
+    private final CreditCardDAO creditCardDAO;
 
-    public CustomerOrderController(CustomerOrderDAO customerOrderDAO, MenuItemDAO menuItemDAO) {
+    public CustomerOrderController(CustomerOrderDAO customerOrderDAO, MenuItemDAO menuItemDAO,
+                                   ClientDAO clientDAO, CreditCardDAO creditCardDAO) {
         this.customerOrderDAO = customerOrderDAO;
         this.menuItemDAO = menuItemDAO;
+        this.clientDAO = clientDAO;
+        this.creditCardDAO = creditCardDAO;
     }
 
     // Mapeo para acceder a la página de detalles del pedido sin necesidad de DNI
@@ -74,5 +86,84 @@ public class CustomerOrderController {
         model.addAttribute("dni", dni);
         return "selectPaymentMethod"; // Renderiza la vista para seleccionar el método de pago
     }
+
+    // Mapeo para manejar la confirmación del método de pago
+    @GetMapping("/confirmOrder")
+    public String confirmOrder(@RequestParam String dni, @RequestParam String method, Model model) {
+        model.addAttribute("dni", dni);
+        // Redirigir a /enterAddress directamente
+        if ("cash".equals(method)) {
+            return "redirect:/enterAddress?method=cash&dni=" + dni; // Redirige correctamente a enterAddress
+        } else if ("card".equals(method)) {
+            return "redirect:/enterCardDetails?method=card&dni=" + dni; // Redirige a enterCardDetails si es tarjeta
+        }
+        return "redirect:/";
+    }
+
+    @GetMapping("/enterAddress")
+    public String enterAddress(@RequestParam String dni, @RequestParam String method, Model model) {
+        model.addAttribute("dni", dni); // Pasar el DNI al modelo
+        model.addAttribute("method", method); // Pasar el método de pago al modelo
+        return "enterAddress"; // Vista para ingresar la dirección
+    }   
     
+    @GetMapping("/enterCardDetails")
+    public String enterCardDetails(@RequestParam String dni, @RequestParam String method, Model model) {
+        model.addAttribute("dni", dni); // Pasar el DNI al modelo
+        model.addAttribute("method", method); // Pasar el método de pago al modelo
+        return "enterCardDetails"; // Vista para ingresar la dirección
+    }
+
+    // Nuevo método para guardar la dirección cuando se paga en efectivo
+    @PostMapping("/saveAddress")
+    public String saveAddress(
+        @RequestParam String dni,
+        @RequestParam String street,
+        @RequestParam int number,
+        @RequestParam(required = false) String floorNumber
+    ) {
+        // Construcción del objeto Address
+        Address address = new Address();
+        address.setStreet(street);
+        address.setNumber(number);
+        address.setFloorNumber(floorNumber);
+        
+        // Guardar la dirección (adaptar al uso del servicio correspondiente)
+        System.out.println("Dirección recibida: " + address);
+        
+        // Redirigir a una página de éxito o próxima acción
+        return "orderConfirmation";
+    }
+
+    // Nuevo método para guardar los detalles de la tarjeta de crédito
+    @PostMapping("/saveCardDetails")
+    public String saveCardDetails(
+            @RequestParam String dni,
+            @RequestParam String street,
+            @RequestParam int number,
+            @RequestParam(required = false) String floorNumber,
+            @RequestParam String cardNumber,
+            @RequestParam String expiryDate,
+            @RequestParam String cvv
+    ) {
+        // Crear el objeto Address y asignar los valores recibidos
+        Address address = new Address();
+        address.setStreet(street);
+        address.setNumber(number);
+        address.setFloorNumber(floorNumber);
+        
+        // Crear el objeto CreditCard y asignar los valores recibidos (sin client)
+        CreditCard creditCard = new CreditCard();
+        creditCard.setCardNumber(cardNumber);
+        creditCard.setCardExpiry(expiryDate);
+        creditCard.setCardCvv(cvv);
+
+        // Aquí solo imprimimos los datos como ejemplo
+        System.out.println("Dirección recibida: " + address);
+        System.out.println("Tarjeta de crédito recibida: " + creditCard);
+
+        // Redirigir a la página de confirmación de la orden
+        return "orderConfirmation";
+    }
+
 }

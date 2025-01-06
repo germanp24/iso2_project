@@ -51,6 +51,32 @@ public class ClientController {
         log.info("Cliente registrado con éxito. Cliente ID: {}, Usuario ID: {}", client.getIdClient(),
                 usuary.getIdUsuary());
 
-        return REG_CLIENT;
+        return "homeClient";
+    }
+
+    @GetMapping("/clientProfile")
+    public String clientProfileForm(Model model) {
+
+        model.addAttribute("client", new Client());
+        
+        return "clientProfile";
+    }
+
+    @PostMapping("/clientProfile")
+    public String clientProfileSubmit(@ModelAttribute Client client) {
+        return "clientProfile";
+    }
+
+    @GetMapping("/clientAccount")
+    public String clientAccountForm(Model model) {
+
+        model.addAttribute("client", new Client());
+        
+        return "clientAccount";
+    }
+
+    @PostMapping("/clientAccount")
+    public String clientAccountSubmit(@ModelAttribute Client client) {
+        return "clientAccount";
     }
 }

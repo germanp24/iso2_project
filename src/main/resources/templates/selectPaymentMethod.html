@@ -107,16 +107,19 @@
         <form action="/confirmOrder" method="get" class="payment-container">
             <!-- Botón de Efectivo -->
             <button type="submit" name="method" value="cash" class="payment-button">
-                <img src="https://cdn-icons-png.flaticon.com/512/1349/1349907.png" alt="Efectivo">
+                <input type="hidden" name="dni" th:value="${dni}"> <!-- Usando th:value para Thymeleaf -->
+                <img src="https://img.freepik.com/vector-premium/imagen-simple-dinero-efectivo-aislado-sobre-fondo-transparente_764382-765.jpg" alt="Tarjeta">
                 <span class="payment-text">Efectivo</span>
             </button>
-
+        
             <!-- Botón de Tarjeta -->
             <button type="submit" name="method" value="card" class="payment-button">
-                <img src="https://img.freepik.com/vector-premium/imagen-simple-dinero-efectivo-aislado-sobre-fondo-transparente_764382-765.jpg" alt="Tarjeta">
+                <input type="hidden" name="dni" th:value="${dni}"> <!-- Usando th:value para Thymeleaf -->
+                <img src="https://cdn-icons-png.flaticon.com/512/1349/1349907.png" alt="Efectivo">
                 <span class="payment-text">Tarjeta</span>
             </button>
-        </form>
+        </form>              
+
     </div>
 </body>
 </html>
