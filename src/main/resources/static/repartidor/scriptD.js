@@ -1,7 +1,8 @@
-// Referencias a los campos del formulario
-const nif = document.getElementById('NIF');
-const nombre = document.getElementById('Nombre');
-const apellidos = document.getElementById('Apellidos');
+const dni = document.getElementById('dni');
+const name = document.getElementById('Name');
+const surname_m = document.getElementById('Surnames_M');
+const surname_f =document.getElementById('Surnames_F');
+const phone =document.getElementById('Phone');
 const email = document.getElementById('Email');
 const password = document.getElementById('Password');
 const tipoAutoHidden = document.getElementById('tipoAuto');
@@ -11,9 +12,11 @@ const registrarseBtn = document.getElementById('registrarse');
 // Función para verificar si todos los campos están llenos
 function validarCampos() {
     return (
-        nif.value.trim() !== '' &&
-        nombre.value.trim() !== '' &&
-        apellidos.value.trim() !== '' &&
+        dni.value.trim() !== '' &&
+        name.value.trim() !== '' &&
+        surname_f.value.trim() !== '' &&
+        surname_m.value.trim() !== '' &&
+        phone.value.trim() !== '' &&
         email.value.trim() !== '' &&
         password.value.trim() !== '' &&
         tipoAutoHidden.value.trim() !== '' // Verificar que se haya seleccionado un tipo de vehículo
@@ -47,3 +50,5 @@ document.querySelector('form').addEventListener('input', () => {
 
 // Inicialización: Desactivar el botón al cargar la página
 actualizarEstadoBoton();
+
+

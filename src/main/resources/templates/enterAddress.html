@@ -78,24 +78,24 @@
         <h2 class="text-center">Ingrese su Dirección</h2>
         <form action="/saveAddress" method="post">
             <input type="hidden" name="dni" value="${dni}">
-            
+
             <div class="mb-3">
                 <label for="street" class="form-label">Calle:</label>
                 <input type="text" id="street" name="street" class="form-control" required>
             </div>
-            
+
             <div class="mb-3">
                 <label for="number" class="form-label">Número:</label>
                 <input type="number" id="number" name="number" class="form-control" required>
             </div>
-            
+
             <div class="mb-3">
                 <label for="floorNumber" class="form-label">Piso (Opcional):</label>
                 <input type="text" id="floorNumber" name="floorNumber" class="form-control">
             </div>
-            
+
             <button type="submit" class="btn btn-primary">Guardar Dirección</button>
-        </form>        
+        </form>
     </div>
 
     <!-- Scripts de Bootstrap -->
