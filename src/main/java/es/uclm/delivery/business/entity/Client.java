@@ -80,7 +80,7 @@ public class Client {
 
     @Override
     public String toString() {
-        return String.format("Client [id_client=%s, name=%s, surnames_M=%s, surname_F=%s]", idClient, name, surnames_M, surnames_F,usuary);
+        return String.format("Client [id_client=%s, dni=%s ,name=%s, surnames_M=%s, surname_F=%s]", idClient, dni, name, surnames_M, surnames_F,usuary);
     }
 
 

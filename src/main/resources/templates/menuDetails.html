@@ -44,24 +44,32 @@
                 </div>
             </div>
 
-            <!-- Carrito de compras -->
+            <!-- Mostrar carrito solo si el usuario está autenticado -->
             <div class="col-md-4">
                 <h3>Carrito de Compras</h3>
-                <div class="list-group">
-                    <!-- Iterar sobre los productos en el carrito -->
+                <div th:if="${cart != null and cart.size() > 0}">
+                    <!-- Mostrar los items del carrito -->
                     <div th:each="item : ${cart}">
-                        <div class="list-group-item">
-                            <span th:text="${item.menuItem.foodName}"></span> x<span th:text="${item.quantity}"></span> - $<span th:text="${item.menuItem.price * item.quantity}">0.00€</span>
-                        </div>
+                        <span th:text="${item.menuItem.foodName}"></span>
+                        x<span th:text="${item.quantity}"></span>
+                        - $<span th:text="${item.menuItem.price * item.quantity}"></span>
                     </div>
                 </div>
+                <div th:if="${cart == null or cart.size() == 0}">
+                    <p>No hay productos en el carrito.</p>
+                </div>
+
                 <hr>
                 <div class="d-flex justify-content-between">
                     <h4>Total:</h4>
                     <h4>$<span th:text="${totalPrice}">0.00</span></h4>
                 </div>
-                <form th:action="@{/registerClient}" method="post">
-                    <button type="submit" class="btn btn-success mt-3">Confirmar Pedido</button>
+                <form th:if="${session['loggedInUser'] != null}" th:action="@{/confirmOrder}" method="post">
+                    <a href="/selectPaymentMethod" class="btn btn-primary mt-3">Confirmar Pedido</a>
+                </form>
+                <form th:if="${session['loggedInUser'] == null}" th:action="@{/confirmOrder}" method="post">
+                    <p style="color: red;">Debes iniciar sesión para agregar productos al carrito y confirmar tu pedido.</p>
+                    <a href="/login" class="btn btn-primary mt-3">Iniciar Sesión</a>
                 </form>
             </div>
         </div>

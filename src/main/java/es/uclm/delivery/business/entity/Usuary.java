@@ -84,5 +84,4 @@ public class Usuary {
     public String toString() {
         return String.format("Usuary [email=%s, id_usuary=%s, password=%s, role=%s]", email, idUsuary, password, role);
     }
-
 }

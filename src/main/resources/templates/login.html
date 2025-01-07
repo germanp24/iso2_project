@@ -23,6 +23,10 @@
             </form>
             <p th:if="${error}" th:text="${error}" style="color:red;"></p>
 
+            <div th:if="${param.error}">
+                <p style="color: red;" th:text="${param.error}"></p>
+            </div>
+
             <div class="login-link">
                 ¿No tienes cuenta? <a href="/registerClient">Create una</a>
             </div>

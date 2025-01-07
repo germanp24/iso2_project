@@ -1,15 +1,14 @@
 package es.uclm.delivery.business.entity;
 
 import java.sql.Date;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+
+import jakarta.persistence.*;
 
 @Entity
 public class CustomerOrder {
 
     @Id
-    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderNumber; // orderNumber como clave primaria
 
     @Column(nullable = true)
@@ -25,8 +24,7 @@ public class CustomerOrder {
 
     }
 
-    public CustomerOrder(int orderNumber, String address, Date date, String orderedFood) {
-        this.orderNumber = orderNumber;
+    public CustomerOrder(String address, Date date, String orderedFood) {
         this.address = address;
         this.date = date;
         this.orderedFood = orderedFood;

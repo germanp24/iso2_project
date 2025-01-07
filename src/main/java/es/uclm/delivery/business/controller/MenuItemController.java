@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import java.util.Optional;
 
 @Controller
@@ -35,79 +34,41 @@ public class MenuItemController {
     }
 
     @GetMapping("/restaurant/{cif}")
-    public String restaurantDetails(@PathVariable String cif, @RequestParam(required = false) String email, Model model, HttpSession session) {
-
+    public String restaurantDetails(@PathVariable String cif, HttpSession session, Model model) {
         log.info("Cargando detalles del restaurante con CIF: {}", cif);
 
         // Buscar el restaurante por CIF
         Restaurant restaurant = restaurantDAO.findById(cif)
-                .orElseThrow(() -> new IllegalArgumentException("Restaurant not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Restaurante no encontrado"));
 
         // Obtener los menús asociados al restaurante
         List<MenuItem> menuItems = menuItemDAO.findByRestaurantCif(cif);
 
-        // Obtener el carrito de la sesión (si existe)
+        // Obtener el carrito de la sesión (si existe) solo si el usuario está autenticado
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
         if (cart == null) {
             cart = new ArrayList<>();
         }
-
-        double totalPrice = cart.stream()
-                .mapToDouble(item -> item.getTotalPrice())
-                .sum();
+        double totalPrice = cart.stream().mapToDouble(CartItem::getTotalPrice).sum();
 
         // Añadir datos al modelo
         model.addAttribute("restaurant", restaurant);
         model.addAttribute("menuItems", menuItems);
-        model.addAttribute("cart", cart);
+        model.addAttribute("cart", cart); // Añadir carrito al modelo
         model.addAttribute("totalPrice", totalPrice);
 
-        return "menuDetails";
+        return "menuDetails"; // Asegúrate de que tu vista sea la correcta
     }
-
-    @PostMapping("/orderDetails")
-    public String addToCart(@RequestParam String menuItemId, @RequestParam int quantity, HttpSession session) {
-        // Obtener el producto por su ID
-        MenuItem menuItem = menuItemDAO.findById(menuItemId)
-                .orElseThrow(() -> new IllegalArgumentException("Menu item not found"));
-
-        // Obtener el carrito de la sesión (si no existe, se crea uno vacío)
-        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
-        if (cart == null) {
-            cart = new ArrayList<>();
-        }
-
-        // Verificar si el producto ya está en el carrito
-        Optional<CartItem> existingItem = cart.stream()
-                .filter(item -> item.getMenuItem().getId_menu().equals(menuItemId))
-                .findFirst();
-
-        if (existingItem.isPresent()) {
-            // Si ya está, actualizar la cantidad
-            existingItem.get().setQuantity(existingItem.get().getQuantity() + quantity);
-        } else {
-            // Si no está, añadirlo al carrito
-            cart.add(new CartItem(menuItem, quantity));
-        }
-
-        // Guardar el carrito actualizado en la sesión
-        session.setAttribute("cart", cart);
-
-        // Redirigir al detalle del restaurante para actualizar el carrito
-        return "redirect:/restaurant/" + menuItem.getRestaurant().getCif();
-    }
-
-
 
     @GetMapping("/addMenuRestaurant")
     public String menuItemForm(Model model) {
-
         model.addAttribute("menuItem", new MenuItem());
         model.addAttribute("menuItems", menuItemDAO.findAll());
         model.addAttribute("restaurants", restaurantDAO.findAll());
 
-        return "addMenuRestaurant";
+        return "addMenuRestaurant"; // Asegúrate de que esta vista esté configurada
     }
+
 
     @PostMapping("/addMenuRestaurant")
     public String menuItemSubmit(@ModelAttribute MenuItem menuItem, Model model) {
@@ -129,6 +90,7 @@ public class MenuItemController {
             model.addAttribute("errorMessage", "Error saving menu item: " + e.getMessage());
             log.error("Error saving menu item", e);
         }
-        return "redirect:/addMenuRestaurant";
+        return "redirect:/addMenuRestaurant"; // Redirigir para evitar reenvío del formulario
     }
+
 }
