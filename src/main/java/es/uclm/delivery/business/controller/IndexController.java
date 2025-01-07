@@ -22,4 +22,5 @@ public class IndexController {
     public String indexSubmit(@ModelAttribute Index index){
         return "index";
     }
+
 }

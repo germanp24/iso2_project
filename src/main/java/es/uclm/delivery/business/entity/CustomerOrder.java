@@ -1,19 +1,15 @@
 package es.uclm.delivery.business.entity;
 
 import java.sql.Date;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+
+import jakarta.persistence.*;
 
 @Entity
 public class CustomerOrder {
 
     @Id
-    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderNumber; // orderNumber como clave primaria
-
-    @Column(nullable = false)
-    private String dni;
 
     @Column(nullable = true)
     private String address;
@@ -28,9 +24,7 @@ public class CustomerOrder {
 
     }
 
-    public CustomerOrder(int orderNumber, String dni, String address, Date date, String orderedFood) {
-        this.orderNumber = orderNumber;
-        this.dni = dni;
+    public CustomerOrder(String address, Date date, String orderedFood) {
         this.address = address;
         this.date = date;
         this.orderedFood = orderedFood;
@@ -43,14 +37,6 @@ public class CustomerOrder {
 
     public void setOrderNumber(int orderNumber) {
         this.orderNumber = orderNumber;
-    }
-
-    public String getDni() {
-        return dni;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
     }
 
     public String getAddress() {
@@ -79,6 +65,6 @@ public class CustomerOrder {
 
     @Override
     public String toString() {
-        return String.format("CustomerOrder [orderNumber=%s, dni=%s, date=%s, address=%s, orderedFood=%s]", orderNumber, dni, date, address, orderedFood);
+        return String.format("CustomerOrder [orderNumber=%s, date=%s, address=%s, orderedFood=%s]", orderNumber, date, address, orderedFood);
     }
 }

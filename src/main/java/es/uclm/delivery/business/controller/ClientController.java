@@ -4,6 +4,7 @@ import es.uclm.delivery.business.entity.Client;
 import es.uclm.delivery.business.entity.Usuary;
 import es.uclm.delivery.persistence.ClientDAO;
 
+import es.uclm.delivery.persistence.UsuaryDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -20,9 +21,12 @@ public class ClientController {
 
     private static final String REG_CLIENT = "registerClient";
     private final ClientDAO clientDAO;
+    private final UsuaryDAO usuaryDAO;
 
-    public ClientController(ClientDAO clientDAO) {
+    public ClientController(ClientDAO clientDAO, UsuaryDAO usuaryDAO) {
+
         this.clientDAO = clientDAO;
+        this.usuaryDAO = usuaryDAO;
     }
 
     @GetMapping("/registerClient")
@@ -36,12 +40,22 @@ public class ClientController {
 
     }
 
+    @GetMapping("/client/home")
+    public String clientHome(@RequestParam String email, Model model) {
+
+        Client client = clientDAO.findByUsuary_Email(email)
+                .orElseThrow(() -> new IllegalArgumentException("Cliente no asociado"));
+
+        model.addAttribute("clientName", client.getName());
+        return "client/home";
+    }
+
     @PostMapping("/registerClient")
-    public String clientSubmit(@ModelAttribute Client client, @RequestParam String email, @RequestParam String password,
+    public String clientSubmit(@ModelAttribute Client client,
+           @RequestParam String email, @RequestParam String password,
             Model model) {
 
-        Usuary usuary = new Usuary(password, email, "CLIENT", client, null, null);
-
+        Usuary usuary = new Usuary(password,email,"CLIENT");
         client.setUsuary(usuary);
         clientDAO.save(client);
 
@@ -51,31 +65,31 @@ public class ClientController {
         log.info("Cliente registrado con éxito. Cliente ID: {}, Usuario ID: {}", client.getIdClient(),
                 usuary.getIdUsuary());
 
-        return "homeClient";
+        return "client/home";
     }
 
-    @GetMapping("/clientProfile")
+    @GetMapping("clientProfile")
     public String clientProfileForm(Model model) {
 
         model.addAttribute("client", new Client());
         
-        return "clientProfile";
+        return "client/clientProfile";
     }
 
-    @PostMapping("/clientProfile")
+    @PostMapping("clientProfile")
     public String clientProfileSubmit(@ModelAttribute Client client) {
         return "clientProfile";
     }
 
-    @GetMapping("/clientAccount")
+    @GetMapping("clientAccount")
     public String clientAccountForm(Model model) {
 
         model.addAttribute("client", new Client());
         
-        return "clientAccount";
+        return "client/clientAccount";
     }
 
-    @PostMapping("/clientAccount")
+    @PostMapping("clientAccount")
     public String clientAccountSubmit(@ModelAttribute Client client) {
         return "clientAccount";
     }

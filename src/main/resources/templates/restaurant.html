@@ -115,7 +115,8 @@
         <!-- Formulario para registrar el restaurante -->
         <form th:action="@{/restaurant}" th:object="${restaurant}" method="post">
             <label for="cif">CIF:</label>
-            <input type="text" id="cif" name="cif" th:field="*{cif}" placeholder="Introduce el CIF" required>
+            <input type="text" id="cif" name="cif" th:field="*{cif}" placeholder="Introduce el CIF" required maxlength="7"
+                   pattern="^\d{6}[A-Za-z]$" title="El CIF debe tener 6 números seguidos de una letra (por ejemplo, 181818A)">
             
             <label for="name">Nombre:</label>
             <input type="text" id="name" name="name" th:field="*{name}" placeholder="Introduce el nombre" required>

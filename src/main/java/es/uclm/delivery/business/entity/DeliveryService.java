@@ -1,85 +1,81 @@
 package es.uclm.delivery.business.entity;
 
 import java.time.LocalDateTime;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+
+import jakarta.persistence.*;
 
 @Entity
 public class DeliveryService {
     @Id
-    @Column
     private String deliveryNumber;
-
-    @Column
-    private String nif;
-
-    @Column
-    private String orderNumber;
-
-    @Column
-    private LocalDateTime receptionDate;
 
     @Column
     private LocalDateTime deliveryDate;
 
+    @Column
+    private LocalDateTime deliveryDatePickup;
+
+    @Column(nullable = false)
+    private String pickupAddress;
+
+    @Column(nullable = false)
+    private String destination;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idDeliveryMan")
+    private DeliveryMan deliveryMan;
+
+    @OneToOne
+    @JoinColumn(name = "orderNumber")
+    private CustomerOrder customerOrder;
+
     public DeliveryService() {
     }
 
-    public DeliveryService(String deliveryNumber, String nif, String orderNumber, LocalDateTime receptionDate,
-            LocalDateTime deliveryDate) {
-        this.deliveryNumber = deliveryNumber;
-        this.nif = nif;
-        this.orderNumber = orderNumber;
-        this.receptionDate = receptionDate;
+    public DeliveryService(LocalDateTime deliveryDate, LocalDateTime deliveryDatePickup, String pickupAddress,
+           String destination, DeliveryMan deliveryMan, CustomerOrder customerOrder) {
         this.deliveryDate = deliveryDate;
+        this.deliveryDatePickup = deliveryDatePickup;
+        this.pickupAddress = pickupAddress;
+        this.destination = destination;
+        this.deliveryMan = deliveryMan;
+        this.customerOrder = customerOrder;
     }
 
     public String getDeliveryNumber() {
         return deliveryNumber;
     }
-
     public void setDeliveryNumber(String deliveryNumber) {
         this.deliveryNumber = deliveryNumber;
-    }
-
-    public String getNif() {
-        return nif;
-    }
-
-    public void setNif(String nif) {
-        this.nif = nif;
-    }
-
-    public String getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
-    }
-
-    public LocalDateTime getReceptionDate() {
-        return receptionDate;
-    }
-
-    public void setReceptionDate(LocalDateTime receptionDate) {
-        this.receptionDate = receptionDate;
     }
 
     public LocalDateTime getDeliveryDate() {
         return deliveryDate;
     }
-
     public void setDeliveryDate(LocalDateTime deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
+    public LocalDateTime getDeliveryDatePickup() {return deliveryDatePickup;}
+    public void setDeliveryDatePickup(LocalDateTime deliveryDatePickup) {this.deliveryDatePickup = deliveryDatePickup;}
+
+    public String getPickupAddress() {return pickupAddress;}
+    public void setPickupAddress(String pickupAddress) {this.pickupAddress = pickupAddress;}
+
+    public String getDestination() {return destination;}
+    public void setDestination(String destination) {this.destination = destination;}
+
+    public DeliveryMan getDeliveryMan() {return deliveryMan;}
+    public void setDeliveryMan(DeliveryMan deliveryMan) {this.deliveryMan = deliveryMan;}
+
+    public CustomerOrder getCustomerOrder() {return customerOrder;}
+    public void setCustomerOrder(CustomerOrder customerOrder) {this.customerOrder = customerOrder;}
+
     @Override
     public String toString() {
         return String.format(
-                "DeliveryService [delivery_number=%s, nif=%s, order_number=%s, reception_date=%s, delivery_date=%s]",
-                deliveryNumber, nif, orderNumber, receptionDate, deliveryDate);
+                "DeliveryService [delivery_date=%s, deliveryDatePickup=%s, pickupAddress=%s, destination=%s]",
+                deliveryDate, deliveryDatePickup, pickupAddress, destination);
     }
 
 }
