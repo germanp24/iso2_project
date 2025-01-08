@@ -2,6 +2,7 @@ name: SonarQube Cloud
 on:
   push:
     branches:
+      - development-backup
       - development
       - fixPomLocation
       - gen_homePage

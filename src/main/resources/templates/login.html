@@ -8,17 +8,9 @@
 </head>
 <body>
 <header>
-    <img src="https://i.postimg.cc/QdkWSRwp/Dise-o-sin-t-tulo-removebg-preview.png" alt="Logo de la empresa"
-         class="logo">
-    <nav>
-        <div class="language-selector">
-            <select id="language" name="language">
-                <option value="es">Español</option>
-                <option value="en">English</option>
-                <option value="fr">Français</option>
-            </select>
-        </div>
-    </nav>
+    <a href="/index" class="logo-button">
+        <img src="https://i.postimg.cc/QdkWSRwp/Dise-o-sin-t-tulo-removebg-preview.png" alt="Logo de la empresa" class="logo">
+    </a>
 </header>
 <main>
     <div class="letters-container">
@@ -30,6 +22,10 @@
                 <input type="submit" value="Iniciar Sesión">
             </form>
             <p th:if="${error}" th:text="${error}" style="color:red;"></p>
+
+            <div th:if="${param.error}">
+                <p style="color: red;" th:text="${param.error}"></p>
+            </div>
 
             <div class="login-link">
                 ¿No tienes cuenta? <a href="/registerClient">Create una</a>

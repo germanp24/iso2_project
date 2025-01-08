@@ -1,9 +1,12 @@
 package es.uclm.delivery.business.controller;
 
+import es.uclm.delivery.business.entity.Client;
 import es.uclm.delivery.business.entity.DeliveryMan;
+import es.uclm.delivery.business.entity.Restaurant;
 import es.uclm.delivery.business.entity.Usuary;
 import es.uclm.delivery.persistence.DeliveryManDAO;
-
+import es.uclm.delivery.persistence.RestaurantDAO;
+import es.uclm.delivery.persistence.UsuaryDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Controller
 public class DeliveryManController {
 
@@ -21,34 +27,69 @@ public class DeliveryManController {
     private static final String REG_DELIVMAN = "registerDeliv";
 
     private final DeliveryManDAO deliveryManDAO;
+    private final RestaurantDAO restaurantDAO;
+    private final UsuaryDAO usuaryDAO;
 
-    public DeliveryManController(DeliveryManDAO deliveryManDAO) {
+
+    public DeliveryManController(DeliveryManDAO deliveryManDAO, RestaurantDAO restaurantDAO, UsuaryDAO usuaryDAO) {
         this.deliveryManDAO = deliveryManDAO;
+        this.restaurantDAO = restaurantDAO;
+        this.usuaryDAO = usuaryDAO;
     }
+
 
     @GetMapping("/registerDeliv")
     public String repartidorForm(Model model) {
         model.addAttribute(REG_DELIVMAN, new DeliveryMan());
+
+        // Cargar todas las locations para el formulario
+        List<String> locations = restaurantDAO.findAll()
+                .stream()
+                .map(Restaurant::getLocality)
+                .distinct()
+                .collect(Collectors.toList());
+        model.addAttribute("locations", locations);
+
         if (log.isInfoEnabled()) {
-            log.info(deliveryManDAO.findAll().toString());
+            log.info("Localidades cargadas: {}", locations);
         }
         return REG_DELIVMAN;
     }
 
+    @GetMapping("/delivery/home")
+    public String deliveryHome(@RequestParam String email, Model model) {
+        DeliveryMan deliveryMan = deliveryManDAO.findByUsuary_Email(email)
+                .orElseThrow(() -> new IllegalArgumentException("Repartidor no encontrado"));
+
+        model.addAttribute("deliveryManName", deliveryMan.getNames());
+        model.addAttribute("assignedRestaurants", deliveryMan.getRestaurant().size());
+        model.addAttribute("totalDeliveries", deliveryMan.getDeliveryServices().size());
+        return "delivery/home";
+    }
+
+
     @PostMapping("/registerDeliv")
     public String repartidorSubmit(@ModelAttribute DeliveryMan deliveryMan, @RequestParam String email,
-            @RequestParam String password, Model model) {
-        Usuary usuary = new Usuary(password, email, "DELIVERYMAN", null, deliveryMan, null);
+            @RequestParam String password,@RequestParam String tipoAuto ,@RequestParam String localit  ,Model model) {
 
+        if (deliveryManDAO.findByDni(deliveryMan.getDni()) != null) {
+            model.addAttribute("errorMessage", "Error: Ya existe un repartidor registrado con este DNI.");
+            model.addAttribute(REG_DELIVMAN, deliveryMan);
+            return REG_DELIVMAN;
+        }
+
+        Usuary usuary = new Usuary(password, email, "DELIVERYMAN");
         deliveryMan.setUsuary(usuary);
-        deliveryManDAO.save(deliveryMan);
+        deliveryMan.setTipoAuto(tipoAuto);
+
+        List<Restaurant> restaurant = restaurantDAO.findByLocality(localit);
+        deliveryMan.getRestaurant().addAll(restaurant);
+
+        DeliveryMan saveDeliveryMan =  deliveryManDAO.save(deliveryMan);
 
         model.addAttribute(REG_DELIVMAN, deliveryMan);
-        model.addAttribute("successMessage", "DeliveryMan registrado con éxito!");
+        model.addAttribute("successMessage", "¡Repartidor guardado con éxito!");
 
-        log.info("Cliente registrado con éxito. Repartidor ID: {}, Usuario ID: {}", deliveryMan.getIdDeliveryMan(),
-                usuary.getIdUsuary());
-
-        return REG_DELIVMAN;
+        return "delivery/home";
     }
 }

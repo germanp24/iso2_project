@@ -1,18 +1,22 @@
 package es.uclm.delivery.business.controller;
 
+import es.uclm.delivery.business.entity.MenuItem;
 import es.uclm.delivery.business.entity.Restaurant;
+import es.uclm.delivery.persistence.MenuItemDAO;
 import es.uclm.delivery.persistence.RestaurantDAO;
+import jakarta.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -20,8 +24,13 @@ public class RestaurantController {
 
     private static final Logger log = LoggerFactory.getLogger(RestaurantController.class);
 
-    @Autowired
     private RestaurantDAO restaurantDAO;
+    private final MenuItemDAO menuItemDAO;
+
+    public RestaurantController(RestaurantDAO restaurantDAO, MenuItemDAO menuItemDAO) {
+        this.restaurantDAO = restaurantDAO;
+        this.menuItemDAO = menuItemDAO;
+    }
 
     @GetMapping("/restaurant")
     public String RestaurantForm(Model model) {
@@ -88,4 +97,6 @@ public class RestaurantController {
 
         return "restaurants";
     }
+
+
 }

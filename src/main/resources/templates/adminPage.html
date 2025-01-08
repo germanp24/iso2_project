@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Page</title>
+    <title>Administración de Restaurantes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         /* Estilos generales */
         body {
@@ -74,45 +75,174 @@
             background-color: #ddd;
         }
 
-        .edit-button {
+        .edit-button, .delete-button {
             background-color: #4CAF50;
             color: white;
             padding: 5px 10px;
             text-decoration: none;
             border-radius: 5px;
+            cursor: pointer;
         }
 
-        .edit-button:hover {
+        .edit-button:hover, .delete-button:hover {
             background-color: #45a049;
+        }
+
+        .delete-button {
+            background-color: #f44336;
+        }
+
+        .delete-button:hover {
+            background-color: #e53935;
         }
     </style>
 </head>
 <body>
-    <!-- Encabezado del sitio -->
     <header>
-        <h1>Admin Page</h1>
-        <p>Gestión de Restaurantes</p>
-        <a href="#logout" class="logout-button">Logout</a>
+        <h1>Administración de Restaurantes</h1>
+        <p>Restaurantes disponibles</p>
+        <a href="/index" class="logout-button">Cerrar Sesión</a>
     </header>
 
-    <!-- Tabla de restaurantes -->
+    <div class="container mt-4">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+            Añadir Restaurante
+        </button>
+    </div>
+
     <table class="restaurant-table">
         <thead>
             <tr>
+                <th>Logo</th>
+                <th>CIF</th>
                 <th>Nombre</th>
-                <th>Dirección</th>
+                <th>Localidad</th>
+                <th>Calle</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="restaurant : ${restaurants}">
-                <td th:text="${restaurant.name}">Nombre</td>
-                <td th:text="${restaurant.id_administrator}">Dirección</td>
+                <td><img th:src="${restaurant.imageUrl}" alt="Imagen del Restaurante" style="width: 100px; height: auto;"></td>
+                <td th:text="${restaurant.cif}">CIF</td>
+                <td th:text="${restaurant.name}">Nombre del Restaurante</td>
+                <td th:text="${restaurant.locality}">Localidad</td>
+                <td th:text="${restaurant.street}">Calle</td>
                 <td>
-                    <a th:href="@{/editRestaurant/{id}(id=${restaurant.cif})}" class="edit-button">Editar</a>
+                    <button type="button" class="edit-button" data-bs-toggle="modal" data-bs-target="#editModal" 
+                            th:attr="data-id=${restaurant.cif}, data-name=${restaurant.name}, data-imageUrl=${restaurant.imageUrl}, data-locality=${restaurant.locality}, data-street=${restaurant.street}">
+                        Editar
+                    </button>
+                    <form th:action="@{/deleteRestaurant}" method="post" style="display:inline;">
+                        <input type="hidden" name="cif" th:value="${restaurant.cif}">
+                        <button type="submit" class="delete-button">Eliminar</button>
+                    </form>
                 </td>
             </tr>
         </tbody>
     </table>
+
+    <!-- Modal para añadir restaurante -->
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form th:action="@{/addRestaurant}" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addModalLabel">Añadir Restaurante</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="addCif" class="form-label">CIF</label>
+                            <input type="text" class="form-control" id="addCif" name="cif" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addName" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="addName" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addImageUrl" class="form-label">URL de la Imagen</label>
+                            <input type="text" class="form-control" id="addImageUrl" name="imageUrl" value="https://i.postimg.cc/tJ8bHvQb/default-Restaurant.jpg" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addLocality" class="form-label">Localidad</label>
+                            <input type="text" class="form-control" id="addLocality" name="locality" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addStreet" class="form-label">Calle</label>
+                            <input type="text" class="form-control" id="addStreet" name="street" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Añadir</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para editar restaurante -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form th:action="@{/updateRestaurant}" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Editar Restaurante</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="editCif" name="cif">
+                        <div class="mb-3">
+                            <label for="editName" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="editName" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editImageUrl" class="form-label">URL de la Imagen</label>
+                            <input type="text" class="form-control" id="editImageUrl" name="imageUrl" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editLocality" class="form-label">Localidad</label>
+                            <input type="text" class="form-control" id="editLocality" name="locality" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editStreet" class="form-label">Calle</label>
+                            <input type="text" class="form-control" id="editStreet" name="street" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Aplicar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var editModal = document.getElementById('editModal');
+        editModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var cif = button.getAttribute('data-id');
+            var name = button.getAttribute('data-name');
+            var imageUrl = button.getAttribute('data-imageUrl');
+            var locality = button.getAttribute('data-locality');
+            var street = button.getAttribute('data-street');
+
+            var modalCif = editModal.querySelector('#editCif');
+            var modalName = editModal.querySelector('#editName');
+            var modalImageUrl = editModal.querySelector('#editImageUrl');
+            var modalLocality = editModal.querySelector('#editLocality');
+            var modalStreet = editModal.querySelector('#editStreet');
+
+            modalCif.value = cif;
+            modalName.value = name;
+            modalImageUrl.value = imageUrl;
+            modalLocality.value = locality;
+            modalStreet.value = street;
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
