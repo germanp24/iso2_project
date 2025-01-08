@@ -31,9 +31,6 @@ public class ClientController {
     public String clientForm(Model model) {
 
         model.addAttribute(REG_CLIENT, new Client());
-        if (log.isInfoEnabled()) {
-            log.info(clientDAO.findAll().toString());
-        }
         return REG_CLIENT;
 
     }
@@ -63,7 +60,7 @@ public class ClientController {
         log.info("Cliente registrado con éxito. Cliente ID: {}, Usuario ID: {}", client.getIdClient(),
                 usuary.getIdUsuary());
 
-        return "client/home";
+        return "/login";
     }
 
     @GetMapping("clientProfile")
