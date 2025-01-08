@@ -21,12 +21,10 @@ public class ClientController {
 
     private static final String REG_CLIENT = "registerClient";
     private final ClientDAO clientDAO;
-    private final UsuaryDAO usuaryDAO;
 
-    public ClientController(ClientDAO clientDAO, UsuaryDAO usuaryDAO) {
+    public ClientController(ClientDAO clientDAO) {
 
         this.clientDAO = clientDAO;
-        this.usuaryDAO = usuaryDAO;
     }
 
     @GetMapping("/registerClient")
