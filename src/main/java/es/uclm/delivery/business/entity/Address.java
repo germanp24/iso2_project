@@ -7,7 +7,7 @@ public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_address;
+    private Long idAddress;
 
     @Column(nullable = false)
     private String street;
@@ -38,6 +38,8 @@ public class Address {
 
     // Getters y Setters
 
+    public Long getIdAddress() {return idAddress;}
+    public void setIdAddress(Long idAddress) {this.idAddress = idAddress;}
     public void setStreet(String street) {
         this.street = street;
     }
@@ -51,7 +53,8 @@ public class Address {
     @Override
     public String toString() {
         return String.format("Address [street=%s, number=%d, floorNumber=%s, locality=%s, customerOrder=%s]",
-                street, number, floorNumber, locality, customerOrder != null ? customerOrder.getOrderNumber() : "N/A");
+                street, number, floorNumber, locality, customerOrder);
     }
+
 
 }

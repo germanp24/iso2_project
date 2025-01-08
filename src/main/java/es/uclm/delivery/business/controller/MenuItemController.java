@@ -3,7 +3,6 @@ package es.uclm.delivery.business.controller;
 import es.uclm.delivery.business.entity.CartItem;
 import es.uclm.delivery.business.entity.MenuItem;
 import es.uclm.delivery.business.entity.Restaurant;
-import es.uclm.delivery.business.entity.Usuary;
 import es.uclm.delivery.persistence.MenuItemDAO;
 import es.uclm.delivery.persistence.RestaurantDAO;
 import es.uclm.delivery.persistence.UsuaryDAO;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class MenuItemController {
@@ -25,12 +23,10 @@ public class MenuItemController {
 
     private final MenuItemDAO menuItemDAO;
     private final RestaurantDAO restaurantDAO;
-    private final UsuaryDAO usuaryDAO;
 
-    public MenuItemController(MenuItemDAO menuItemDAO, RestaurantDAO restaurantDAO, UsuaryDAO usuaryDAO) {
+    public MenuItemController(MenuItemDAO menuItemDAO, RestaurantDAO restaurantDAO) {
         this.menuItemDAO = menuItemDAO;
         this.restaurantDAO = restaurantDAO;
-        this.usuaryDAO = usuaryDAO;
     }
 
     @GetMapping("/restaurant/{cif}")

@@ -7,17 +7,4 @@ import es.uclm.delivery.business.entity.RestaurantAdministrator;
 @Repository
 public interface RestaurantAdministratorDAO extends JpaRepository<RestaurantAdministrator, String> {
     RestaurantAdministrator findByDni (String dni);
-    /*
-     * Se hereda de JpaRepository operaciones de acceso a datos comunes a todas las
-     * entidades:
-     * E save(E)
-     * List<E> saveAll(List<E>)
-     * List<E> findAll()
-     * E findById(id)
-     * delete(E)
-     * deleteById(id)
-     * ...
-     *
-     * Aquí se podrían definir consultas de selección más específicas y complejas
-     **/
 }
