@@ -20,20 +20,12 @@ import java.util.stream.Collectors;
 public class CustomerOrderController {
 
     private static final Logger log = LoggerFactory.getLogger(CustomerOrderController.class);
+    private static final String ERROR = "error";
 
-    private final CustomerOrderDAO customerOrderDAO;
     private final MenuItemDAO menuItemDAO;
-    private final ClientDAO clientDAO;
-    private final CreditCardDAO creditCardDAO;
-    private final UsuaryDAO usuaryDAO;
 
-    public CustomerOrderController(CustomerOrderDAO customerOrderDAO, MenuItemDAO menuItemDAO,
-                                   ClientDAO clientDAO, CreditCardDAO creditCardDAO, UsuaryDAO usuaryDAO) {
-        this.customerOrderDAO = customerOrderDAO;
+    public CustomerOrderController(MenuItemDAO menuItemDAO) {
         this.menuItemDAO = menuItemDAO;
-        this.clientDAO = clientDAO;
-        this.creditCardDAO = creditCardDAO;
-        this.usuaryDAO = usuaryDAO;
 
     }
 
@@ -43,7 +35,6 @@ public class CustomerOrderController {
         MenuItem menuItem = menuItemDAO.findById(menuItemId)
                 .orElseThrow(() -> new IllegalArgumentException("Menu item not found"));
 
-        // Obtener el carrito de la sesión (si no existe, se crea uno vacío)
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
         if (cart == null) {
             cart = new ArrayList<>();
@@ -51,31 +42,26 @@ public class CustomerOrderController {
 
         // Verificar si el producto ya está en el carrito
         Optional<CartItem> existingItem = cart.stream()
-                .filter(item -> item.getMenuItem().getId_menu().equals(menuItemId))
+                .filter(item -> item.getMenuItem().getId_menu().equals(Long.parseLong(menuItemId)))
                 .findFirst();
 
         if (existingItem.isPresent()) {
-            // Si ya está, actualizar la cantidad
             existingItem.get().setQuantity(existingItem.get().getQuantity() + quantity);
         } else {
             // Si no está, añadirlo al carrito
             cart.add(new CartItem(menuItem, quantity));
         }
-
-        // Guardar el carrito actualizado en la sesión
         session.setAttribute("cart", cart);
 
-        // Redirigir al detalle del restaurante para actualizar el carrito
-        return "redirect:/restaurant/" + menuItem.getRestaurant().getCif(); // Redirigir para actualizar
+        return "redirect:/restaurant/" + menuItem.getRestaurant().getCif();
     }
 
-    // Mapeo para manejar la selección del método de pago, solo accesible con DNI
     @GetMapping("/selectPaymentMethod")
     public String selectPaymentMethod(HttpSession session, Model model) {
         // Verificar si el usuario está autenticado
         Usuary loggedInUser = (Usuary) session.getAttribute("loggedInUser");
         if (loggedInUser == null) {
-            model.addAttribute("error", "Debes iniciar sesión para agregar productos al carrito.");
+            model.addAttribute(ERROR, "Debes iniciar sesión para agregar productos al carrito.");
             return "redirect:/login";
         }
 
@@ -92,7 +78,7 @@ public class CustomerOrderController {
 
         if (loggedInClient == null) {
             // Redirigir a la página de inicio de sesión si no hay cliente autenticado
-            model.addAttribute("error", "Debes iniciar sesión para confirmar tu pedido.");
+            model.addAttribute(ERROR, "Debes iniciar sesión para confirmar tu pedido.");
             return "redirect:/login";
         }
 
@@ -114,22 +100,19 @@ public class CustomerOrderController {
 
     @GetMapping("/enterAddress")
     public String enterAddress(@RequestParam String method, HttpSession session, Model model) {
-        // Recuperar cliente autenticado desde la sesión
         Client loggedInClient = (Client) session.getAttribute("loggedInClient");
 
         if (loggedInClient == null) {
-            // Redirigir al inicio de sesión si no hay cliente autenticado
-            model.addAttribute("error", "Debes iniciar sesión para continuar.");
+            model.addAttribute(ERROR, "Debes iniciar sesión para continuar.");
             return "redirect:/login";
         }
 
         // Obtener el DNI del cliente
         String dni = loggedInClient.getDni();
-        model.addAttribute("dni", dni); // Pasar el DNI al modelo
-        model.addAttribute("method", method); // Pasar el método de pago al modelo
-        log.info("DNI: {}, Método de pago: {}", dni, method);
+        model.addAttribute("dni", dni);
+        model.addAttribute("method", method);
 
-        return "enterAddress"; // Vista para ingresar la dirección
+        return "enterAddress";
     }
 
     @GetMapping("/enterCardDetails")
@@ -138,21 +121,18 @@ public class CustomerOrderController {
         Client loggedInClient = (Client) session.getAttribute("loggedInClient");
 
         if (loggedInClient == null) {
-            // Redirigir al inicio de sesión si no hay cliente autenticado
-            model.addAttribute("error", "Debes iniciar sesión para continuar.");
+            model.addAttribute(ERROR, "Debes iniciar sesión para continuar.");
             return "redirect:/login";
         }
 
-        // Obtener el DNI del cliente
         String dni = loggedInClient.getDni();
-        model.addAttribute("dni", dni); // Pasar el DNI al modelo
-        model.addAttribute("method", method); // Pasar el método de pago al modelo
+        model.addAttribute("dni", dni);
+        model.addAttribute("method", method);
 
-        return "enterCardDetails"; // Vista para ingresar los detalles de la tarjeta
+        return "enterCardDetails";
     }
 
 
-    // Nuevo método para guardar la dirección cuando se paga en efectivo
     @PostMapping("/saveAddress")
     public String saveAddress(
             @RequestParam String street,
@@ -160,26 +140,21 @@ public class CustomerOrderController {
             @RequestParam(required = false) String floorNumber,
             HttpSession session
     ) {
-        // Recuperar cliente autenticado desde la sesión
+
         Client loggedInClient = (Client) session.getAttribute("loggedInClient");
 
         if (loggedInClient == null) {
-            // Redirigir al inicio de sesión si no hay cliente autenticado
             return "redirect:/login";
         }
 
-        // Obtener el DNI del cliente
+
         String dni = loggedInClient.getDni();
 
-        // Construcción del objeto Address
         Address address = new Address();
         address.setStreet(street);
         address.setNumber(number);
         address.setFloorNumber(floorNumber);
 
-        log.info("Dirección recibida para DNI {}: {}", dni, address);
-
-        // Redirigir a una página de éxito o próxima acción
         return "orderConfirmation";
     }
 
@@ -195,33 +170,26 @@ public class CustomerOrderController {
             @RequestParam String cvv,
             HttpSession session
     ) {
-        // Recuperar cliente autenticado desde la sesión
+
         Client loggedInClient = (Client) session.getAttribute("loggedInClient");
 
         if (loggedInClient == null) {
-            // Redirigir al inicio de sesión si no hay cliente autenticado
+
             return "redirect:/login";
         }
 
-        // Obtener el DNI del cliente
         String dni = loggedInClient.getDni();
 
-        // Crear el objeto Address y asignar los valores recibidos
         Address address = new Address();
         address.setStreet(street);
         address.setNumber(number);
         address.setFloorNumber(floorNumber);
 
-        // Crear el objeto CreditCard y asignar los valores recibidos
         CreditCard creditCard = new CreditCard();
         creditCard.setCardNumber(cardNumber);
         creditCard.setCardExpiry(expiryDate);
         creditCard.setCardCvv(cvv);
 
-        log.info("Dirección recibida para DNI {}: {}", dni, address);
-        log.info("Tarjeta de crédito recibida: {}", creditCard);
-
-        // Redirigir a la página de confirmación de la orden
         return "orderConfirmation";
     }
 

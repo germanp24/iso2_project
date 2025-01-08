@@ -3,8 +3,6 @@ package es.uclm.delivery.business.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Client {

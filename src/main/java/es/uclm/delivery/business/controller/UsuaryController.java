@@ -4,7 +4,6 @@ import es.uclm.delivery.business.entity.Client;
 import es.uclm.delivery.business.entity.Usuary;
 import es.uclm.delivery.persistence.UsuaryDAO;
 import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -14,11 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
-// Se usa para mantener la sesión del usuario en memoria durante la navegación
 @SessionAttributes("loggedInUser")
 public class UsuaryController {
 
@@ -54,26 +50,23 @@ public class UsuaryController {
 
 
         if (usuary != null) {
-            // Determina los roles asociados
             session.setAttribute("usuary", usuary);
 
-            // Redirigir según el rol
             if (usuary.getClient() != null && !usuary.getClient().isEmpty()) {
                 Client client = usuary.getClient().get(0);
-                session.setAttribute("loggedInClient", client); // Guardar cliente en la sesión
+                session.setAttribute("loggedInClient", client);
                 session.setAttribute("loggedInUser", usuary);
-                log.info("client{},usuary{}", client, usuary);
-                return "redirect:/client/home?email=" + email; // Redirige a home de Cliente
+                return "redirect:/client/home?email=" + email;
             }
             if (usuary.getDeliveryMan() != null && !usuary.getDeliveryMan().isEmpty()) {
-                return "redirect:/delivery/home?email=" + email; // Redirige a home de Repartidor
+                return "redirect:/delivery/home?email=" + email;
             }
             if (usuary.getRestaurantAdministrator() != null && !usuary.getRestaurantAdministrator().isEmpty()) {
-                return "redirect:/admin/dashboard"; // Redirige a home de Administrador
+                return "redirect:/admin/dashboard";
             }
 
             model.addAttribute("error", "No se ha encontrado un rol asociado a este usuario.");
-            return "login"; // Si no se encuentra ningún rol, vuelve a la página de login
+            return "login";
         } else {
             model.addAttribute("error", "Credenciales incorrectas. Por favor, intenta de nuevo.");
             return "login";
@@ -82,8 +75,8 @@ public class UsuaryController {
     // Cerrar sesión
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-        session.invalidate(); // Elimina todos los datos de la sesión
+        session.invalidate();
         log.info("Sesión cerrada.");
-        return "redirect:/login?logout=true"; // Redirige a la página de inicio de sesión
+        return "redirect:/login?logout=true";
     }
 }

@@ -39,9 +39,9 @@ public class RestaurantAdministratorController {
 
         List<String> nameRestaurant = restaurantDAO.findAll()
                 .stream()
-                .map(Restaurant::getName)
+                .map(Restaurant::getLocality)
                 .distinct()
-                .collect(Collectors.toList());
+                .toList();
         model.addAttribute("nameRestaurant", nameRestaurant);
 
         if (log.isInfoEnabled()) {
@@ -72,6 +72,6 @@ public class RestaurantAdministratorController {
 
         log.info("Saved deliveryService: {}, Usuario ID: {}", restaurantAdministrator.getId_admin(),
                 usuary.getIdUsuary());
-        return REG_ADMIN;
+        return "/registerAdmin";
     }
 }

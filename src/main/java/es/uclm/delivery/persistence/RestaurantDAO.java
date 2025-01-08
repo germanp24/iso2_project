@@ -9,19 +9,8 @@ import java.util.List;
 @Repository
 public interface RestaurantDAO extends JpaRepository<Restaurant, String> {
     Restaurant findByCif(String cif);
+
     List<Restaurant> findByLocality(String locality);
+
     List<Restaurant> findByName(String name);
-    /*
-     * Se hereda de JpaRepository operaciones de acceso a datos comunes a todas las
-     * entidades:
-     * E save(E)
-     * List<E> saveAll(List<E>)
-     * List<E> findAll()
-     * E findById(id)
-     * delete(E)
-     * deleteById(id)
-     * ...
-     *
-     * Aquí se podrían definir consultas de selección más específicas y complejas
-     **/
 }

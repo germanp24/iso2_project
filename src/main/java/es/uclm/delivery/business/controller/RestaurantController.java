@@ -1,35 +1,28 @@
 package es.uclm.delivery.business.controller;
 
-import es.uclm.delivery.business.entity.MenuItem;
 import es.uclm.delivery.business.entity.Restaurant;
 import es.uclm.delivery.persistence.MenuItemDAO;
 import es.uclm.delivery.persistence.RestaurantDAO;
-import jakarta.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
 public class RestaurantController {
 
     private static final Logger log = LoggerFactory.getLogger(RestaurantController.class);
+    private static final String RESTAURANT = "restaurant";
 
     private RestaurantDAO restaurantDAO;
-    private final MenuItemDAO menuItemDAO;
 
-    public RestaurantController(RestaurantDAO restaurantDAO, MenuItemDAO menuItemDAO) {
+    public RestaurantController(RestaurantDAO restaurantDAO) {
         this.restaurantDAO = restaurantDAO;
-        this.menuItemDAO = menuItemDAO;
     }
 
     @GetMapping("/restaurant")
@@ -37,14 +30,14 @@ public class RestaurantController {
 
         model.addAttribute("restaurant", new Restaurant());
         log.info("Mostrando formulario de registro de restaurantes.");
-        return "restaurant";
+        return RESTAURANT;
     }
   
     @PostMapping("/restaurant")
     public String restaurantSubmit(@ModelAttribute Restaurant restaurant, Model model) {
         if (restaurantDAO.findByCif(restaurant.getCif()) != null) {
             model.addAttribute("errorMessage", "El CIF ya está registrado.");
-            return "restaurant";
+            return RESTAURANT;
         }
 
         Restaurant savedRestaurant = restaurantDAO.save(restaurant);
@@ -53,7 +46,7 @@ public class RestaurantController {
 
         log.info("Restaurante guardado: " + savedRestaurant);
 
-        return "restaurant";
+        return RESTAURANT;
     }
 
     @GetMapping("/restaurants")
@@ -67,27 +60,23 @@ public class RestaurantController {
         // Si la localidad está presente, filtrar por localidad
         if (locality != null && !locality.isEmpty()) {
             if (search != null && !search.isEmpty()) {
-                // Si también hay un término de búsqueda por nombre, filtramos ambos
                 restaurants = restaurantDAO.findAll().stream()
                         .filter(r -> r.getLocality().equalsIgnoreCase(locality) && r.getName().toLowerCase().contains(search.toLowerCase()))
                         .collect(Collectors.toList());
             } else {
-                // Si solo hay localidad, mostramos restaurantes de esa localidad
                 restaurants = restaurantDAO.findAll().stream()
                         .filter(r -> r.getLocality().equalsIgnoreCase(locality))
                         .collect(Collectors.toList());
             }
-            model.addAttribute("searchKeyword", search); // Se mantiene el término de búsqueda por nombre
-            model.addAttribute("locality", locality); // Se mantiene la localidad seleccionada
+            model.addAttribute("searchKeyword", search);
+            model.addAttribute("locality", locality);
         } else {
-            // Si no hay localidad, solo se filtra por nombre (si es que se busca algo)
             if (search != null && !search.isEmpty()) {
                 restaurants = restaurantDAO.findAll().stream()
                         .filter(r -> r.getName().toLowerCase().contains(search.toLowerCase()))
                         .collect(Collectors.toList());
-                model.addAttribute("searchKeyword", search); // Se mantiene el término de búsqueda por nombre
+                model.addAttribute("searchKeyword", search);
             } else {
-                // Mostrar todos los restaurantes si no hay parámetros de búsqueda
                 restaurants = restaurantDAO.findAll();
             }
         }

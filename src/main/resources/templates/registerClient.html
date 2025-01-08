@@ -23,8 +23,8 @@
                     <input type="text" th:field="*{name}" placeholder="Nombre" required>
                     <input type="text" id="dni" name="dni" th:field="*{dni}" placeholder="DNI (8 números + letra)" required maxlength="9"
                            pattern="^\d{8}[A-Za-z]$" title="El DNI debe tener 8 dígitos seguidos de una letra (por ejemplo, 12345678A)">
-                    <input type="text" th:field="*{surnames_F}" placeholder="Apellidos" required>
-                    <input type="text" th:field="*{surnames_M}" placeholder="Apellidos" required>
+                    <input type="text" th:field="*{surnames_F}" placeholder="Apellidos Paternos" required>
+                    <input type="text" th:field="*{surnames_M}" placeholder="Apellidos Maternos" required>
                     <input type="email" name="email" placeholder="Correo Electrónico" required>
                     <input type="password" name="password" placeholder="Contraseña" required>
                     <div>

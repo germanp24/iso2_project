@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class MenuItemController {
@@ -25,39 +24,32 @@ public class MenuItemController {
 
     private final MenuItemDAO menuItemDAO;
     private final RestaurantDAO restaurantDAO;
-    private final UsuaryDAO usuaryDAO;
 
-    public MenuItemController(MenuItemDAO menuItemDAO, RestaurantDAO restaurantDAO, UsuaryDAO usuaryDAO) {
+    public MenuItemController(MenuItemDAO menuItemDAO, RestaurantDAO restaurantDAO) {
         this.menuItemDAO = menuItemDAO;
         this.restaurantDAO = restaurantDAO;
-        this.usuaryDAO = usuaryDAO;
     }
 
     @GetMapping("/restaurant/{cif}")
     public String restaurantDetails(@PathVariable String cif, HttpSession session, Model model) {
-        log.info("Cargando detalles del restaurante con CIF: {}", cif);
 
-        // Buscar el restaurante por CIF
         Restaurant restaurant = restaurantDAO.findById(cif)
                 .orElseThrow(() -> new IllegalArgumentException("Restaurante no encontrado"));
 
-        // Obtener los menús asociados al restaurante
         List<MenuItem> menuItems = menuItemDAO.findByRestaurantCif(cif);
 
-        // Obtener el carrito de la sesión (si existe) solo si el usuario está autenticado
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
         if (cart == null) {
             cart = new ArrayList<>();
         }
         double totalPrice = cart.stream().mapToDouble(CartItem::getTotalPrice).sum();
 
-        // Añadir datos al modelo
         model.addAttribute("restaurant", restaurant);
         model.addAttribute("menuItems", menuItems);
-        model.addAttribute("cart", cart); // Añadir carrito al modelo
+        model.addAttribute("cart", cart);
         model.addAttribute("totalPrice", totalPrice);
 
-        return "menuDetails"; // Asegúrate de que tu vista sea la correcta
+        return "menuDetails";
     }
 
     @GetMapping("/addMenuRestaurant")
@@ -66,23 +58,18 @@ public class MenuItemController {
         model.addAttribute("menuItems", menuItemDAO.findAll());
         model.addAttribute("restaurants", restaurantDAO.findAll());
 
-        return "addMenuRestaurant"; // Asegúrate de que esta vista esté configurada
+        return "addMenuRestaurant";
     }
 
 
     @PostMapping("/addMenuRestaurant")
     public String menuItemSubmit(@ModelAttribute MenuItem menuItem, Model model) {
         try {
-            // Validar si el restaurante existe
             Restaurant restaurant = restaurantDAO.findById(menuItem.getRestaurant().getCif())
                     .orElseThrow(() -> new IllegalArgumentException("Invalid restaurant selected"));
 
             menuItem.setRestaurant(restaurant);
 
-            // Asociar los contenidos al menú
-            menuItem.getMenuContents().forEach(content -> content.setMenuItem(menuItem));
-
-            // Guardar el MenuItem
             menuItemDAO.save(menuItem);
 
             model.addAttribute("successMessage", "Menu item saved successfully!");
@@ -90,7 +77,7 @@ public class MenuItemController {
             model.addAttribute("errorMessage", "Error saving menu item: " + e.getMessage());
             log.error("Error saving menu item", e);
         }
-        return "redirect:/addMenuRestaurant"; // Redirigir para evitar reenvío del formulario
-    }
+        return "redirect:/addMenuRestaurant";
 
+    }
 }
