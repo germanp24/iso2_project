@@ -80,4 +80,41 @@ class MenuItemControllerTest {
         verify(model, times(1)).addAttribute("restaurants", restaurants);
         assertEquals("addMenuRestaurant", viewName);
     }
+
+    @Test
+    void testMenuItemSubmit_Success() {
+        Restaurant mockRestaurant = new Restaurant();
+        mockRestaurant.setCif("181818A");
+
+        MenuItem mockMenuItem = new MenuItem();
+        mockMenuItem.setRestaurant(mockRestaurant);
+
+        when(restaurantDAO.findById("181818A")).thenReturn(Optional.of(mockRestaurant));
+        when(menuItemDAO.save(any(MenuItem.class))).thenReturn(mockMenuItem);
+
+        String viewName = menuItemController.menuItemSubmit(mockMenuItem, model);
+
+        assertEquals("redirect:/addMenuRestaurant", viewName);
+        verify(restaurantDAO, times(1)).findById("181818A");
+        verify(menuItemDAO, times(1)).save(mockMenuItem);
+        verify(model, times(1)).addAttribute("successMessage", "Menu item saved successfully!");
+    }
+
+    @Test
+    void testMenuItemSubmit_InvalidRestaurant() {
+        Restaurant mockRestaurant = new Restaurant();
+        mockRestaurant.setCif("invalid");
+
+        MenuItem mockMenuItem = new MenuItem();
+        mockMenuItem.setRestaurant(mockRestaurant);
+
+        when(restaurantDAO.findById("invalid")).thenReturn(Optional.empty());
+
+        String viewName = menuItemController.menuItemSubmit(mockMenuItem, model);
+
+        assertEquals("redirect:/addMenuRestaurant", viewName);
+        verify(restaurantDAO, times(1)).findById("invalid");
+        verify(menuItemDAO, never()).save(any(MenuItem.class));
+        verify(model, times(1)).addAttribute(eq("errorMessage"), contains("Invalid restaurant selected"));
+    }
 }

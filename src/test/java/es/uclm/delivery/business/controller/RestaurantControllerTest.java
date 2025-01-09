@@ -10,6 +10,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -27,9 +30,15 @@ class RestaurantControllerTest {
     @InjectMocks
     private RestaurantController restaurantController;
 
+    private List<Restaurant> restaurants;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        restaurants = Arrays.asList(
+                new Restaurant("181818A", "Restaurant A","url.com" ,"paseo","Madrid"),
+                new Restaurant("121212Q", "Restaurant B","url.com" ,"paseo", "Barcelona"),
+                new Restaurant("565656M", "Café Central", "url.com" ,"paseo","Madrid"));
     }
 
     @Test
@@ -70,5 +79,87 @@ class RestaurantControllerTest {
         verify(restaurantDAO, times(0)).save(restaurant);
         verify(model, times(1)).addAttribute("errorMessage", "El CIF ya está registrado.");
         assertEquals("restaurant", viewName);
+    }
+    @Test
+    void testShowRestaurants_WithLocalityAndSearch() {
+        // Arrange
+        String search = "Pizzeria";
+        String locality = "Madrid";
+        Restaurant restaurant1 = new Restaurant("CIF1", "Pizzeria Roma", "http://image.com", "Calle 1", "Madrid");
+        Restaurant restaurant2 = new Restaurant("CIF2", "Pizza Express", "http://image2.com", "Calle 2", "Madrid");
+
+        // Modifica el comportamiento de restaurantDAO.findAll para devolver ambos restaurantes
+        List<Restaurant> restaurants = Arrays.asList(restaurant1, restaurant2);
+        when(restaurantDAO.findAll()).thenReturn(restaurants);
+
+        // Act
+        String view = restaurantController.showRestaurants(search, locality, model);
+
+        // Assert
+        // Verifica que se añaden los atributos correctos
+        verify(model).addAttribute("restaurants", Arrays.asList(restaurant1)); // Solo debería haber un restaurante
+        verify(model).addAttribute("searchKeyword", search);
+        verify(model).addAttribute("locality", locality);
+        assertEquals("restaurants", view);
+    }
+
+
+    @Test
+    void testShowRestaurants_WithLocalityOnly() {
+        // Arrange
+        String search = null;
+        String locality = "Madrid";
+        Restaurant restaurant1 = new Restaurant("CIF1", "Pizzeria Roma", "http://image.com", "Calle 1", "Madrid");
+        Restaurant restaurant2 = new Restaurant("CIF2", "Pizza Express", "http://image2.com", "Calle 2", "Madrid");
+
+        List<Restaurant> restaurants = Arrays.asList(restaurant1, restaurant2);
+        when(restaurantDAO.findAll()).thenReturn(restaurants);
+
+        // Act
+        String view = restaurantController.showRestaurants(search, locality, model);
+
+        // Assert
+        verify(model).addAttribute("restaurants", Arrays.asList(restaurant1, restaurant2));
+        verify(model).addAttribute("locality", locality);
+        assertEquals("restaurants", view);
+    }
+
+    @Test
+    void testShowRestaurants_WithSearchOnly() {
+        // Arrange
+        String search = "Pizzeria";
+        String locality = null;
+        Restaurant restaurant1 = new Restaurant("CIF1", "Pizzeria Roma", "http://image.com", "Calle 1", "Madrid");
+        Restaurant restaurant2 = new Restaurant("CIF2", "Pizza Express", "http://image2.com", "Calle 2", "Barcelona");
+
+        List<Restaurant> restaurants = Arrays.asList(restaurant1, restaurant2);
+        when(restaurantDAO.findAll()).thenReturn(restaurants);
+
+        // Act
+        String view = restaurantController.showRestaurants(search, locality, model);
+
+        // Assert
+        verify(model).addAttribute("restaurants", Arrays.asList(restaurant1));
+        verify(model).addAttribute("searchKeyword", search);
+        assertEquals("restaurants", view);
+    }
+
+    @Test
+    void testShowRestaurants_NoSearchNoLocality() {
+        // Arrange
+        String search = null;
+        String locality = null;
+        Restaurant restaurant1 = new Restaurant("CIF1", "Pizzeria Roma", "http://image.com", "Calle 1", "Madrid");
+        Restaurant restaurant2 = new Restaurant("CIF2", "Pizza Express", "http://image2.com", "Calle 2", "Barcelona");
+
+        List<Restaurant> restaurants = Arrays.asList(restaurant1, restaurant2);
+        when(restaurantDAO.findAll()).thenReturn(restaurants);
+
+        // Act
+        String view = restaurantController.showRestaurants(search, locality, model);
+
+        // Assert
+        verify(model).addAttribute("restaurants", restaurants);
+        assertEquals("restaurants", view);
     }
 }

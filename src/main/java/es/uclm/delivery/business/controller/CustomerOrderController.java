@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Controller
 public class CustomerOrderController {
@@ -31,7 +30,7 @@ public class CustomerOrderController {
 
     @PostMapping("/orderDetails")
     public String addToCart(@RequestParam String menuItemId, @RequestParam int quantity, HttpSession session, Model model) {
-        // Obtener el producto por su ID
+
         MenuItem menuItem = menuItemDAO.findById(menuItemId)
                 .orElseThrow(() -> new IllegalArgumentException("Menu item not found"));
 
@@ -40,7 +39,6 @@ public class CustomerOrderController {
             cart = new ArrayList<>();
         }
 
-        // Verificar si el producto ya está en el carrito
         Optional<CartItem> existingItem = cart.stream()
                 .filter(item -> item.getMenuItem().getId_menu().equals(Long.parseLong(menuItemId)))
                 .findFirst();
@@ -48,7 +46,6 @@ public class CustomerOrderController {
         if (existingItem.isPresent()) {
             existingItem.get().setQuantity(existingItem.get().getQuantity() + quantity);
         } else {
-            // Si no está, añadirlo al carrito
             cart.add(new CartItem(menuItem, quantity));
         }
         session.setAttribute("cart", cart);
@@ -58,7 +55,7 @@ public class CustomerOrderController {
 
     @GetMapping("/selectPaymentMethod")
     public String selectPaymentMethod(HttpSession session, Model model) {
-        // Verificar si el usuario está autenticado
+
         Usuary loggedInUser = (Usuary) session.getAttribute("loggedInUser");
         if (loggedInUser == null) {
             model.addAttribute(ERROR, "Debes iniciar sesión para agregar productos al carrito.");
@@ -70,30 +67,25 @@ public class CustomerOrderController {
         return "selectPaymentMethod"; // Renderiza la vista para seleccionar el método de pago
     }
 
-    // Mapeo para manejar la confirmación del método de pago
     @GetMapping("/confirmOrder")
     public String confirmOrder(@RequestParam String method, HttpSession session, Model model) {
-        // Recuperar el cliente autenticado desde la sesión
+
         Client loggedInClient = (Client) session.getAttribute("loggedInClient");
 
         if (loggedInClient == null) {
-            // Redirigir a la página de inicio de sesión si no hay cliente autenticado
             model.addAttribute(ERROR, "Debes iniciar sesión para confirmar tu pedido.");
             return "redirect:/login";
         }
 
-        // Obtener el DNI del cliente autenticado
         String dni = loggedInClient.getDni();
         model.addAttribute("dni", dni);
 
-        // Redirigir según el método de pago seleccionado
         if ("cash".equals(method)) {
-            return "redirect:/enterAddress?method=cash&dni=" + dni; // Redirige a ingresar dirección
+            return "redirect:/enterAddress?method=cash&dni=" + dni;
         } else if ("card".equals(method)) {
-            return "redirect:/enterCardDetails?method=card&dni=" + dni; // Redirige a ingresar detalles de la tarjeta
+            return "redirect:/enterCardDetails?method=card&dni=" + dni;
         }
 
-        // Redirigir a la página principal si el método es desconocido
         return "redirect:/";
     }
 
@@ -107,7 +99,6 @@ public class CustomerOrderController {
             return "redirect:/login";
         }
 
-        // Obtener el DNI del cliente
         String dni = loggedInClient.getDni();
         model.addAttribute("dni", dni);
         model.addAttribute("method", method);
@@ -117,7 +108,7 @@ public class CustomerOrderController {
 
     @GetMapping("/enterCardDetails")
     public String enterCardDetails(@RequestParam String method, HttpSession session, Model model) {
-        // Recuperar cliente autenticado desde la sesión
+
         Client loggedInClient = (Client) session.getAttribute("loggedInClient");
 
         if (loggedInClient == null) {
@@ -146,9 +137,6 @@ public class CustomerOrderController {
         if (loggedInClient == null) {
             return "redirect:/login";
         }
-
-
-        String dni = loggedInClient.getDni();
 
         Address address = new Address();
         address.setStreet(street);
