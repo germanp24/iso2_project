@@ -3,9 +3,6 @@ package es.uclm.delivery.business.controller;
 import es.uclm.delivery.business.entity.Client;
 import es.uclm.delivery.business.entity.Usuary;
 import es.uclm.delivery.persistence.ClientDAO;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

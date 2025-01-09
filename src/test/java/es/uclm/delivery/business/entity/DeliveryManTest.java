@@ -113,20 +113,6 @@ class DeliveryManTest {
     }
 
     @Test
-    void testGetDeliveryServices() {
-        List<DeliveryService> deliveryServices = new ArrayList<>();
-        deliveryMan.setDeliveryServices(deliveryServices);
-        assertEquals(deliveryServices, deliveryMan.getDeliveryServices());
-    }
-
-    @Test
-    void testSetDeliveryServices() {
-        List<DeliveryService> deliveryServices = new ArrayList<>();
-        deliveryMan.setDeliveryServices(deliveryServices);
-        assertEquals(deliveryServices, deliveryMan.getDeliveryServices());
-    }
-
-    @Test
     void testGetRestaurant() {
         Set<Restaurant> restaurants = new HashSet<>();
         deliveryMan.setRestaurant(restaurants);

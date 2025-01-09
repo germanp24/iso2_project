@@ -8,14 +8,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MenuItemTest {
+class MenuItemTest {
 
     private MenuItem menuItem;
     private Restaurant restaurant;
     private List<MenuContent> menuContents;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         restaurant = new Restaurant();
         menuContents = new ArrayList<>();
         menuItem = new MenuItem(1L, "Pizza", 10.0, "Fast Food", restaurant, "imgUrl");
@@ -23,86 +23,86 @@ public class MenuItemTest {
     }
 
     @Test
-    public void testGetId_menu() {
+    void testGetId_menu() {
         assertEquals(1L, menuItem.getId_menu());
     }
 
     @Test
-    public void testSetId_menu() {
+    void testSetId_menu() {
         menuItem.setId_menu(2L);
         assertEquals(2L, menuItem.getId_menu());
     }
 
     @Test
-    public void testGetFoodName() {
+    void testGetFoodName() {
         assertEquals("Pizza", menuItem.getFoodName());
     }
 
     @Test
-    public void testSetFoodName() {
+    void testSetFoodName() {
         menuItem.setFoodName("Burger");
         assertEquals("Burger", menuItem.getFoodName());
     }
 
     @Test
-    public void testGetPrice() {
+    void testGetPrice() {
         assertEquals(10.0, menuItem.getPrice());
     }
 
     @Test
-    public void testSetPrice() {
+    void testSetPrice() {
         menuItem.setPrice(15.0);
         assertEquals(15.0, menuItem.getPrice());
     }
 
     @Test
-    public void testGetCategory() {
+    void testGetCategory() {
         assertEquals("Fast Food", menuItem.getCategory());
     }
 
     @Test
-    public void testSetCategory() {
+    void testSetCategory() {
         menuItem.setCategory("Healthy");
         assertEquals("Healthy", menuItem.getCategory());
     }
 
     @Test
-    public void testGetImgMenu() {
+    void testGetImgMenu() {
         assertEquals("imgUrl", menuItem.getImgMenu());
     }
 
     @Test
-    public void testSetImgMenu() {
+    void testSetImgMenu() {
         menuItem.setImgMenu("newImgUrl");
         assertEquals("newImgUrl", menuItem.getImgMenu());
     }
 
     @Test
-    public void testGetRestaurant() {
+    void testGetRestaurant() {
         assertEquals(restaurant, menuItem.getRestaurant());
     }
 
     @Test
-    public void testSetRestaurant() {
+    void testSetRestaurant() {
         Restaurant newRestaurant = new Restaurant();
         menuItem.setRestaurant(newRestaurant);
         assertEquals(newRestaurant, menuItem.getRestaurant());
     }
 
     @Test
-    public void testGetMenuContents() {
+    void testGetMenuContents() {
         assertEquals(menuContents, menuItem.getMenuContents());
     }
 
     @Test
-    public void testSetMenuContents() {
+    void testSetMenuContents() {
         List<MenuContent> newMenuContents = new ArrayList<>();
         menuItem.setMenuContents(newMenuContents);
         assertEquals(newMenuContents, menuItem.getMenuContents());
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         String expected = "MenuItem [id_menu=1, food_name=Pizza, price=10.0, category=Fast Food, imgMenu=imgUrl]";
         assertEquals(expected, menuItem.toString());
     }
