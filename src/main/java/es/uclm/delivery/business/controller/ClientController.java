@@ -4,7 +4,6 @@ import es.uclm.delivery.business.entity.Client;
 import es.uclm.delivery.business.entity.Usuary;
 import es.uclm.delivery.persistence.ClientDAO;
 
-import es.uclm.delivery.persistence.UsuaryDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -21,12 +20,10 @@ public class ClientController {
 
     private static final String REG_CLIENT = "registerClient";
     private final ClientDAO clientDAO;
-    private final UsuaryDAO usuaryDAO;
 
-    public ClientController(ClientDAO clientDAO, UsuaryDAO usuaryDAO) {
+    public ClientController(ClientDAO clientDAO) {
 
         this.clientDAO = clientDAO;
-        this.usuaryDAO = usuaryDAO;
     }
 
     @GetMapping("/registerClient")

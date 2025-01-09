@@ -3,109 +3,116 @@ package es.uclm.delivery.business.controller;
 import es.uclm.delivery.business.entity.Client;
 import es.uclm.delivery.business.entity.Usuary;
 import es.uclm.delivery.persistence.ClientDAO;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.slf4j.Logger;
-
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.nullValue;
-import static org.hamcrest.core.Is.is;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.ui.Model;
+import java.util.Optional;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
-@WebMvcTest(ClientController.class)
-@Import(ClientController.class)
 class ClientControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @MockBean
+    @Mock
     private ClientDAO clientDAO;
 
     @Mock
-    private Logger mockLogger;
+    private Model model;
 
     @InjectMocks
     private ClientController clientController;
 
-    // // 1. Test for Logger (Verifying if log is being called)
-    // @Test
-    // void testLogging() throws Exception {
-    //     Client client = new Client("12345678A", "Juan", "Pérez", "Gómez", null);
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
 
-    //     // Mock the DAO behavior
-    //     when(clientDAO.save(any(Client.class))).thenReturn(client);
+    @Test
+    void testClientForm() {
+        String viewName = clientController.clientForm(model);
 
-    //     // Perform the request to trigger the logger
-    //     mockMvc.perform(MockMvcRequestBuilders.post("/registerClient")
-    //                     .param("email", "test@example.com")
-    //                     .param("password", "password123"))
-    //             .andExpect(MockMvcResultMatchers.view().name("/login"))
-    //             .andExpect(model().attributeExists("successMessage"))
-    //             .andExpect(model().attribute("successMessage", "Client registrado con éxito!"));
-    // }
+        verify(model, times(1)).addAttribute(eq("registerClient"), any(Client.class));
+        assertEquals("registerClient", viewName);
+    }
 
-    // // 2. Test for Dependency Injection (Checking if clientDAO is injected)
-    // @Test
-    // void testClientDAOInjection() throws Exception {
-    //     Client client = new Client("12345678A", "Juan", "Pérez", "Gómez", null);
-    //     when(clientDAO.findByUsuary_Email("test@example.com")).thenReturn(java.util.Optional.of(client));
+    @Test
+    void testClientHome() {
+        Client client = new Client();
+        client.setName("John Doe");
+        when(clientDAO.findByUsuary_Email("email@example.com")).thenReturn(Optional.of(client));
 
-    //     mockMvc.perform(get("/client/home")
-    //                     .param("email", "test@example.com"))
-    //             .andExpect(MockMvcResultMatchers.view().name("client/home"))
-    //             .andExpect(model().attribute("clientName", "Juan"));
+        String viewName = clientController.clientHome("email@example.com", model);
 
-    //     // Verify clientDAO interaction
-    //     verify(clientDAO).findByUsuary_Email("test@example.com");
-    // }
+        verify(model, times(1)).addAttribute("clientName", "John Doe");
+        verify(model, times(1)).addAttribute("email", "email@example.com");
+        assertEquals("client/home", viewName);
+    }
 
-    // // 3. Test for clientForm (Adding Client object to model)
-    // @Test
-    // void testClientForm() throws Exception {
-    //     mockMvc.perform(get("/registerClient"))
-    //             .andExpect(model().attributeExists("registerClient"))  // Verifica que el atributo exista
-    //             .andExpect(model().attribute("registerClient", hasProperty("dni", is(nullValue()))))
-    //             .andExpect(model().attribute("registerClient", hasProperty("name", is(nullValue()))))
-    //             .andExpect(model().attribute("registerClient", hasProperty("surnames_M", is(nullValue()))))
-    //             .andExpect(model().attribute("registerClient", hasProperty("surnames_F", is(nullValue()))));
-    // }
+    @Test
+    void testClientSubmit() {
+        Client client = new Client();
+        String viewName = clientController.clientSubmit(client, "email@example.com", "password", model);
 
-    // // 4. Test for clientHome (Fetching client and adding name to model)
-    // @Test
-    // void testClientHome() throws Exception {
-    //     Client client = new Client("12345678A", "Juan", "Pérez", "Gómez", null);
-    //     when(clientDAO.findByUsuary_Email("test@example.com")).thenReturn(java.util.Optional.of(client));
+        verify(clientDAO, times(1)).save(client);
+        verify(model, times(1)).addAttribute("registerClient", client);
+        verify(model, times(1)).addAttribute("successMessage", "Client registrado con éxito!");
+        assertEquals("client/home", viewName);
+    }
 
-    //     mockMvc.perform(get("/client/home")
-    //                     .param("email", "test@example.com"))
-    //             .andExpect(MockMvcResultMatchers.view().name("client/home"))
-    //             .andExpect(model().attribute("clientName", "Juan"));
-    // }
+    @Test
+    void testClientProfileForm() {
+        Client client = new Client();
+        when(clientDAO.findByUsuary_Email("email@example.com")).thenReturn(Optional.of(client));
 
-    // // 5. Prueba para clientSubmit (Crear cliente, guardar en DAO, añadir al modelo)
-    // @Test
-    // void testClientSubmit() throws Exception {
-    //     Client client = new Client("12345678A", "Juan", "Pérez", "Gómez", null);
-    //     Usuary usuary = new Usuary("password123", "test@example.com", "CLIENT");
-    //     client.setUsuary(usuary);
+        String viewName = clientController.clientProfileForm("email@example.com", model);
 
-    //     when(clientDAO.save(any(Client.class))).thenReturn(client);
+        verify(model, times(1)).addAttribute("client", client);
+        verify(model, times(1)).addAttribute("email", "email@example.com");
+        assertEquals("client/clientProfile", viewName);
+    }
 
-    //     mockMvc.perform(MockMvcRequestBuilders.post("/registerClient")
-    //                     .param("email", "test@example.com")
-    //                     .param("password", "password123"))
-    //             .andExpect(MockMvcResultMatchers.view().name("/login"))
-    //             .andExpect(model().attributeExists("successMessage"))
-    //             .andExpect(model().attribute("successMessage", "Client registrado con éxito!"));
-    // }
+    @Test
+    void testClientProfileSubmit() {
+        Client client = new Client();
+        String viewName = clientController.clientProfileSubmit(client, "email@example.com");
+
+        assertEquals("redirect:/clientProfile?email=email@example.com", viewName);
+    }
+
+    @Test
+    void testClientAccountForm() {
+        Client client = new Client();
+        Usuary usuary = new Usuary();
+        usuary.setPassword("password");
+        client.setUsuary(usuary);
+        when(clientDAO.findByUsuary_Email("email@example.com")).thenReturn(Optional.of(client));
+
+        String viewName = clientController.clientAccountForm("email@example.com", model);
+
+        verify(model, times(1)).addAttribute("client", client);
+        verify(model, times(1)).addAttribute("email", "email@example.com");
+        verify(model, times(1)).addAttribute("password", "password");
+        assertEquals("client/clientAccount", viewName);
+    }
+
+    @Test
+    void testClientAccountSubmit() {
+        Client client = new Client();
+        client.setName("John");
+        client.setSurnames_M("Doe");
+        client.setSurnames_F("Smith");
+
+        Usuary usuary = new Usuary();
+        usuary.setPassword("password");
+        client.setUsuary(usuary);
+
+        when(clientDAO.findByUsuary_Email("email@example.com")).thenReturn(Optional.of(client));
+
+        String viewName = clientController.clientAccountSubmit(client, "newpassword", "email@example.com");
+
+        verify(clientDAO, times(1)).save(client);
+        assertEquals("redirect:/clientAccount?email=email@example.com", viewName);
+    }
 }

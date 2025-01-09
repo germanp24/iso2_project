@@ -5,7 +5,6 @@ import es.uclm.delivery.business.entity.MenuItem;
 import es.uclm.delivery.business.entity.Restaurant;
 import es.uclm.delivery.persistence.MenuItemDAO;
 import es.uclm.delivery.persistence.RestaurantDAO;
-import es.uclm.delivery.persistence.UsuaryDAO;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

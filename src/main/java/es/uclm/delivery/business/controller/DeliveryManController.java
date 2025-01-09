@@ -1,6 +1,5 @@
 package es.uclm.delivery.business.controller;
 
-import es.uclm.delivery.business.entity.Client;
 import es.uclm.delivery.business.entity.DeliveryMan;
 import es.uclm.delivery.business.entity.Restaurant;
 import es.uclm.delivery.business.entity.Usuary;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class DeliveryManController {
