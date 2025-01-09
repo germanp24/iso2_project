@@ -15,7 +15,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class AdminPageControllerTest {
+class AdminPageControllerTest {
 
     @Mock
     private RestaurantDAO restaurantDAO;
@@ -27,12 +27,12 @@ public class AdminPageControllerTest {
     private AdminPageController adminPageController;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testShowAdminPage() {
+    void testShowAdminPage() {
         List<Restaurant> restaurants = new ArrayList<>();
         when(restaurantDAO.findAll()).thenReturn(restaurants);
 
@@ -43,7 +43,7 @@ public class AdminPageControllerTest {
     }
 
     @Test
-    public void testUpdateRestaurant() {
+    void testUpdateRestaurant() {
         Restaurant restaurant = new Restaurant();
         String viewName = adminPageController.updateRestaurant(restaurant);
 
@@ -52,7 +52,7 @@ public class AdminPageControllerTest {
     }
 
     @Test
-    public void testAddRestaurant() {
+    void testAddRestaurant() {
         Restaurant restaurant = new Restaurant();
         String viewName = adminPageController.addRestaurant(restaurant);
 
@@ -61,7 +61,7 @@ public class AdminPageControllerTest {
     }
 
     @Test
-    public void testDeleteRestaurant() {
+    void testDeleteRestaurant() {
         String cif = "12345678A";
         String viewName = adminPageController.deleteRestaurant(cif);
 

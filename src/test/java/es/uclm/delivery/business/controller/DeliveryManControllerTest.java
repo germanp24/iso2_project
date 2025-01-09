@@ -1,8 +1,6 @@
 package es.uclm.delivery.business.controller;
 
 import es.uclm.delivery.business.entity.DeliveryMan;
-import es.uclm.delivery.business.entity.Restaurant;
-import es.uclm.delivery.business.entity.Usuary;
 import es.uclm.delivery.persistence.DeliveryManDAO;
 import es.uclm.delivery.persistence.RestaurantDAO;
 import es.uclm.delivery.persistence.UsuaryDAO;
@@ -15,12 +13,11 @@ import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class DeliveryManControllerTest {
+class DeliveryManControllerTest {
 
     @Mock
     private DeliveryManDAO deliveryManDAO;
@@ -38,12 +35,12 @@ public class DeliveryManControllerTest {
     private DeliveryManController deliveryManController;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testRepartidorForm() {
+    void testRepartidorForm() {
         List<String> locations = new ArrayList<>();
         when(restaurantDAO.findAll()).thenReturn(new ArrayList<>());
 
@@ -55,7 +52,7 @@ public class DeliveryManControllerTest {
     }
 
     @Test
-    public void testRepartidorSubmit() {
+    void testRepartidorSubmit() {
         DeliveryMan deliveryMan = new DeliveryMan();
         String email = "test@example.com";
         String password = "password";
@@ -74,7 +71,7 @@ public class DeliveryManControllerTest {
     }
 
     @Test
-    public void testRepartidorSubmitDniExists() {
+    void testRepartidorSubmitDniExists() {
         DeliveryMan deliveryMan = new DeliveryMan();
         String email = "test@example.com";
         String password = "password";

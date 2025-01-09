@@ -20,7 +20,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class MenuItemControllerTest {
+class MenuItemControllerTest {
 
     @Mock
     private MenuItemDAO menuItemDAO;
@@ -38,12 +38,12 @@ public class MenuItemControllerTest {
     private MenuItemController menuItemController;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testRestaurantDetails() {
+    void testRestaurantDetails() {
         String cif = "12345678A";
         Restaurant restaurant = mock(Restaurant.class);
         List<MenuItem> menuItems = new ArrayList<>();
@@ -66,7 +66,7 @@ public class MenuItemControllerTest {
     }
 
     @Test
-    public void testMenuItemForm() {
+    void testMenuItemForm() {
         List<MenuItem> menuItems = new ArrayList<>();
         List<Restaurant> restaurants = new ArrayList<>();
 

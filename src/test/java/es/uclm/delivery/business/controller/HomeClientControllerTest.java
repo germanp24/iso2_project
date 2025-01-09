@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class HomeClientControllerTest {
+class HomeClientControllerTest {
 
     @Mock
     private Model model;
@@ -20,12 +20,12 @@ public class HomeClientControllerTest {
     private HomeClientController homeClientController;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testHomeClientForm() {
+    void testHomeClientForm() {
         String viewName = homeClientController.homeClientForm(model);
 
         verify(model, times(1)).addAttribute(eq("client"), any(Client.class));
@@ -33,7 +33,7 @@ public class HomeClientControllerTest {
     }
 
     @Test
-    public void testHomeClientSubmit() {
+    void testHomeClientSubmit() {
         Client client = new Client();
         String viewName = homeClientController.homeClientSubmit(client);
 

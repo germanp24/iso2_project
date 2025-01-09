@@ -31,7 +31,6 @@ public class MenuItemController {
 
     @GetMapping("/restaurant/{cif}")
     public String restaurantDetails(@PathVariable String cif, HttpSession session, Model model) {
-        log.info("Cargando detalles del restaurante con CIF: {}", cif);
 
         // Buscar el restaurante por CIF
         Restaurant restaurant = restaurantDAO.findById(cif)

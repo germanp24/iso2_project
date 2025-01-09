@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class IndexControllerTest {
+class IndexControllerTest {
 
     @Mock
     private Model model;
@@ -25,7 +25,7 @@ public class IndexControllerTest {
     }
 
     @Test
-    public void testIndexForm() {
+    void testIndexForm() {
         String viewName = indexController.IndexForm(model);
 
         verify(model, times(1)).addAttribute(eq("index"), any(Index.class));
@@ -33,7 +33,7 @@ public class IndexControllerTest {
     }
 
     @Test
-    public void testIndexSubmit() {
+    void testIndexSubmit() {
         Index index = new Index();
         String viewName = indexController.indexSubmit(index);
 

@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class HomeDeliveryManControllerTest {
+class HomeDeliveryManControllerTest {
 
     @Mock
     private Model model;
@@ -20,12 +20,12 @@ public class HomeDeliveryManControllerTest {
     private HomeDeliveryManController homeDeliveryManController;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testHomeDeliveryManForm() {
+    void testHomeDeliveryManForm() {
         String viewName = homeDeliveryManController.homeDeliveryManForm(model);
 
         verify(model, times(1)).addAttribute(eq("deliveryMan"), any(DeliveryMan.class));
@@ -33,7 +33,7 @@ public class HomeDeliveryManControllerTest {
     }
 
     @Test
-    public void testHomeDeliveryManSubmit() {
+    void testHomeDeliveryManSubmit() {
         DeliveryMan deliveryMan = new DeliveryMan();
         String viewName = homeDeliveryManController.homeDeliveryManSubmit(deliveryMan);
 

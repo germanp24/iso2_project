@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class ClientController {
 
-    private static final Logger log = LoggerFactory.getLogger(ClientController.class);
-
     private static final String REG_CLIENT = "registerClient";
     private final ClientDAO clientDAO;
 
