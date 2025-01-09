@@ -79,6 +79,7 @@ public class DeliveryManController {
         Usuary usuary = new Usuary(password, email, "DELIVERYMAN");
         deliveryMan.setUsuary(usuary);
         deliveryMan.setTipoAuto(tipoAuto);
+        deliveryManDAO.save(deliveryMan);
 
         List<Restaurant> restaurant = restaurantDAO.findByLocality(localit);
         deliveryMan.getRestaurant().addAll(restaurant);
