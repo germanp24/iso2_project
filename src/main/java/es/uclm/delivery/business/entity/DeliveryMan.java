@@ -81,6 +81,9 @@ public class DeliveryMan {
         return numbers + letter;
     }
 
+    public Long getIdDeliveryMan() {return idDeliveryMan;}
+    public void setIdDeliveryMan(Long idDeliveryMan) {this.idDeliveryMan = idDeliveryMan;}
+
     public String getDni() {return dni;}
     public void setDni(String dni) {this.dni = dni;}
 

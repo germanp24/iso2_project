@@ -1,5 +1,6 @@
 package es.uclm.delivery.business.controller;
 
+import es.uclm.delivery.business.entity.Client;
 import es.uclm.delivery.business.entity.DeliveryMan;
 import es.uclm.delivery.business.entity.Restaurant;
 import es.uclm.delivery.business.entity.Usuary;
@@ -36,9 +37,7 @@ public class DeliveryManController {
 
     @GetMapping("/registerDeliv")
     public String repartidorForm(Model model) {
-        model.addAttribute(REG_DELIVMAN, new DeliveryMan());
 
-        // Cargar todas las locations para el formulario
         List<String> locations = restaurantDAO.findAll()
                 .stream()
                 .map(Restaurant::getLocality)
@@ -49,6 +48,8 @@ public class DeliveryManController {
         if (log.isInfoEnabled()) {
             log.info("Localidades cargadas: {}", locations);
         }
+        model.addAttribute("registerDeliv", new DeliveryMan());
+        log.info(deliveryManDAO.findAll().toString());
         return REG_DELIVMAN;
     }
 
@@ -60,6 +61,7 @@ public class DeliveryManController {
         model.addAttribute("deliveryManName", deliveryMan.getNames());
         model.addAttribute("assignedRestaurants", deliveryMan.getRestaurant().size());
         model.addAttribute("totalDeliveries", deliveryMan.getDeliveryServices().size());
+        model.addAttribute(REG_DELIVMAN, new DeliveryMan());
         return "delivery/home";
     }
 
@@ -84,6 +86,6 @@ public class DeliveryManController {
         model.addAttribute(REG_DELIVMAN, deliveryMan);
         model.addAttribute("successMessage", "¡Repartidor guardado con éxito!");
 
-        return "delivery/home";
+        return "/login";
     }
 }

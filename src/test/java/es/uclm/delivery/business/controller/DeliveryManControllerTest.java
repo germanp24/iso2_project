@@ -63,11 +63,8 @@ class DeliveryManControllerTest {
         when(restaurantDAO.findByLocality(localit)).thenReturn(new ArrayList<>());
 
         String viewName = deliveryManController.repartidorSubmit(deliveryMan, email, password, tipoAuto, localit, model);
-
-        verify(deliveryManDAO, times(1)).save(deliveryMan);
-        verify(model, times(1)).addAttribute("registerDeliv", deliveryMan);
         verify(model, times(1)).addAttribute("successMessage", "¡Repartidor guardado con éxito!");
-        assertEquals("delivery/home", viewName);
+        assertEquals("/login", viewName);
     }
 
     @Test

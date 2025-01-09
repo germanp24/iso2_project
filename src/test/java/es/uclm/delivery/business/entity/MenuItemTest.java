@@ -12,14 +12,12 @@ class MenuItemTest {
 
     private MenuItem menuItem;
     private Restaurant restaurant;
-    private List<MenuContent> menuContents;
 
     @BeforeEach
     void setUp() {
         restaurant = new Restaurant();
-        menuContents = new ArrayList<>();
         menuItem = new MenuItem(1L, "Pizza", 10.0, "Fast Food", restaurant, "imgUrl");
-        menuItem.setMenuContents(menuContents);
+
     }
 
     @Test
@@ -87,18 +85,6 @@ class MenuItemTest {
         Restaurant newRestaurant = new Restaurant();
         menuItem.setRestaurant(newRestaurant);
         assertEquals(newRestaurant, menuItem.getRestaurant());
-    }
-
-    @Test
-    void testGetMenuContents() {
-        assertEquals(menuContents, menuItem.getMenuContents());
-    }
-
-    @Test
-    void testSetMenuContents() {
-        List<MenuContent> newMenuContents = new ArrayList<>();
-        menuItem.setMenuContents(newMenuContents);
-        assertEquals(newMenuContents, menuItem.getMenuContents());
     }
 
     @Test
