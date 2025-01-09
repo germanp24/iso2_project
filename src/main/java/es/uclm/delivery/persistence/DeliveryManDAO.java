@@ -14,17 +14,4 @@ public interface DeliveryManDAO extends JpaRepository<DeliveryMan, Long> {
     DeliveryMan findByDni (String dni);
     Optional<DeliveryMan> findByUsuary_Email(String email);
     Optional<DeliveryMan> findByUsuary(Usuary usuary);
-    /*
-     * Se hereda de JpaRepository operaciones de acceso a datos comunes a todas las
-     * entidades:
-     * E save(E)
-     * List<E> saveAll(List<E>)
-     * List<E> findAll()
-     * E findById(id)
-     * delete(E)
-     * deleteById(id)
-     * ...
-     *
-     * Aquí se podrían definir consultas de selección más específicas y complejas
-     **/
 }

@@ -9,6 +9,8 @@ import java.util.List;
 @Repository
 public interface RestaurantDAO extends JpaRepository<Restaurant, String> {
     Restaurant findByCif(String cif);
+
     List<Restaurant> findByLocality(String locality);
+
     List<Restaurant> findByName(String name);
 }

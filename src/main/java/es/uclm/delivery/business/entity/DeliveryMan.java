@@ -81,16 +81,6 @@ public class DeliveryMan {
         return numbers + letter;
     }
 
-    public String getNif_delivery() {return nif_delivery;}
-    public void setNif_delivery(String nif_delivery) {this.nif_delivery = nif_delivery;}
-
-    public Long getIdDeliveryMan() {
-        return idDeliveryMan;
-    }
-    public void setIdDeliveryMan(Long idDeliveryMan) {
-        this.idDeliveryMan = idDeliveryMan;
-    }
-
     public String getDni() {return dni;}
     public void setDni(String dni) {this.dni = dni;}
 

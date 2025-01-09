@@ -1,12 +1,10 @@
 package es.uclm.delivery.business.controller;
 
-import es.uclm.delivery.business.entity.Client;
 import es.uclm.delivery.business.entity.DeliveryMan;
 import es.uclm.delivery.business.entity.Restaurant;
 import es.uclm.delivery.business.entity.Usuary;
 import es.uclm.delivery.persistence.DeliveryManDAO;
 import es.uclm.delivery.persistence.RestaurantDAO;
-import es.uclm.delivery.persistence.UsuaryDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -28,13 +26,11 @@ public class DeliveryManController {
 
     private final DeliveryManDAO deliveryManDAO;
     private final RestaurantDAO restaurantDAO;
-    private final UsuaryDAO usuaryDAO;
 
 
-    public DeliveryManController(DeliveryManDAO deliveryManDAO, RestaurantDAO restaurantDAO, UsuaryDAO usuaryDAO) {
+    public DeliveryManController(DeliveryManDAO deliveryManDAO, RestaurantDAO restaurantDAO) {
         this.deliveryManDAO = deliveryManDAO;
         this.restaurantDAO = restaurantDAO;
-        this.usuaryDAO = usuaryDAO;
     }
 
 
@@ -47,7 +43,7 @@ public class DeliveryManController {
                 .stream()
                 .map(Restaurant::getLocality)
                 .distinct()
-                .collect(Collectors.toList());
+                .toList();
         model.addAttribute("locations", locations);
 
         if (log.isInfoEnabled()) {
@@ -84,8 +80,6 @@ public class DeliveryManController {
 
         List<Restaurant> restaurant = restaurantDAO.findByLocality(localit);
         deliveryMan.getRestaurant().addAll(restaurant);
-
-        DeliveryMan saveDeliveryMan =  deliveryManDAO.save(deliveryMan);
 
         model.addAttribute(REG_DELIVMAN, deliveryMan);
         model.addAttribute("successMessage", "¡Repartidor guardado con éxito!");

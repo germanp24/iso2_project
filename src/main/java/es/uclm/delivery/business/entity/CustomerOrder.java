@@ -30,7 +30,6 @@ public class CustomerOrder {
         this.orderedFood = orderedFood;
     }
 
-    // Getters y Setters
     public int getOrderNumber() {
         return orderNumber;
     }

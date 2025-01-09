@@ -3,6 +3,7 @@ package es.uclm.delivery.business.controller;
 import es.uclm.delivery.business.entity.Client;
 import es.uclm.delivery.business.entity.Usuary;
 import es.uclm.delivery.persistence.ClientDAO;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +17,8 @@ public class ClientController {
     private static final String REG_CLIENT = "registerClient";
     private final ClientDAO clientDAO;
 
-    public ClientController(ClientDAO clientDAO) {
 
+    public ClientController(ClientDAO clientDAO) {
         this.clientDAO = clientDAO;
     }
 
@@ -50,6 +51,10 @@ public class ClientController {
 
         model.addAttribute(REG_CLIENT, client);
         model.addAttribute("successMessage", "Client registrado con éxito!");
+
+
+        log.info("Cliente registrado con éxito. Cliente ID: {}, Usuario ID: {}", client.getIdClient(),
+                usuary.getIdUsuary());
 
         return "/login";
     }

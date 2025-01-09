@@ -26,9 +26,6 @@ public class MenuItem {
     @JoinColumn(name = "name")
     private Restaurant restaurant;
 
-    @OneToMany(mappedBy = "menuItem", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MenuContent> menuContents = new ArrayList<>();
-
     public MenuItem() {
 
     }
@@ -71,9 +68,6 @@ public class MenuItem {
 
     public Restaurant getRestaurant() {return restaurant;}
     public void setRestaurant(Restaurant restaurant) {this.restaurant = restaurant;}
-
-    public List<MenuContent> getMenuContents() {return menuContents;}
-    public void setMenuContents(List<MenuContent> menuContents) {this.menuContents = menuContents;}
 
     @Override
     public String toString() {
