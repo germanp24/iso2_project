@@ -3,7 +3,6 @@ package es.uclm.delivery.business.controller;
 import es.uclm.delivery.business.entity.CartItem;
 import es.uclm.delivery.business.entity.MenuItem;
 import es.uclm.delivery.business.entity.Restaurant;
-import es.uclm.delivery.business.entity.Usuary;
 import es.uclm.delivery.persistence.MenuItemDAO;
 import es.uclm.delivery.persistence.RestaurantDAO;
 import es.uclm.delivery.persistence.UsuaryDAO;
