@@ -17,27 +17,43 @@
 
     <section id="lista-opciones">
         <div class="opcion">
-            <a href="/clientAccount">
+            <a th:href="@{/clientAccount(email=${email})}">
                 <img src="https://cdn-icons-png.flaticon.com/512/3033/3033143.png" alt="Cuenta">
                 <h3>Cuenta</h3>
             </a>
         </div>
         <div class="opcion">
-            <a href="URL_DE_LA_OPCIÓN_PEDIDOS">
+            <a href="URL_DE_LA_OPCIÓN_PEDIDOS?email=${email}">
                 <img src="https://cdn-icons-png.flaticon.com/512/5177/5177812.png" alt="Pedidos">
                 <h3>Pedidos</h3>
             </a>
         </div>
         <div class="opcion">
-            <a href="/index">
+            <a th:href="@{/registerDeliv(email=${email})}">
+                <img src="https://cdn-icons-png.flaticon.com/512/2830/2830305.png" alt="Trabaja como repartidor">
+                <h3>Trabaja como repartidor</h3>
+            </a>
+        </div>
+        <div class="opcion">
+            <a th:href="@{/restaurant(email=${email})}">
+                <img src="https://cdn-icons-png.flaticon.com/512/12183/12183213.png" alt="Registra tu negocio">
+                <h3>Registra tu negocio</h3>
+            </a>
+        </div>
+        <div class="opcion">
+            <a th:href="@{/registerAdmin(email=${email})}">
+                <img src="https://cdn-icons-png.flaticon.com/512/5759/5759289.png" alt="Hazte administrador">
+                <h3>Hazte administrador</h3>
+            </a>
+        </div>
+        <div class="opcion">
+            <a th:href="@{/logout(email=${email})}">
                 <img src="https://cdn-icons-png.flaticon.com/512/6460/6460660.png" alt="Cerrar sesion">
                 <h3>Cerrar sesión</h3>
             </a>
         </div>
     </section>
-    
 
-    <!-- Enlace al archivo JS -->
     <script src="/clientProfile/clientProfile.js"></script>
 </body>
 
