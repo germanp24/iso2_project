@@ -48,7 +48,7 @@ public class CustomerOrderController {
         } else {
             cart.add(new CartItem(menuItem, quantity));
         }
-        session.setAttribute("cart", cart);
+        session.setAttribute("cart", new ArrayList<>(cart));
 
         return "redirect:/restaurant/" + menuItem.getRestaurant().getCif();
     }
